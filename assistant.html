@@ -3,248 +3,159 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>NexaAssist | Assistants</title>
+  <title>Assistant Dashboard - NexaAssist</title>
 
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      background: #f7f9fc;
+      background: #f4f7fb;
       color: #172033;
-      line-height: 1.6;
     }
 
     header {
-      background: white;
-      padding: 18px 7%;
+      background: #1769aa;
+      color: white;
+      padding: 18px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
     }
 
     .logo {
-      color: #1769e0;
-      text-decoration: none;
-      font-size: 25px;
+      font-size: 23px;
       font-weight: bold;
     }
 
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #344054;
-      font-weight: 600;
-    }
-
-    .hire-nav {
-      background: #1769e0;
-      color: white;
-      padding: 10px 16px;
-      border-radius: 8px;
-    }
-
-    .page-header {
-      text-align: center;
-      padding: 65px 20px 40px;
-      background: linear-gradient(135deg, #eef5ff, #ffffff);
-    }
-
-    .page-header h1 {
-      font-size: 42px;
-      margin-bottom: 12px;
-    }
-
-    .page-header p {
-      color: #667085;
-      max-width: 650px;
-      margin: auto;
-      font-size: 17px;
-    }
-
-    .search-container {
-      max-width: 700px;
-      margin: 35px auto;
-      padding: 0 20px;
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 15px;
-      border: 1px solid #d0d5dd;
-      border-radius: 9px;
-      font-size: 16px;
-      outline: none;
-    }
-
-    .search-input:focus {
-      border-color: #1769e0;
-    }
-
-    .assistants {
-      max-width: 1150px;
-      margin: 0 auto;
-      padding: 0 20px 70px;
-    }
-
-    .assistant-count {
-      color: #667085;
-      margin-bottom: 20px;
+    .logout {
+      background: white;
+      color: #1769aa;
+      border: none;
+      padding: 9px 15px;
+      border-radius: 7px;
       font-weight: bold;
+      cursor: pointer;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1100px;
+      margin: 30px auto;
+    }
+
+    .welcome {
+      background: white;
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+      margin-bottom: 25px;
+    }
+
+    .welcome h1 {
+      margin: 0 0 8px;
+      font-size: 27px;
+    }
+
+    .welcome p {
+      margin: 5px 0;
+      color: #667085;
     }
 
     .cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
+      gap: 18px;
+      margin-bottom: 30px;
     }
 
-    .card {
+    .stat {
       background: white;
-      border: 1px solid #e9edf3;
-      border-radius: 16px;
-      padding: 28px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      padding: 22px;
+      border-radius: 14px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
     }
 
-    .avatar {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      background: #e7f0ff;
-      color: #1769e0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 23px;
-      font-weight: bold;
-      margin-bottom: 18px;
-    }
-
-    .verified {
-      display: inline-block;
-      background: #eaf7ee;
-      color: #16803c;
-      padding: 5px 9px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-
-    .card h2 {
-      font-size: 21px;
-      margin-bottom: 5px;
-    }
-
-    .role {
-      color: #1769e0;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-
-    .description {
+    .stat h3 {
+      margin: 0 0 10px;
       color: #667085;
-      min-height: 72px;
+      font-size: 15px;
+    }
+
+    .stat strong {
+      font-size: 30px;
+      color: #1769aa;
+    }
+
+    .section {
+      background: white;
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      margin-bottom: 25px;
+    }
+
+    .section h2 {
+      margin-top: 0;
+    }
+
+    .job {
+      border: 1px solid #e4e7ec;
+      border-radius: 10px;
+      padding: 18px;
       margin-bottom: 15px;
     }
 
-    .price {
-      font-weight: bold;
-      font-size: 17px;
-      margin-bottom: 18px;
+    .job:last-child {
+      margin-bottom: 0;
     }
 
-    .buttons {
-      display: flex;
-      gap: 10px;
+    .job h3 {
+      margin: 0 0 7px;
     }
 
-    .buttons a {
-      flex: 1;
-      text-align: center;
-      text-decoration: none;
-      padding: 11px 8px;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .profile-button {
-      background: #eaf2ff;
-      color: #1769e0;
-    }
-
-    .hire-button {
-      background: #1769e0;
-      color: white;
-    }
-
-    .no-results {
-      display: none;
-      text-align: center;
+    .job p {
+      margin: 5px 0;
       color: #667085;
-      padding: 30px;
+    }
+
+    .status {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 5px 10px;
+      border-radius: 20px;
+      background: #eaf7ee;
+      color: #16803c;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .empty {
+      color: #667085;
+      padding: 10px 0;
     }
 
     footer {
-      background: #111827;
-      color: #d0d5dd;
       text-align: center;
-      padding: 40px 7%;
-    }
-
-    .footer-logo {
-      color: white;
-      font-size: 23px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    footer p {
+      padding: 30px 20px;
+      color: #667085;
       font-size: 14px;
     }
 
-    @media (max-width: 900px) {
-      .cards {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 650px) {
-      header {
-        padding: 16px 5%;
-      }
-
-      nav {
-        gap: 8px;
-      }
-
-      nav a {
-        font-size: 12px;
-      }
-
-      .page-header {
-        padding: 50px 20px 35px;
-      }
-
-      .page-header h1 {
-        font-size: 34px;
-      }
-
+    @media (max-width: 750px) {
       .cards {
         grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 15px;
+      }
+
+      .container {
+        width: 94%;
       }
     }
   </style>
@@ -252,394 +163,248 @@
 
 <body>
 
-  <header>
+<header>
+  <div class="logo">NexaAssist</div>
+  <button class="logout" onclick="logout()">Logout</button>
+</header>
 
-    <a href="index.html" class="logo">
-      NexaAssist
-    </a>
+<div class="container">
 
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="assistants.html">Assistants</a>
-      <a href="contact.html">Contact</a>
-      <a href="login.html">Login</a>
-      <a href="hire.html" class="hire-nav">Hire Now</a>
-    </nav>
+  <div class="welcome">
+    <h1>Assistant Dashboard</h1>
+    <p id="welcomeText">Welcome back.</p>
+    <p id="emailText"></p>
+  </div>
 
-  </header>
+  <div class="cards">
 
+    <div class="stat">
+      <h3>My Hired Jobs</h3>
+      <strong id="hiredCount">0</strong>
+    </div>
 
-  <section class="page-header">
+    <div class="stat">
+      <h3>Available Jobs</h3>
+      <strong id="jobCount">0</strong>
+    </div>
 
-    <h1>Meet Our Assistants</h1>
-
-    <p>
-      Find a reliable virtual assistant to help
-      with your business tasks.
-    </p>
-
-  </section>
-
-
-  <div class="search-container">
-
-    <input
-      type="text"
-      id="search"
-      class="search-input"
-      placeholder="Search assistants by name or skill..."
-    >
+    <div class="stat">
+      <h3>Account Status</h3>
+      <strong id="accountStatus">Active</strong>
+    </div>
 
   </div>
 
-
-  <main class="assistants">
-
-    <div id="count" class="assistant-count">
-      6 assistants available
+  <div class="section">
+    <h2>My Hired Jobs</h2>
+    <div id="hiredJobs">
+      <div class="empty">Loading your hired jobs...</div>
     </div>
-
-
-    <div id="cards" class="cards">
-
-
-      <div class="card">
-
-        <div class="avatar">AM</div>
-
-        <div class="verified">
-          ✓ Nexa Verified
-        </div>
-
-        <h2>Alex Morgan</h2>
-
-        <div class="role">
-          Research Assistant
-        </div>
-
-        <p class="description">
-          Helps businesses with online research,
-          information gathering and organization.
-        </p>
-
-        <div class="price">
-          From $5 / hour
-        </div>
-
-        <div class="buttons">
-
-          <a
-            href="/nexaassit-frontend-/profile.html?assistant=alex"
-          
-          >
-            View Profile
-          </a>
-
-          <a
-            href="hire.html"
-            class="hire-button"
-          >
-            Hire
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="avatar">SJ</div>
-
-        <div class="verified">
-          ✓ Nexa Verified
-        </div>
-
-        <h2>Sophia James</h2>
-
-        <div class="role">
-          Customer Support
-        </div>
-
-        <p class="description">
-          Helps businesses manage customer questions,
-          communication and support tasks.
-        </p>
-
-        <div class="price">
-          From $7 / hour
-        </div>
-
-        <div class="buttons">
-
-          <a
-            href="profile.html?assistant=sophia"
-            class="profile-button"
-          >
-            View Profile
-          </a>
-
-          <a
-            href="hire.html"
-            class="hire-button"
-          >
-            Hire
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="avatar">DC</div>
-
-        <div class="verified">
-          ✓ Nexa Verified
-        </div>
-
-        <h2>Daniel Carter</h2>
-
-        <div class="role">
-          Content Assistant
-        </div>
-
-        <p class="description">
-          Supports businesses with content organization,
-          writing assistance and digital tasks.
-        </p>
-
-        <div class="price">
-          From $8 / hour
-        </div>
-
-        <div class="buttons">
-
-          <a
-            href="profile.html?assistant=daniel"
-            class="profile-button"
-          >
-            View Profile
-          </a>
-
-          <a
-            href="hire.html"
-            class="hire-button"
-          >
-            Hire
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="avatar">EW</div>
-
-        <div class="verified">
-          ✓ Nexa Verified
-        </div>
-
-        <h2>Emma Wilson</h2>
-
-        <div class="role">
-          Administrative Assistant
-        </div>
-
-        <p class="description">
-          Helps with scheduling, organization,
-          documentation and administration.
-        </p>
-
-        <div class="price">
-          From $6 / hour
-        </div>
-
-        <div class="buttons">
-
-          <a
-            href="profile.html?assistant=emma"
-            class="profile-button"
-          >
-            View Profile
-          </a>
-
-          <a
-            href="hire.html"
-            class="hire-button"
-          >
-            Hire
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="avatar">LB</div>
-
-        <div class="verified">
-          ✓ Nexa Verified
-        </div>
-
-        <h2>Liam Brooks</h2>
-
-        <div class="role">
-          Data Assistant
-        </div>
-
-        <p class="description">
-          Helps with data entry, organization and
-          routine digital information management.
-        </p>
-
-        <div class="price">
-          From $5 / hour
-        </div>
-
-        <div class="buttons">
-
-          <a
-            href="profile.html?assistant=liam"
-            class="profile-button"
-          >
-            View Profile
-          </a>
-
-          <a
-            href="hire.html"
-            class="hire-button"
-          >
-            Hire
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="avatar">OR</div>
-
-        <div class="verified">
-          ✓ Nexa Verified
-        </div>
-
-        <h2>Olivia Reed</h2>
-
-        <div class="role">
-          Personal Assistant
-        </div>
-
-        <p class="description">
-          Supports busy professionals with organization,
-          scheduling and everyday digital tasks.
-        </p>
-
-        <div class="price">
-          From $6 / hour
-        </div>
-
-        <div class="buttons">
-
-          <a
-            href="profile.html?assistant=olivia"
-            class="profile-button"
-          >
-            View Profile
-          </a>
-
-          <a
-            href="hire.html"
-            class="hire-button"
-          >
-            Hire
-          </a>
-
-        </div>
-
-      </div>
-
+  </div>
+
+  <div class="section">
+    <h2>Available Jobs</h2>
+    <div id="availableJobs">
+      <div class="empty">Loading available jobs...</div>
     </div>
+  </div>
+
+</div>
+
+<footer>
+  NexaAssist — Reliable virtual assistance for growing businesses.
+</footer>
+
+<script>
+
+const API = "https://nexaassist-backend-new-1.onrender.com";
+
+const email =
+  localStorage.getItem("userEmail") ||
+  localStorage.getItem("email") ||
+  "";
+
+const name =
+  localStorage.getItem("userName") ||
+  "Assistant";
+
+const role =
+  (localStorage.getItem("userRole") ||
+   localStorage.getItem("role") ||
+   "").toLowerCase();
+
+if (!email) {
+  window.location.href = "login.html";
+}
+
+document.getElementById("welcomeText").textContent =
+  "Welcome back, " + name + ".";
+
+document.getElementById("emailText").textContent =
+  email;
 
 
-    <div id="noResults" class="no-results">
-      No assistants found.
-    </div>
+/* LOAD HIRED JOBS */
 
-  </main>
+async function loadHiredJobs() {
 
+  const container = document.getElementById("hiredJobs");
 
-  <footer>
+  try {
 
-    <div class="footer-logo">
-      NexaAssist
-    </div>
+    const response = await fetch(
+      API + "/assistant-hires?email=" +
+      encodeURIComponent(email)
+    );
 
-    <p>
-      Reliable virtual assistance for growing businesses.
-    </p>
+    const data = await response.json();
 
-    <p>
-      © 2026 NexaAssist. All rights reserved.
-    </p>
+    const jobs = Array.isArray(data)
+      ? data
+      : (data.hires || data.jobs || []);
 
-  </footer>
+    document.getElementById("hiredCount").textContent =
+      jobs.length;
 
+    if (!jobs.length) {
 
-  <script>
+      container.innerHTML =
+        '<div class="empty">You have no hired jobs yet.</div>';
 
-    const search = document.getElementById("search");
-    const cards = document.querySelectorAll(".card");
-    const count = document.getElementById("count");
-    const noResults = document.getElementById("noResults");
+      return;
+    }
 
-    search.addEventListener("input", function() {
+    container.innerHTML = "";
 
-      const text = search.value.toLowerCase();
+    jobs.forEach(function(job) {
 
-      let visible = 0;
+      const div = document.createElement("div");
 
-      cards.forEach(function(card) {
+      div.className = "job";
 
-        const content = card.textContent.toLowerCase();
+      div.innerHTML = `
+        <h3>${job.title || job.jobTitle || "Untitled Job"}</h3>
 
-        if (content.includes(text)) {
+        <p>
+          ${job.description || "No description provided."}
+        </p>
 
-          card.style.display = "block";
+        <p>
+          Payment:
+          ${job.budget || job.amount || job.price || "Not specified"}
+        </p>
 
-          visible++;
+        <span class="status">
+          ${job.status || "Hired"}
+        </span>
+      `;
 
-        } else {
-
-          card.style.display = "none";
-
-        }
-
-      });
-
-      count.textContent =
-        visible + " assistant" + (visible === 1 ? "" : "s") + " available";
-
-      if (visible === 0) {
-
-        noResults.style.display = "block";
-
-      } else {
-
-        noResults.style.display = "none";
-
-      }
+      container.appendChild(div);
 
     });
 
-  </script>
+  } catch (error) {
+
+    container.innerHTML =
+      '<div class="empty">Unable to load hired jobs right now.</div>';
+
+  }
+
+}
+
+
+/* LOAD AVAILABLE JOBS */
+
+async function loadAvailableJobs() {
+
+  const container =
+    document.getElementById("availableJobs");
+
+  try {
+
+    const response =
+      await fetch(API + "/jobs");
+
+    const data =
+      await response.json();
+
+    const jobs =
+      Array.isArray(data)
+        ? data
+        : (data.jobs || []);
+
+    document.getElementById("jobCount").textContent =
+      jobs.length;
+
+    if (!jobs.length) {
+
+      container.innerHTML =
+        '<div class="empty">No available jobs at the moment.</div>';
+
+      return;
+    }
+
+    container.innerHTML = "";
+
+    jobs.forEach(function(job) {
+
+      const div =
+        document.createElement("div");
+
+      div.className = "job";
+
+      div.innerHTML = `
+        <h3>${job.title || job.jobTitle || "Untitled Job"}</h3>
+
+        <p>
+          ${job.description || "No description provided."}
+        </p>
+
+        <p>
+          Budget:
+          ${job.budget || job.amount || job.price || "Not specified"}
+        </p>
+
+        <span class="status">
+          ${job.status || "Open"}
+        </span>
+      `;
+
+      container.appendChild(div);
+
+    });
+
+  } catch (error) {
+
+    container.innerHTML =
+      '<div class="empty">Unable to load available jobs right now.</div>';
+
+  }
+
+}
+
+
+/* LOGOUT */
+
+function logout() {
+
+  localStorage.removeItem("userId");
+  localStorage.removeItem("userEmail");
+  localStorage.removeItem("userName");
+  localStorage.removeItem("userRole");
+  localStorage.removeItem("email");
+  localStorage.removeItem("role");
+
+  window.location.href = "login.html";
+}
+
+
+/* START */
+
+loadHiredJobs();
+loadAvailableJobs();
+
+</script>
 
 </body>
 </html>
