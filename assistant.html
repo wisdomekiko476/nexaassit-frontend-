@@ -3,123 +3,186 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Assistant Dashboard - NexaAssist</title>
 
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background: #f4f7fb;
+      background: #f5f7fb;
       color: #172033;
+      line-height: 1.6;
     }
 
-    header {
-      background: #1769aa;
-      color: white;
-      padding: 18px 20px;
+    /* NAVBAR */
+
+    nav {
+      background: #ffffff;
+      border-bottom: 1px solid #e5eaf0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1150px;
+      margin: auto;
+      padding: 16px 20px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
     }
 
     .logo {
-      font-size: 23px;
-      font-weight: bold;
+      text-decoration: none;
+      color: #1264e5;
+      font-size: 22px;
+      font-weight: 800;
     }
 
-    .logout {
-      background: white;
-      color: #1769aa;
-      border: none;
-      padding: 9px 15px;
-      border-radius: 7px;
-      font-weight: bold;
-      cursor: pointer;
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
+
+    .nav-right a {
+      text-decoration: none;
+      color: #475467;
+      font-weight: 600;
+    }
+
+    .logout-btn {
+      border: none;
+      background: #1264e5;
+      color: #ffffff;
+      padding: 10px 17px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    /* PAGE */
 
     .container {
-      width: 92%;
-      max-width: 1100px;
-      margin: 30px auto;
+      max-width: 1150px;
+      margin: auto;
+      padding: 40px 20px 60px;
     }
 
     .welcome {
-      background: white;
-      padding: 25px;
-      border-radius: 14px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+      background: #ffffff;
+      border: 1px solid #e5eaf0;
+      border-radius: 16px;
+      padding: 30px;
       margin-bottom: 25px;
     }
 
     .welcome h1 {
-      margin: 0 0 8px;
-      font-size: 27px;
+      font-size: 30px;
+      color: #101828;
+      margin-bottom: 8px;
     }
 
     .welcome p {
-      margin: 5px 0;
       color: #667085;
     }
 
-    .cards {
+    .email {
+      margin-top: 5px;
+      font-weight: 600;
+      color: #1264e5;
+    }
+
+    /* STATS */
+
+    .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 18px;
-      margin-bottom: 30px;
+      margin-bottom: 35px;
     }
 
     .stat {
-      background: white;
-      padding: 22px;
+      background: #ffffff;
+      border: 1px solid #e5eaf0;
       border-radius: 14px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      padding: 25px;
     }
 
-    .stat h3 {
-      margin: 0 0 10px;
+    .stat-label {
       color: #667085;
-      font-size: 15px;
+      font-size: 14px;
+      margin-bottom: 8px;
     }
 
-    .stat strong {
+    .stat-value {
       font-size: 30px;
-      color: #1769aa;
+      font-weight: 800;
+      color: #101828;
     }
+
+    .active {
+      color: #16803c;
+    }
+
+    /* SECTIONS */
 
     .section {
-      background: white;
-      padding: 25px;
-      border-radius: 14px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-      margin-bottom: 25px;
+      margin-bottom: 35px;
     }
 
-    .section h2 {
-      margin-top: 0;
-    }
-
-    .job {
-      border: 1px solid #e4e7ec;
-      border-radius: 10px;
-      padding: 18px;
+    .section-header {
       margin-bottom: 15px;
     }
 
-    .job:last-child {
-      margin-bottom: 0;
+    .section-header h2 {
+      font-size: 24px;
+      color: #101828;
     }
 
-    .job h3 {
-      margin: 0 0 7px;
-    }
-
-    .job p {
-      margin: 5px 0;
+    .section-header p {
       color: #667085;
+      font-size: 14px;
+    }
+
+    /* JOB CARDS */
+
+    .jobs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .job-card {
+      background: #ffffff;
+      border: 1px solid #e5eaf0;
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .job-card h3 {
+      font-size: 19px;
+      color: #101828;
+      margin-bottom: 8px;
+    }
+
+    .job-card p {
+      color: #667085;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .payment {
+      font-weight: 800;
+      color: #1264e5 !important;
+      margin-top: 12px;
     }
 
     .status {
@@ -127,35 +190,74 @@
       margin-top: 10px;
       padding: 5px 10px;
       border-radius: 20px;
-      background: #eaf7ee;
+      background: #eef5ff;
+      color: #1264e5;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status.open {
+      background: #eaf8ef;
       color: #16803c;
-      font-size: 13px;
-      font-weight: bold;
     }
 
     .empty {
+      background: #ffffff;
+      border: 1px dashed #cfd6df;
+      border-radius: 14px;
+      padding: 30px;
+      text-align: center;
       color: #667085;
-      padding: 10px 0;
     }
 
+    /* FOOTER */
+
     footer {
+      background: #101828;
+      color: #ffffff;
       text-align: center;
-      padding: 30px 20px;
-      color: #667085;
+      padding: 28px 20px;
+    }
+
+    footer p {
+      color: #b7c0ce;
       font-size: 14px;
     }
 
+    /* MOBILE */
+
     @media (max-width: 750px) {
-      .cards {
-        grid-template-columns: 1fr;
+
+      .nav-container {
+        padding: 14px 16px;
       }
 
-      header {
-        padding: 15px;
+      .nav-right a {
+        display: none;
       }
 
       .container {
-        width: 94%;
+        padding: 25px 15px 45px;
+      }
+
+      .welcome {
+        padding: 23px;
+      }
+
+      .welcome h1 {
+        font-size: 25px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .jobs {
+        grid-template-columns: 1fr;
+      }
+
+      .stat {
+        padding: 20px;
       }
     }
   </style>
@@ -163,248 +265,386 @@
 
 <body>
 
-<header>
-  <div class="logo">NexaAssist</div>
-  <button class="logout" onclick="logout()">Logout</button>
-</header>
+  <!-- NAVBAR -->
 
-<div class="container">
+  <nav>
+    <div class="nav-container">
 
-  <div class="welcome">
-    <h1>Assistant Dashboard</h1>
-    <p id="welcomeText">Welcome back.</p>
-    <p id="emailText"></p>
-  </div>
+      <a href="index.html" class="logo">NexaAssist</a>
 
-  <div class="cards">
+      <div class="nav-right">
+        <a href="index.html">Home</a>
+        <a href="assistants.html">Assistants</a>
 
-    <div class="stat">
-      <h3>My Hired Jobs</h3>
-      <strong id="hiredCount">0</strong>
+        <button class="logout-btn" onclick="logout()">
+          Logout
+        </button>
+      </div>
+
     </div>
-
-    <div class="stat">
-      <h3>Available Jobs</h3>
-      <strong id="jobCount">0</strong>
-    </div>
-
-    <div class="stat">
-      <h3>Account Status</h3>
-      <strong id="accountStatus">Active</strong>
-    </div>
-
-  </div>
-
-  <div class="section">
-    <h2>My Hired Jobs</h2>
-    <div id="hiredJobs">
-      <div class="empty">Loading your hired jobs...</div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Available Jobs</h2>
-    <div id="availableJobs">
-      <div class="empty">Loading available jobs...</div>
-    </div>
-  </div>
-
-</div>
-
-<footer>
-  NexaAssist — Reliable virtual assistance for growing businesses.
-</footer>
-
-<script>
-
-const API = "https://nexaassist-backend-new-1.onrender.com";
-
-const email =
-  localStorage.getItem("userEmail") ||
-  localStorage.getItem("email") ||
-  "";
-
-const name =
-  localStorage.getItem("userName") ||
-  "Assistant";
-
-const role =
-  (localStorage.getItem("userRole") ||
-   localStorage.getItem("role") ||
-   "").toLowerCase();
-
-if (!email) {
-  window.location.href = "login.html";
-}
-
-document.getElementById("welcomeText").textContent =
-  "Welcome back, " + name + ".";
-
-document.getElementById("emailText").textContent =
-  email;
+  </nav>
 
 
-/* LOAD HIRED JOBS */
+  <!-- MAIN -->
 
-async function loadHiredJobs() {
+  <main class="container">
 
-  const container = document.getElementById("hiredJobs");
+    <!-- WELCOME -->
 
-  try {
+    <section class="welcome">
 
-    const response = await fetch(
-      API + "/assistant-hires?email=" +
-      encodeURIComponent(email)
-    );
+      <h1>Assistant Dashboard</h1>
 
-    const data = await response.json();
+      <p>
+        Welcome back, <strong id="userName">Assistant</strong>.
+      </p>
 
-    const jobs = Array.isArray(data)
-      ? data
-      : (data.hires || data.jobs || []);
+      <p class="email" id="userEmail">
+        Loading account...
+      </p>
 
-    document.getElementById("hiredCount").textContent =
-      jobs.length;
+    </section>
 
-    if (!jobs.length) {
 
-      container.innerHTML =
-        '<div class="empty">You have no hired jobs yet.</div>';
+    <!-- STATS -->
 
-      return;
+    <section class="stats">
+
+      <div class="stat">
+        <div class="stat-label">
+          My Hired Jobs
+        </div>
+
+        <div class="stat-value" id="hiredCount">
+          0
+        </div>
+      </div>
+
+
+      <div class="stat">
+        <div class="stat-label">
+          Available Jobs
+        </div>
+
+        <div class="stat-value" id="availableCount">
+          0
+        </div>
+      </div>
+
+
+      <div class="stat">
+        <div class="stat-label">
+          Account Status
+        </div>
+
+        <div class="stat-value active">
+          Active
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- HIRED JOBS -->
+
+    <section class="section">
+
+      <div class="section-header">
+
+        <h2>My Hired Jobs</h2>
+
+        <p>
+          Jobs that have been assigned to you.
+        </p>
+
+      </div>
+
+      <div class="jobs" id="hiredJobs">
+
+        <div class="empty">
+          Loading hired jobs...
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- AVAILABLE JOBS -->
+
+    <section class="section">
+
+      <div class="section-header">
+
+        <h2>Available Jobs</h2>
+
+        <p>
+          Explore jobs posted by businesses.
+        </p>
+
+      </div>
+
+      <div class="jobs" id="availableJobs">
+
+        <div class="empty">
+          Loading available jobs...
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <p>
+      NexaAssist — Reliable virtual assistance for growing businesses.
+    </p>
+
+  </footer>
+
+
+  <script>
+
+    const API =
+      "https://nexaassist-backend-new-1.onrender.com";
+
+
+    /*
+      LOAD USER
+    */
+
+    const userName =
+      localStorage.getItem("fullName") ||
+      localStorage.getItem("name") ||
+      "Assistant";
+
+    const userEmail =
+      localStorage.getItem("email") ||
+      "";
+
+
+    document.getElementById("userName").textContent =
+      userName;
+
+    document.getElementById("userEmail").textContent =
+      userEmail;
+
+
+    /*
+      LOAD HIRED JOBS
+    */
+
+    async function loadHiredJobs() {
+
+      const container =
+        document.getElementById("hiredJobs");
+
+      try {
+
+        const response =
+          await fetch(
+            API +
+            "/assistant-hires?email=" +
+            encodeURIComponent(userEmail)
+          );
+
+        const jobs =
+          await response.json();
+
+        document.getElementById("hiredCount").textContent =
+          jobs.length;
+
+
+        if (!jobs.length) {
+
+          container.innerHTML = `
+            <div class="empty">
+              You don't have any hired jobs yet.
+            </div>
+          `;
+
+          return;
+        }
+
+
+        container.innerHTML =
+          jobs.map(job => {
+
+            const title =
+              job.jobTitle ||
+              job.title ||
+              "Untitled Job";
+
+            const description =
+              job.description ||
+              "No description provided.";
+
+            const payment =
+              job.budget ||
+              job.payment ||
+              "Not specified";
+
+
+            return `
+              <div class="job-card">
+
+                <h3>${title}</h3>
+
+                <p>${description}</p>
+
+                <p class="payment">
+                  Payment: $${payment}
+                </p>
+
+                <span class="status">
+                  Hired
+                </span>
+
+              </div>
+            `;
+
+          }).join("");
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+          <div class="empty">
+            Unable to load hired jobs.
+          </div>
+        `;
+
+      }
+
     }
 
-    container.innerHTML = "";
 
-    jobs.forEach(function(job) {
+    /*
+      LOAD AVAILABLE JOBS
+    */
 
-      const div = document.createElement("div");
+    async function loadAvailableJobs() {
 
-      div.className = "job";
+      const container =
+        document.getElementById("availableJobs");
 
-      div.innerHTML = `
-        <h3>${job.title || job.jobTitle || "Untitled Job"}</h3>
+      try {
 
-        <p>
-          ${job.description || "No description provided."}
-        </p>
+        const response =
+          await fetch(API + "/jobs");
 
-        <p>
-          Payment:
-          ${job.budget || job.amount || job.price || "Not specified"}
-        </p>
-
-        <span class="status">
-          ${job.status || "Hired"}
-        </span>
-      `;
-
-      container.appendChild(div);
-
-    });
-
-  } catch (error) {
-
-    container.innerHTML =
-      '<div class="empty">Unable to load hired jobs right now.</div>';
-
-  }
-
-}
+        const jobs =
+          await response.json();
 
 
-/* LOAD AVAILABLE JOBS */
+        document.getElementById("availableCount").textContent =
+          jobs.length;
 
-async function loadAvailableJobs() {
 
-  const container =
-    document.getElementById("availableJobs");
+        if (!jobs.length) {
 
-  try {
+          container.innerHTML = `
+            <div class="empty">
+              No jobs are available right now.
+            </div>
+          `;
 
-    const response =
-      await fetch(API + "/jobs");
+          return;
+        }
 
-    const data =
-      await response.json();
 
-    const jobs =
-      Array.isArray(data)
-        ? data
-        : (data.jobs || []);
+        container.innerHTML =
+          jobs.map(job => {
 
-    document.getElementById("jobCount").textContent =
-      jobs.length;
+            const title =
+              job.title ||
+              job.jobTitle ||
+              "Untitled Job";
 
-    if (!jobs.length) {
+            const description =
+              job.description ||
+              "No description provided.";
 
-      container.innerHTML =
-        '<div class="empty">No available jobs at the moment.</div>';
+            const budget =
+              job.budget ||
+              "Not specified";
 
-      return;
+            const assigned =
+              job.status &&
+              job.status.toLowerCase() === "assigned";
+
+
+            return `
+              <div class="job-card">
+
+                <h3>${title}</h3>
+
+                <p>${description}</p>
+
+                <p class="payment">
+                  Budget: $${budget}
+                </p>
+
+                <span class="status ${assigned ? "" : "open"}">
+                  ${assigned ? "Assigned" : "Open"}
+                </span>
+
+              </div>
+            `;
+
+          }).join("");
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+          <div class="empty">
+            Unable to load available jobs.
+          </div>
+        `;
+
+      }
+
     }
 
-    container.innerHTML = "";
 
-    jobs.forEach(function(job) {
+    /*
+      LOGOUT
+    */
 
-      const div =
-        document.createElement("div");
+    function logout() {
 
-      div.className = "job";
+      localStorage.removeItem("id");
+      localStorage.removeItem("fullName");
+      localStorage.removeItem("name");
+      localStorage.removeItem("email");
+      localStorage.removeItem("role");
 
-      div.innerHTML = `
-        <h3>${job.title || job.jobTitle || "Untitled Job"}</h3>
+      window.location.href =
+        "login.html";
 
-        <p>
-          ${job.description || "No description provided."}
-        </p>
-
-        <p>
-          Budget:
-          ${job.budget || job.amount || job.price || "Not specified"}
-        </p>
-
-        <span class="status">
-          ${job.status || "Open"}
-        </span>
-      `;
-
-      container.appendChild(div);
-
-    });
-
-  } catch (error) {
-
-    container.innerHTML =
-      '<div class="empty">Unable to load available jobs right now.</div>';
-
-  }
-
-}
+    }
 
 
-/* LOGOUT */
+    /*
+      START
+    */
 
-function logout() {
+    loadHiredJobs();
+    loadAvailableJobs();
 
-  localStorage.removeItem("userId");
-  localStorage.removeItem("userEmail");
-  localStorage.removeItem("userName");
-  localStorage.removeItem("userRole");
-  localStorage.removeItem("email");
-  localStorage.removeItem("role");
-
-  window.location.href = "login.html";
-}
-
-
-/* START */
-
-loadHiredJobs();
-loadAvailableJobs();
-
-</script>
+  </script>
 
 </body>
 </html>
