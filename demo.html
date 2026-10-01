@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NexaAssist | Project Demo</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f7fb;
+      color: #172033;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #0b5ed7;
+      color: white;
+      padding: 45px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 38px;
+    }
+
+    header p {
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: 17px;
+      opacity: 0.95;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 900px;
+      margin: 30px auto 60px;
+    }
+
+    .intro {
+      background: white;
+      padding: 25px;
+      border-radius: 14px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+
+    .intro h2 {
+      margin-top: 0;
+      color: #0b5ed7;
+    }
+
+    .step {
+      background: white;
+      margin: 18px 0;
+      padding: 24px;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      border-left: 5px solid #0b5ed7;
+    }
+
+    .step-number {
+      display: inline-block;
+      background: #0b5ed7;
+      color: white;
+      width: 38px;
+      height: 38px;
+      line-height: 38px;
+      text-align: center;
+      border-radius: 50%;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .step h3 {
+      display: inline;
+      font-size: 21px;
+    }
+
+    .step p {
+      margin-top: 15px;
+      color: #4d596b;
+    }
+
+    .button {
+      display: inline-block;
+      background: #0b5ed7;
+      color: white;
+      text-decoration: none;
+      padding: 11px 18px;
+      border-radius: 8px;
+      margin: 5px 5px 5px 0;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .button:hover {
+      opacity: 0.88;
+    }
+
+    .secondary {
+      background: #e9f1ff;
+      color: #0b5ed7;
+    }
+
+    .complete {
+      border-left-color: #198754;
+    }
+
+    .complete .step-number {
+      background: #198754;
+    }
+
+    .next {
+      border-left-color: #f0ad00;
+      background: #fffaf0;
+    }
+
+    .next .step-number {
+      background: #f0ad00;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-left: 8px;
+      background: #d1e7dd;
+      color: #146c43;
+    }
+
+    .coming {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .architecture {
+      background: #172033;
+      color: white;
+      padding: 25px;
+      border-radius: 14px;
+      margin-top: 25px;
+      overflow-x: auto;
+    }
+
+    .architecture h2 {
+      margin-top: 0;
+      color: white;
+    }
+
+    .architecture pre {
+      white-space: pre-wrap;
+      font-family: monospace;
+      line-height: 1.8;
+    }
+
+    .final-box {
+      background: #0b5ed7;
+      color: white;
+      padding: 30px;
+      border-radius: 14px;
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    .final-box h2 {
+      margin-top: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #697386;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 30px;
+      }
+
+      .step h3 {
+        font-size: 18px;
+      }
+
+      .button {
+        display: block;
+        text-align: center;
+        margin: 8px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>NexaAssist</h1>
+  <p>
+    Project Demonstration & Development Journey
+  </p>
+</header>
+
+<div class="container">
+
+  <section class="intro">
+    <h2>Welcome to the NexaAssist Project</h2>
+
+    <p>
+      This page provides a step-by-step walkthrough of the NexaAssist
+      platform, from the public website through the customer and assistant
+      workflows and the administration system.
+    </p>
+
+    <p>
+      The purpose of this page is to show what has already been built,
+      what is currently working, and where development stopped before
+      payment integration.
+    </p>
+
+    <a
+      class="button"
+      href="index.html"
+    >
+      Start at Homepage
+    </a>
+
+    <a
+      class="button secondary"
+      href="assistants.html"
+    >
+      View Assistants
+    </a>
+  </section>
+
+
+  <!-- STEP 1 -->
+
+  <section class="step complete">
+
+    <span class="step-number">1</span>
+
+    <h3>
+      NexaAssist Homepage
+      <span class="status">Completed</span>
+    </h3>
+
+    <p>
+      The public homepage introduces NexaAssist and explains the platform
+      to customers and businesses looking for virtual assistance.
+    </p>
+
+    <a class="button" href="index.html">
+      Open Homepage
+    </a>
+
+  </section>
+
+
+  <!-- STEP 2 -->
+
+  <section class="step complete">
+
+    <span class="step-number">2</span>
+
+    <h3>
+      Assistants
+      <span class="status">Completed</span>
+    </h3>
+
+    <p>
+      Customers can browse available Nigerian virtual assistants and
+      learn about the services they can provide.
+    </p>
+
+    <a class="button" href="assistants.html">
+      Browse Assistants
+    </a>
+
+  </section>
+
+
+  <!-- STEP 3 -->
+
+  <section class="step complete">
+
+    <span class="step-number">3</span>
+
+    <h3>
+      How It Works
+      <span class="status">Completed</span>
+    </h3>
+
+    <p>
+      The platform explains how customers and assistants can use
+      NexaAssist to connect and work together.
+    </p>
+
+    <a class="button" href="how-it-works.html">
+      How It Works
+    </a>
+
+  </section>
+
+
+  <!-- STEP 4 -->
+
+  <section class="step complete">
+
+    <span class="step-number">4</span>
+
+    <h3>
+      Signup & Login
+      <span class="status">Completed</span>
+    </h3>
+
+    <p>
+      NexaAssist has account creation and login functionality for
+      customers, assistants and administrators.
+    </p>
+
+    <a class="button" href="signup.html">
+      Create Account
+    </a>
+
+    <a class="button secondary" href="login.html">
+      Login
+    </a>
+
+  </section>
+
+
+  <!-- STEP 5 -->
+
+  <section class="step complete">
+
+    <span class="step-number">5</span>
+
+    <h3>
+      Customer Workflow
+      <span class="status">Completed</span>
+    </h3>
+
+    <p>
+      Customers can use their account to create jobs and manage their
+      hiring process.
+    </p>
+
+    <p>
+      The customer workflow includes posting jobs, receiving applications,
+      reviewing applicants and hiring an assistant.
+    </p>
+
+    <a class="button" href="post-job.html">
+      Post a Job
+    </a>
+
+  </section>
+
+
+  <!-- STEP 6 -->
+
+  <section class="step complete">
+
+    <span class="step-number">6</span>
+
+    <h3>
+      Assistant Workflow
+      <span class="status">Completed</span>
+    </h3>
+
+    <p>
+      Assistants can create their profiles, view available jobs,
+      apply for jobs and see jobs they have been hired for.
+    </p>
+
+    <a class="button" href="assistant.html">
+      Assistant Dashboard
+    </a>
+
+    <a class="button secondary" href="assistant-jobs.html">
+      Available Jobs
+    </a>
+
+  </section>
+
+
+  <!-- STEP 7 -->
+
+  <section class="step complete">
+
+    <span class="step-number">7</span>
+
+    <h3>
+      Jobs & Applications
+      <span class="status">Completed</span>
+    </h3>
+
+    <p>
+      Customers can post jobs and assistants can submit applications.
+      Applications are stored in the backend database and can be
+      reviewed by the customer.
+    </p>
+
+    <p>
+      The system also tracks whether jobs are open or assigned and
+      whether applications are pending, accepted or rejected.
+    </p>
+
+  </section>
+
+
+  <!-- STEP 8 -->
+
+  <section class="step complete">
+
+    <span class="step-number">8</span>
+
+    <h3>
+      Hiring
+      <span class="status">Completed</span>
+    </h3>
+
+    <p>
+      A customer can select an assistant from the applications received.
+      Once hired, the job becomes assigned and the selected assistant
+      receives the hire information.
+    </p>
+
+  </section>
+
+
+  <!-- STEP 9 -->
+
+  <section class="step complete">
+
+    <span class="step-number">9</span>
+
+    <h3>
+      Messages & Notifications
+      <span class="status">Completed</span>
+    </h3>
+
+    <p>
+      Customers and hired assistants can communicate about their jobs.
+      The system also creates notifications for important events such
+      as applications, hiring and messages.
+    </p>
+
+  </section>
+
+
+  <!-- STEP 10 -->
+
+  <section class="step complete">
+
+    <span class="step-number">10</span>
+
+    <h3>
+      Administration & Verification
+      <span class="status">Completed</span>
+    </h3>
+
+    <p>
+      NexaAssist includes an administration area for managing users,
+      assistants, jobs, applications and hires.
+    </p>
+
+    <p>
+      Administrators can also verify assistant profiles.
+    </p>
+
+    <a class="button" href="admin.html">
+      Open Admin Dashboard
+    </a>
+
+  </section>
+
+
+  <!-- CURRENT POSITION -->
+
+  <section class="step next">
+
+    <span class="step-number">11</span>
+
+    <h3>
+      Payment Integration
+      <span class="status coming">Next Stage</span>
+    </h3>
+
+    <p>
+      This is the current development point.
+    </p>
+
+    <p>
+      The core NexaAssist marketplace workflow has been built.
+      The next major stage is connecting customer payments to the
+      hiring process.
+    </p>
+
+    <p>
+      Payment will be integrated into the existing system without
+      removing the current signup, jobs, applications, hiring,
+      messaging, notification or administration functionality.
+    </p>
+
+  </section>
+
+
+  <!-- SYSTEM STRUCTURE -->
+
+  <section class="architecture">
+
+    <h2>How NexaAssist Works Behind the Scenes</h2>
+
+    <pre>
+Customer / Assistant
+        |
+        v
+NexaAssist Frontend
+        |
+        v
+NexaAssist Backend API
+        |
+        v
+MongoDB Database
+        |
+        v
+Users / Jobs / Applications /
+Hires / Messages / Notifications
+
+Payment integration
+        |
+        v
+Next development stage
+    </pre>
+
+  </section>
+
+
+  <!-- FINAL -->
+
+  <section class="final-box">
+
+    <h2>Current Project Status</h2>
+
+    <p>
+      NexaAssist currently has the core marketplace workflow in place.
+    </p>
+
+    <p>
+      The next major feature to be added is payment.
+    </p>
+
+    <a
+      class="button"
+      style="background:white;color:#0b5ed7;"
+      href="index.html"
+    >
+      Return to NexaAssist
+    </a>
+
+  </section>
+
+</div>
+
+
+<footer>
+  NexaAssist — Reliable virtual assistance for growing businesses.
+  <br><br>
+  Project demonstration page.
+</footer>
+
+</body>
+</html>
