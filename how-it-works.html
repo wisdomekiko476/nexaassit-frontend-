@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>How It Works - NexaAssist</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f9fc;
+      color: #172033;
+      line-height: 1.6;
+    }
+
+    nav {
+      background: #ffffff;
+      border-bottom: 1px solid #e5eaf0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1150px;
+      margin: auto;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      text-decoration: none;
+      font-size: 22px;
+      font-weight: 800;
+      color: #1264e5;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #374151;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: #1264e5;
+    }
+
+    .nav-button {
+      background: #1264e5;
+      color: white !important;
+      padding: 10px 17px;
+      border-radius: 8px;
+    }
+
+    .menu {
+      display: none;
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    .hero {
+      background: #ffffff;
+      padding: 75px 20px 65px;
+      text-align: center;
+      border-bottom: 1px solid #e5eaf0;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 18px;
+      color: #101828;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: auto;
+      color: #667085;
+      font-size: 18px;
+    }
+
+    .section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 65px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title h2 {
+      font-size: 30px;
+      margin-bottom: 10px;
+      color: #101828;
+    }
+
+    .section-title p {
+      color: #667085;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .step {
+      background: #ffffff;
+      border: 1px solid #e5eaf0;
+      border-radius: 14px;
+      padding: 28px 22px;
+      text-align: center;
+    }
+
+    .number {
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      background: #eaf2ff;
+      color: #1264e5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .step h3 {
+      margin-bottom: 10px;
+      color: #172033;
+    }
+
+    .step p {
+      color: #667085;
+      font-size: 15px;
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .info-card {
+      background: #ffffff;
+      border: 1px solid #e5eaf0;
+      border-radius: 14px;
+      padding: 30px;
+    }
+
+    .info-card h3 {
+      margin-bottom: 12px;
+      font-size: 23px;
+    }
+
+    .info-card p {
+      color: #667085;
+      margin-bottom: 20px;
+    }
+
+    .info-card ul {
+      padding-left: 20px;
+      color: #475467;
+    }
+
+    .info-card li {
+      margin-bottom: 10px;
+    }
+
+    .trust {
+      background: #eef5ff;
+      border-radius: 18px;
+      padding: 45px 30px;
+      text-align: center;
+    }
+
+    .trust h2 {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .trust p {
+      max-width: 720px;
+      margin: auto;
+      color: #667085;
+    }
+
+    .cta {
+      text-align: center;
+      background: #ffffff;
+      padding: 70px 20px;
+      border-top: 1px solid #e5eaf0;
+    }
+
+    .cta h2 {
+      font-size: 32px;
+      margin-bottom: 14px;
+    }
+
+    .cta p {
+      color: #667085;
+      margin-bottom: 25px;
+    }
+
+    .cta a {
+      display: inline-block;
+      background: #1264e5;
+      color: white;
+      text-decoration: none;
+      padding: 13px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      margin: 5px;
+    }
+
+    .cta .secondary {
+      background: #ffffff;
+      color: #1264e5;
+      border: 1px solid #1264e5;
+    }
+
+    footer {
+      background: #101828;
+      color: #ffffff;
+      text-align: center;
+      padding: 28px 20px;
+    }
+
+    footer p {
+      color: #b7c0ce;
+      margin-bottom: 12px;
+    }
+
+    footer a {
+      color: #ffffff;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    @media (max-width: 800px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 62px;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        border-bottom: 1px solid #e5eaf0;
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .menu {
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .two-columns {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="nav-container">
+
+      <a href="index.html" class="logo">NexaAssist</a>
+
+      <div class="menu" onclick="toggleMenu()">☰</div>
+
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="assistants.html">Assistants</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html" class="nav-button">Get Started</a>
+      </div>
+
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>How NexaAssist Works</h1>
+    <p>
+      NexaAssist makes it simple for businesses to connect with Nigerian
+      virtual assistants for reliable remote support.
+    </p>
+  </section>
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>For Businesses</h2>
+      <p>Find support and get your work moving in a few simple steps.</p>
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="number">1</div>
+        <h3>Create an Account</h3>
+        <p>
+          Sign up as a business and create your NexaAssist account.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="number">2</div>
+        <h3>Find an Assistant</h3>
+        <p>
+          Browse assistants by skills and services that match your needs.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="number">3</div>
+        <h3>Post or Discuss Work</h3>
+        <p>
+          Describe your requirements and connect with the assistant you choose.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="number">4</div>
+        <h3>Start Working</h3>
+        <p>
+          Hire your selected assistant and communicate directly through the platform.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>For Assistants</h2>
+      <p>Build your profile and discover remote opportunities.</p>
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="number">1</div>
+        <h3>Create Your Profile</h3>
+        <p>
+          Sign up and showcase your skills, experience and services.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="number">2</div>
+        <h3>Explore Jobs</h3>
+        <p>
+          Browse available opportunities posted by businesses.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="number">3</div>
+        <h3>Apply</h3>
+        <p>
+          Submit applications for jobs that match your skills.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="number">4</div>
+        <h3>Work Remotely</h3>
+        <p>
+          Communicate with clients, complete assigned work and build your experience.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>Built for Simple Remote Collaboration</h2>
+      <p>Everything is designed to keep the experience straightforward.</p>
+    </div>
+
+    <div class="two-columns">
+
+      <div class="info-card">
+        <h3>For Businesses</h3>
+        <p>
+          Find people who can help with everyday business tasks without
+          building a full in-house team.
+        </p>
+
+        <ul>
+          <li>Browse assistant profiles</li>
+          <li>Post jobs</li>
+          <li>Review applications</li>
+          <li>Hire assistants</li>
+          <li>Communicate directly</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>For Assistants</h3>
+        <p>
+          Create a professional presence and connect with businesses looking
+          for remote support.
+        </p>
+
+        <ul>
+          <li>Create an assistant profile</li>
+          <li>Show your skills</li>
+          <li>Discover available jobs</li>
+          <li>Apply for opportunities</li>
+          <li>Manage hired work</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="section">
+
+    <div class="trust">
+      <h2>Why NexaAssist?</h2>
+      <p>
+        NexaAssist is designed to make remote collaboration easier by bringing
+        businesses and Nigerian virtual assistants together in one place.
+        Profiles, jobs, applications, hiring and communication can all be
+        managed through the platform.
+      </p>
+    </div>
+
+  </section>
+
+  <section class="cta">
+
+    <h2>Ready to get started?</h2>
+
+    <p>
+      Find an assistant or create your professional assistant profile today.
+    </p>
+
+    <a href="assistants.html">Find an Assistant</a>
+
+    <a href="signup.html" class="secondary">Create an Account</a>
+
+  </section>
+
+  <footer>
+
+    <p>NexaAssist — Connecting businesses with Nigerian virtual assistants.</p>
+
+    <div>
+      <a href="index.html">Home</a>
+      <a href="assistants.html">Assistants</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+    </div>
+
+    <p style="margin-top:15px;">
+      © 2026 NexaAssist. All rights reserved.
+    </p>
+
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("navLinks").classList.toggle("show");
+    }
+  </script>
+
+</body>
+</html>
