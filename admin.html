@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NexaAssist Admin Dashboard</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #172033;
+    }
+
+    header {
+      background: #0b5ed7;
+      color: white;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 21px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .logout-btn {
+      border: 0;
+      background: white;
+      color: #0b5ed7;
+      padding: 10px 15px;
+      border-radius: 7px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 1200px;
+      margin: 25px auto;
+    }
+
+    .topbar {
+      background: white;
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+      margin-bottom: 20px;
+    }
+
+    .topbar h2 {
+      margin: 0 0 6px;
+      font-size: 22px;
+    }
+
+    .topbar p {
+      margin: 0;
+      color: #667085;
+    }
+
+    .refresh-btn {
+      margin-top: 14px;
+      background: #0b5ed7;
+      color: white;
+      border: 0;
+      padding: 11px 17px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    }
+
+    .card h3 {
+      margin: 0;
+      color: #667085;
+      font-size: 14px;
+    }
+
+    .card .number {
+      margin-top: 10px;
+      font-size: 31px;
+      font-weight: bold;
+      color: #0b5ed7;
+    }
+
+    .section {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 22px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+      overflow-x: auto;
+    }
+
+    .section h2 {
+      margin: 0 0 15px;
+      font-size: 19px;
+    }
+
+    .status {
+      padding: 12px;
+      border-radius: 7px;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    .error {
+      background: #fdecec;
+      color: #a61b1b;
+    }
+
+    .success {
+      background: #e9f8ef;
+      color: #18743a;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+    }
+
+    th,
+    td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #e8ecf2;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background: #f7f9fc;
+      color: #344054;
+    }
+
+    .verify-btn {
+      border: 0;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      background: #0b5ed7;
+      color: white;
+    }
+
+    .unverify-btn {
+      border: 0;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      background: #dc3545;
+      color: white;
+    }
+
+    .verified {
+      color: #18743a;
+      font-weight: bold;
+    }
+
+    .not-verified {
+      color: #a15c00;
+      font-weight: bold;
+    }
+
+    .loading {
+      color: #667085;
+      padding: 10px 0;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .container {
+        width: 92%;
+      }
+
+      .topbar h2 {
+        font-size: 19px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div>
+    <h1>NexaAssist Admin</h1>
+    <p id="adminEmail">Checking admin access...</p>
+  </div>
+
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</header>
+
+<main class="container">
+
+  <div class="topbar">
+    <h2>Admin Dashboard</h2>
+    <p>Manage and monitor NexaAssist activity.</p>
+
+    <button class="refresh-btn" onclick="loadDashboard()">
+      Refresh Dashboard
+    </button>
+  </div>
+
+  <div id="errorBox" class="status error"></div>
+  <div id="successBox" class="status success"></div>
+
+  <section class="cards">
+
+    <div class="card">
+      <h3>Total Users</h3>
+      <div class="number" id="usersCount">0</div>
+    </div>
+
+    <div class="card">
+      <h3>Total Assistants</h3>
+      <div class="number" id="assistantsCount">0</div>
+    </div>
+
+    <div class="card">
+      <h3>Total Jobs</h3>
+      <div class="number" id="jobsCount">0</div>
+    </div>
+
+    <div class="card">
+      <h3>Total Applications</h3>
+      <div class="number" id="applicationsCount">0</div>
+    </div>
+
+    <div class="card">
+      <h3>Total Hires</h3>
+      <div class="number" id="hiresCount">0</div>
+    </div>
+
+  </section>
+
+  <section class="section">
+    <h2>Assistants & Verification</h2>
+
+    <div id="assistantsLoading" class="loading">
+      Loading assistants...
+    </div>
+
+    <table id="assistantsTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Skill</th>
+          <th>Verified</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody id="assistantsBody"></tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>Users</h2>
+
+    <div id="usersLoading" class="loading">
+      Loading users...
+    </div>
+
+    <table id="usersTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+
+      <tbody id="usersBody"></tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>Jobs</h2>
+
+    <div id="jobsLoading" class="loading">
+      Loading jobs...
+    </div>
+
+    <table id="jobsTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Budget</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody id="jobsBody"></tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>Applications</h2>
+
+    <div id="applicationsLoading" class="loading">
+      Loading applications...
+    </div>
+
+    <table id="applicationsTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Job</th>
+          <th>Assistant</th>
+          <th>Email</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody id="applicationsBody"></tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>Hires</h2>
+
+    <div id="hiresLoading" class="loading">
+      Loading hires...
+    </div>
+
+    <table id="hiresTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Job</th>
+          <th>Customer</th>
+          <th>Assistant</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody id="hiresBody"></tbody>
+    </table>
+  </section>
+
+</main>
+
+<script>
+
+  const API = "https://nexaassist-backend-new-1.onrender.com";
+
+  const adminEmail =
+    localStorage.getItem("userEmail") ||
+    localStorage.getItem("email") ||
+    "";
+
+  const userRole =
+    localStorage.getItem("userRole") ||
+    localStorage.getItem("role") ||
+    "";
+
+  const ADMIN_EMAIL = "wissywax@gmail.com";
+
+  /*
+    Admin protection.
+    The dashboard only continues when the saved account
+    is the NexaAssist admin account.
+  */
+
+  if (
+    adminEmail.toLowerCase() !== ADMIN_EMAIL.toLowerCase()
+  ) {
+    document.body.innerHTML = `
+      <div style="
+        min-height:100vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:25px;
+        font-family:Arial,sans-serif;
+        background:#f4f7fb;
+      ">
+        <div style="
+          background:white;
+          padding:30px;
+          border-radius:12px;
+          max-width:450px;
+          width:100%;
+          text-align:center;
+          box-shadow:0 4px 18px rgba(0,0,0,.08);
+        ">
+          <h2>Admin Access Required</h2>
+          <p>
+            Please log in with the authorized NexaAssist admin account.
+          </p>
+          <a href="login.html"
+             style="
+               display:inline-block;
+               margin-top:10px;
+               background:#0b5ed7;
+               color:white;
+               padding:11px 18px;
+               border-radius:7px;
+               text-decoration:none;
+             ">
+             Go to Login
+          </a>
+        </div>
+      </div>
+    `;
+
+    throw new Error("Unauthorized admin access");
+  }
+
+  document.getElementById("adminEmail").textContent =
+    "Logged in as " + adminEmail;
+
+  function showError(message) {
+    const box = document.getElementById("errorBox");
+    box.textContent = message;
+    box.style.display = "block";
+
+    document.getElementById("successBox").style.display = "none";
+  }
+
+  function showSuccess(message) {
+    const box = document.getElementById("successBox");
+    box.textContent = message;
+    box.style.display = "block";
+
+    document.getElementById("errorBox").style.display = "none";
+
+    setTimeout(() => {
+      box.style.display = "none";
+    }, 3000);
+  }
+
+  async function getData(path) {
+
+    const separator = path.includes("?") ? "&" : "?";
+
+    const response = await fetch(
+      API + path + separator +
+      "email=" + encodeURIComponent(adminEmail)
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        "Server returned " + response.status
+      );
+    }
+
+    return await response.json();
+  }
+
+  async function loadDashboard() {
+
+    document.getElementById("errorBox").style.display = "none";
+
+    try {
+
+      const [
+        users,
+        assistants,
+        jobs,
+        applications,
+        hires
+      ] = await Promise.all([
+
+        getData("/admin/users"),
+
+        getData("/admin/assistants"),
+
+        getData("/admin/jobs"),
+
+        getData("/admin/applications"),
+
+        getData("/admin/hires")
+
+      ]);
+
+      const userList =
+        Array.isArray(users)
+          ? users
+          : (users.users || []);
+
+      const assistantList =
+        Array.isArray(assistants)
+          ? assistants
+          : (assistants.assistants || []);
+
+      const jobList =
+        Array.isArray(jobs)
+          ? jobs
+          : (jobs.jobs || []);
+
+      const applicationList =
+        Array.isArray(applications)
+          ? applications
+          : (applications.applications || []);
+
+      const hireList =
+        Array.isArray(hires)
+          ? hires
+          : (hires.hires || []);
+
+      document.getElementById("usersCount").textContent =
+        userList.length;
+
+      document.getElementById("assistantsCount").textContent =
+        assistantList.length;
+
+      document.getElementById("jobsCount").textContent =
+        jobList.length;
+
+      document.getElementById("applicationsCount").textContent =
+        applicationList.length;
+
+      document.getElementById("hiresCount").textContent =
+        hireList.length;
+
+      renderUsers(userList);
+      renderAssistants(assistantList);
+      renderJobs(jobList);
+      renderApplications(applicationList);
+      renderHires(hireList);
+
+    } catch (error) {
+
+      console.error(error);
+
+      showError(
+        "Could not load the admin dashboard. Please check your connection and make sure the backend is running."
+      );
+
+    }
+  }
+
+  function renderUsers(users) {
+
+    const body =
+      document.getElementById("usersBody");
+
+    body.innerHTML = "";
+
+    if (!users.length) {
+
+      body.innerHTML = `
+        <tr>
+          <td colspan="3">No users found.</td>
+        </tr>
+      `;
+
+    } else {
+
+      users.forEach(user => {
+
+        const name =
+          user.name ||
+          user.fullName ||
+          user.username ||
+          "—";
+
+        const email =
+          user.email ||
+          "—";
+
+        const role =
+          user.role ||
+          "—";
+
+        body.innerHTML += `
+          <tr>
+            <td>${escapeHtml(name)}</td>
+            <td>${escapeHtml(email)}</td>
+            <td>${escapeHtml(role)}</td>
+          </tr>
+        `;
+
+      });
+    }
+
+    document.getElementById("usersLoading").style.display =
+      "none";
+
+    document.getElementById("usersTable").style.display =
+      "table";
+  }
+
+  function renderAssistants(assistants) {
+
+    const body =
+      document.getElementById("assistantsBody");
+
+    body.innerHTML = "";
+
+    if (!assistants.length) {
+
+      body.innerHTML = `
+        <tr>
+          <td colspan="5">No assistants found.</td>
+        </tr>
+      `;
+
+    } else {
+
+      assistants.forEach(assistant => {
+
+        const id =
+          assistant._id ||
+          assistant.id;
+
+        const name =
+          assistant.name ||
+          assistant.fullName ||
+          "—";
+
+        const email =
+          assistant.email ||
+          "—";
+
+        const skill =
+          assistant.skill ||
+          assistant.skills ||
+          assistant.category ||
+          "—";
+
+        const verified =
+          assistant.verified === true ||
+          assistant.isVerified === true;
+
+        body.innerHTML += `
+          <tr>
+
+            <td>${escapeHtml(name)}</td>
+
+            <td>${escapeHtml(email)}</td>
+
+            <td>${escapeHtml(
+              Array.isArray(skill)
+                ? skill.join(", ")
+                : String(skill)
+            )}</td>
+
+            <td>
+              ${
+                verified
+                  ? '<span class="verified">Verified</span>'
+                  : '<span class="not-verified">Not verified</span>'
+              }
+            </td>
+
+            <td>
+
+              <button
+                class="${
+                  verified
+                    ? "unverify-btn"
+                    : "verify-btn"
+                }"
+                onclick="toggleVerification(
+                  '${String(id).replace(/'/g, "\\'")}',
+                  ${verified}
+                )"
+              >
+
+                ${
+                  verified
+                    ? "Unverify"
+                    : "Verify"
+                }
+
+              </button>
+
+            </td>
+
+          </tr>
+        `;
+
+      });
+    }
+
+    document.getElementById("assistantsLoading").style.display =
+      "none";
+
+    document.getElementById("assistantsTable").style.display =
+      "table";
+  }
+
+  function renderJobs(jobs) {
+
+    const body =
+      document.getElementById("jobsBody");
+
+    body.innerHTML = "";
+
+    if (!jobs.length) {
+
+      body.innerHTML = `
+        <tr>
+          <td colspan="4">No jobs found.</td>
+        </tr>
+      `;
+
+    } else {
+
+      jobs.forEach(job => {
+
+        const title =
+          job.title ||
+          job.jobTitle ||
+          "—";
+
+        const category =
+          job.category ||
+          job.service ||
+          "—";
+
+        const budget =
+          job.budget ||
+          job.amount ||
+          job.price ||
+          "—";
+
+        const status =
+          job.status ||
+          "—";
+
+        body.innerHTML += `
+          <tr>
+            <td>${escapeHtml(title)}</td>
+            <td>${escapeHtml(category)}</td>
+            <td>${escapeHtml(String(budget))}</td>
+            <td>${escapeHtml(status)}</td>
+          </tr>
+        `;
+
+      });
+    }
+
+    document.getElementById("jobsLoading").style.display =
+      "none";
+
+    document.getElementById("jobsTable").style.display =
+      "table";
+  }
+
+  function renderApplications(applications) {
+
+    const body =
+      document.getElementById("applicationsBody");
+
+    body.innerHTML = "";
+
+    if (!applications.length) {
+
+      body.innerHTML = `
+        <tr>
+          <td colspan="4">No applications found.</td>
+        </tr>
+      `;
+
+    } else {
+
+      applications.forEach(application => {
+
+        const job =
+          application.jobTitle ||
+          application.title ||
+          application.job ||
+          "—";
+
+        const assistant =
+          application.assistantName ||
+          application.name ||
+          "—";
+
+        const email =
+          application.email ||
+          application.assistantEmail ||
+          "—";
+
+        const status =
+          application.status ||
+          "—";
+
+        body.innerHTML += `
+          <tr>
+            <td>${escapeHtml(String(job))}</td>
+            <td>${escapeHtml(String(assistant))}</td>
+            <td>${escapeHtml(String(email))}</td>
+            <td>${escapeHtml(String(status))}</td>
+          </tr>
+        `;
+
+      });
+    }
+
+    document.getElementById("applicationsLoading").style.display =
+      "none";
+
+    document.getElementById("applicationsTable").style.display =
+      "table";
+  }
+
+  function renderHires(hires) {
+
+    const body =
+      document.getElementById("hiresBody");
+
+    body.innerHTML = "";
+
+    if (!hires.length) {
+
+      body.innerHTML = `
+        <tr>
+          <td colspan="4">No hires found.</td>
+        </tr>
+      `;
+
+    } else {
+
+      hires.forEach(hire => {
+
+        const job =
+          hire.jobTitle ||
+          hire.title ||
+          hire.job ||
+          "—";
+
+        const customer =
+          hire.customerName ||
+          hire.customerEmail ||
+          "—";
+
+        const assistant =
+          hire.assistantName ||
+          hire.assistantEmail ||
+          "—";
+
+        const status =
+          hire.status ||
+          "—";
+
+        body.innerHTML += `
+          <tr>
+            <td>${escapeHtml(String(job))}</td>
+            <td>${escapeHtml(String(customer))}</td>
+            <td>${escapeHtml(String(assistant))}</td>
+            <td>${escapeHtml(String(status))}</td>
+          </tr>
+        `;
+
+      });
+    }
+
+    document.getElementById("hiresLoading").style.display =
+      "none";
+
+    document.getElementById("hiresTable").style.display =
+      "table";
+  }
+
+  async function toggleVerification(
+    assistantId,
+    currentlyVerified
+  ) {
+
+    try {
+
+      const response = await fetch(
+        API +
+        "/admin/assistants/" +
+        encodeURIComponent(assistantId) +
+        "/verify?email=" +
+        encodeURIComponent(adminEmail),
+        {
+          method: "PATCH",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            verified: !currentlyVerified
+          })
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "Verification update failed: " +
+          response.status
+        );
+      }
+
+      showSuccess(
+        currentlyVerified
+          ? "Assistant verification removed."
+          : "Assistant verified successfully."
+      );
+
+      await loadDashboard();
+
+    } catch (error) {
+
+      console.error(error);
+
+      showError(
+        "Could not update assistant verification."
+      );
+
+    }
+  }
+
+  function escapeHtml(value) {
+
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function logout() {
+
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("email");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("role");
+
+    window.location.href = "login.html";
+  }
+
+  loadDashboard();
+
+</script>
+
+</body>
+</html>
