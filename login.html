@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Login - NexaAssist</title>
 
   <style>
@@ -25,7 +24,7 @@
     .container {
       width: 100%;
       max-width: 430px;
-      background: white;
+      background: #fff;
       padding: 35px 28px;
       border-radius: 14px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.08);
@@ -110,6 +109,7 @@
     <form id="loginForm">
 
       <label for="email">Email</label>
+
       <input
         type="email"
         id="email"
@@ -118,6 +118,7 @@
       >
 
       <label for="password">Password</label>
+
       <input
         type="password"
         id="password"
@@ -142,27 +143,40 @@
 
   <script>
 
-    const API = "https://nexaassist-backend-new-1.onrender.com";
+    const API =
+      "https://nexaassist-backend-new-1.onrender.com";
 
-    const form = document.getElementById("loginForm");
-    const button = document.getElementById("loginButton");
-    const message = document.getElementById("message");
+    const form =
+      document.getElementById("loginForm");
+
+    const button =
+      document.getElementById("loginButton");
+
+    const message =
+      document.getElementById("message");
+
 
     form.addEventListener("submit", async function(event) {
 
       event.preventDefault();
 
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
 
       message.textContent = "Logging in...";
       message.style.color = "#1769aa";
 
       button.disabled = true;
 
+
       try {
 
         const response = await fetch(API + "/login", {
+
           method: "POST",
 
           headers: {
@@ -173,54 +187,122 @@
             email: email,
             password: password
           })
+
         });
+
 
         const data = await response.json();
 
+
         if (!response.ok) {
-          throw new Error(data.message || "Login failed");
+
+          throw new Error(
+            data.message || "Login failed"
+          );
+
         }
 
+
         /*
-          Save the login information so the other
-          NexaAssist pages can recognize the user.
+          Save user information
         */
 
-        localStorage.setItem("userId", data.id || "");
-        localStorage.setItem("userEmail", data.email || email);
-        localStorage.setItem("userName", data.fullName || "");
-        localStorage.setItem("userRole", data.role || "");
+        const loggedEmail =
+          (data.email || email).trim();
 
-        localStorage.setItem("email", data.email || email);
-        localStorage.setItem("role", data.role || "");
+        const loggedRole =
+          (data.role || "").toLowerCase().trim();
 
-        message.textContent = "Login successful. Redirecting...";
+
+        localStorage.setItem(
+          "userId",
+          data.id || ""
+        );
+
+        localStorage.setItem(
+          "userEmail",
+          loggedEmail
+        );
+
+        localStorage.setItem(
+          "userName",
+          data.fullName || ""
+        );
+
+        localStorage.setItem(
+          "userRole",
+          loggedRole
+        );
+
+
+        /*
+          Compatibility keys
+        */
+
+        localStorage.setItem(
+          "email",
+          loggedEmail
+        );
+
+        localStorage.setItem(
+          "role",
+          loggedRole
+        );
+
+
+        message.textContent =
+          "Login successful. Redirecting...";
+
         message.style.color = "green";
+
 
         setTimeout(function() {
 
+          /*
+            ADMIN
+          */
+
           if (
-            (data.email || email).toLowerCase() ===
+            loggedEmail.toLowerCase() ===
             "wissywax@gmail.com"
           ) {
 
-            window.location.href = "admin.html";
+            window.location.href =
+              "admin.html";
 
-          } else if (data.role === "assistant") {
-
-            window.location.href = "assistant.html";
-
-          } else {
-
-            window.location.href = "profile.html";
-
+            return;
           }
+
+
+          /*
+            ASSISTANT
+          */
+
+          if (loggedRole === "assistant") {
+
+            window.location.href =
+              "assistant.html";
+
+            return;
+          }
+
+
+          /*
+            CUSTOMER / CLIENT
+          */
+
+          window.location.href =
+            "profile.html";
 
         }, 700);
 
+
       } catch (error) {
 
-        message.textContent = error.message;
+        message.textContent =
+          error.message ||
+          "Unable to login.";
+
         message.style.color = "red";
 
         button.disabled = false;
