@@ -231,6 +231,34 @@
       grid-column: 1 / -1;
     }
 
+    .hire-btn {
+      margin-top: 14px;
+      width: 100%;
+      border: none;
+      background: #1264e5;
+      color: #ffffff;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .hire-btn:hover {
+      opacity: 0.92;
+    }
+
+    .hire-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .application-message {
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
     /* POST JOB MODAL */
 
     .modal {
@@ -468,7 +496,6 @@
     <section class="stats">
 
       <div class="stat">
-
         <div class="stat-label">
           My Jobs
         </div>
@@ -476,12 +503,10 @@
         <div class="stat-value" id="jobCount">
           0
         </div>
-
       </div>
 
 
       <div class="stat">
-
         <div class="stat-label">
           Applications
         </div>
@@ -489,12 +514,10 @@
         <div class="stat-value" id="applicationCount">
           0
         </div>
-
       </div>
 
 
       <div class="stat">
-
         <div class="stat-label">
           Hired Assistants
         </div>
@@ -502,7 +525,6 @@
         <div class="stat-value" id="hireCount">
           0
         </div>
-
       </div>
 
     </section>
@@ -1133,6 +1155,127 @@
 
 
     /*
+      HIRE AN ASSISTANT
+    */
+
+    async function hireAssistant(
+      applicationId,
+      button,
+      messageElement
+    ) {
+
+      if (!applicationId) {
+
+        messageElement.textContent =
+          "Application ID is missing.";
+
+        messageElement.style.color =
+          "red";
+
+        return;
+
+      }
+
+
+      button.disabled = true;
+
+      button.textContent =
+        "Hiring...";
+
+      messageElement.textContent =
+        "Processing hire...";
+
+      messageElement.style.color =
+        "#1264e5";
+
+
+      try {
+
+        const response =
+          await fetch(
+            API + "/hire-assistant",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+
+                applicationId:
+                  applicationId,
+
+                customerEmail:
+                  userEmail
+
+              })
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.message ||
+            "Unable to hire assistant."
+          );
+
+        }
+
+
+        messageElement.textContent =
+          "Assistant hired successfully.";
+
+        messageElement.style.color =
+          "green";
+
+
+        button.textContent =
+          "Hired";
+
+
+        /*
+          Refresh all dashboard sections
+        */
+
+        await loadApplications();
+        await loadMyJobs();
+        await loadHires();
+
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Hire assistant error:",
+          error
+        );
+
+        messageElement.textContent =
+          error.message ||
+          "Unable to hire assistant.";
+
+        messageElement.style.color =
+          "red";
+
+        button.disabled = false;
+
+        button.textContent =
+          "Hire Assistant";
+
+      }
+
+    }
+
+
+    /*
       LOAD CUSTOMER APPLICATIONS
     */
 
@@ -1203,6 +1346,16 @@
                 application.status ||
                 "Pending";
 
+              const applicationId =
+                application._id ||
+                application.id ||
+                "";
+
+
+              const isPending =
+                String(status).toLowerCase() ===
+                "pending";
+
 
               return `
                 <div class="job-card">
@@ -1218,11 +1371,66 @@
                     ${status}
                   </span>
 
+                  ${
+                    isPending
+                    ? `
+                      <button
+                        type="button"
+                        class="hire-btn"
+                        data-application-id="${applicationId}"
+                      >
+                        Hire Assistant
+                      </button>
+
+                      <div
+                        class="application-message"
+                      ></div>
+                    `
+                    : ""
+                  }
+
                 </div>
               `;
 
             }
           ).join("");
+
+
+        /*
+          Add click events to Hire buttons
+        */
+
+        const hireButtons =
+          container.querySelectorAll(
+            ".hire-btn"
+          );
+
+
+        hireButtons.forEach(button => {
+
+          button.addEventListener(
+            "click",
+            function() {
+
+              const applicationId =
+                button.dataset.applicationId;
+
+              const messageElement =
+                button.parentElement.querySelector(
+                  ".application-message"
+                );
+
+
+              hireAssistant(
+                applicationId,
+                button,
+                messageElement
+              );
+
+            }
+          );
+
+        });
 
       }
 
