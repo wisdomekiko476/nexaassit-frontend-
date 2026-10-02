@@ -200,6 +200,49 @@
       color: #667085;
     }
 
+    .apply-btn {
+      width: 100%;
+      margin-top: 18px;
+      border: none;
+      background: #1264e5;
+      color: #ffffff;
+      padding: 12px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .apply-btn:hover {
+      opacity: 0.92;
+    }
+
+    .apply-btn:disabled {
+      background: #98a2b3;
+      cursor: not-allowed;
+    }
+
+    .message {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      display: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .message.success {
+      display: block;
+      background: #eaf8ef;
+      color: #16803c;
+    }
+
+    .message.error {
+      display: block;
+      background: #fff0f0;
+      color: #c62828;
+    }
+
     footer {
       background: #101828;
       color: #ffffff;
@@ -346,6 +389,7 @@
         <p>
           Explore jobs posted by businesses.
         </p>
+
       </div>
 
       <div class="jobs" id="availableJobs">
@@ -355,6 +399,8 @@
         </div>
 
       </div>
+
+      <div id="applyMessage" class="message"></div>
 
     </section>
 
@@ -376,13 +422,11 @@
 
     /*
       LOAD USER
-      IMPORTANT:
-      userEmail must be created BEFORE
-      userEmailName() is called.
     */
 
     const userEmail =
       localStorage.getItem("email") ||
+      localStorage.getItem("userEmail") ||
       "";
 
 
@@ -404,6 +448,7 @@
       localStorage.getItem("fullName") ||
       localStorage.getItem("name") ||
       localStorage.getItem("username") ||
+      localStorage.getItem("userName") ||
       userEmailName() ||
       "Assistant";
 
@@ -524,6 +569,140 @@
 
 
     /*
+      APPLY FOR JOB
+    */
+
+    async function applyForJob(jobId, jobTitle, button) {
+
+      if (!userEmail) {
+
+        showApplyMessage(
+          "Your account email is missing. Please log in again.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      if (!jobId) {
+
+        showApplyMessage(
+          "This job cannot be applied for right now.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      button.disabled = true;
+      button.textContent = "Applying...";
+
+
+      try {
+
+        const response =
+          await fetch(
+            API + "/applications",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type": "application/json"
+              },
+
+              body: JSON.stringify({
+
+                jobId: jobId,
+
+                jobTitle: jobTitle,
+
+                assistantName: userName,
+
+                assistantEmail: userEmail
+
+              })
+
+            }
+          );
+
+
+        const data =
+          await response.json().catch(
+            () => ({})
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.message ||
+            "Failed to submit application."
+          );
+
+        }
+
+
+        button.textContent =
+          "Application Submitted";
+
+        button.disabled = true;
+
+
+        showApplyMessage(
+          "Application submitted successfully!",
+          "success"
+        );
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Application error:",
+          error
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          "Apply for Job";
+
+
+        showApplyMessage(
+          error.message ||
+          "Unable to submit application.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    function showApplyMessage(message, type) {
+
+      const box =
+        document.getElementById("applyMessage");
+
+      box.textContent =
+        message;
+
+      box.className =
+        "message " + type;
+
+      setTimeout(() => {
+
+        box.className =
+          "message";
+
+      }, 5000);
+
+    }
+
+
+    /*
       LOAD AVAILABLE JOBS
     */
 
@@ -538,20 +717,35 @@
           await fetch(API + "/jobs");
 
         if (!response.ok) {
+
           throw new Error(
             "Failed to load available jobs"
           );
+
         }
 
         const jobs =
           await response.json();
 
 
+        /*
+          Only show jobs that are still Open.
+        */
+
+        const availableJobs =
+          jobs.filter(job => {
+
+            return !job.status ||
+              String(job.status).toLowerCase() === "open";
+
+          });
+
+
         document.getElementById("availableCount").textContent =
-          jobs.length;
+          availableJobs.length;
 
 
-        if (!jobs.length) {
+        if (!availableJobs.length) {
 
           container.innerHTML = `
             <div class="empty">
@@ -560,11 +754,12 @@
           `;
 
           return;
+
         }
 
 
         container.innerHTML =
-          jobs.map(job => {
+          availableJobs.map(job => {
 
             const title =
               job.title ||
@@ -583,9 +778,11 @@
               String(rawBudget)
                 .replace(/^\$+/, "");
 
-            const assigned =
-              job.status &&
-              job.status.toLowerCase() === "assigned";
+
+            const jobId =
+              job._id ||
+              job.id ||
+              "";
 
 
             return `
@@ -599,9 +796,20 @@
                   Budget: $${budget}
                 </p>
 
-                <span class="status ${assigned ? "" : "open"}">
-                  ${assigned ? "Assigned" : "Open"}
+                <span class="status open">
+                  Open
                 </span>
+
+                <button
+                  class="apply-btn"
+                  onclick="applyForJob(
+                    '${jobId}',
+                    ${JSON.stringify(title).replace(/'/g, "&#39;")},
+                    this
+                  )"
+                >
+                  Apply for Job
+                </button>
 
               </div>
             `;
@@ -643,6 +851,10 @@
       localStorage.removeItem("username");
       localStorage.removeItem("email");
       localStorage.removeItem("role");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("userName");
+      localStorage.removeItem("userRole");
 
       window.location.href =
         "login.html";
