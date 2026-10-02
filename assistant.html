@@ -191,15 +191,6 @@
       color: #16803c;
     }
 
-    .empty {
-      background: #ffffff;
-      border: 1px dashed #cfd6df;
-      border-radius: 14px;
-      padding: 30px;
-      text-align: center;
-      color: #667085;
-    }
-
     .apply-btn {
       width: 100%;
       margin-top: 18px;
@@ -223,8 +214,8 @@
     }
 
     .message {
-      margin-top: 15px;
-      padding: 12px;
+      margin-top: 20px;
+      padding: 13px 15px;
       border-radius: 8px;
       display: none;
       font-size: 14px;
@@ -241,6 +232,15 @@
       display: block;
       background: #fff0f0;
       color: #c62828;
+    }
+
+    .empty {
+      background: #ffffff;
+      border: 1px dashed #cfd6df;
+      border-radius: 14px;
+      padding: 30px;
+      text-align: center;
+      color: #667085;
     }
 
     footer {
@@ -297,59 +297,94 @@
   <nav>
     <div class="nav-container">
 
-      <a href="index.html" class="logo">NexaAssist</a>
+      <a href="index.html" class="logo">
+        NexaAssist
+      </a>
 
       <div class="nav-right">
-        <a href="index.html">Home</a>
-        <a href="assistants.html">Assistants</a>
 
-        <button class="logout-btn" onclick="logout()">
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="assistants.html">
+          Assistants
+        </a>
+
+        <button
+          class="logout-btn"
+          onclick="logout()"
+        >
           Logout
         </button>
+
       </div>
 
     </div>
   </nav>
 
+
   <main class="container">
 
     <section class="welcome">
 
-      <h1>Assistant Dashboard</h1>
+      <h1>
+        Assistant Dashboard
+      </h1>
 
       <p>
-        Welcome back, <strong id="userName">Assistant</strong>.
+        Welcome back,
+        <strong id="userName">
+          Assistant
+        </strong>.
       </p>
 
-      <p class="email" id="userEmail">
+      <p
+        class="email"
+        id="userEmail"
+      >
         Loading account...
       </p>
 
     </section>
 
+
     <section class="stats">
 
       <div class="stat">
+
         <div class="stat-label">
           My Hired Jobs
         </div>
 
-        <div class="stat-value" id="hiredCount">
+        <div
+          class="stat-value"
+          id="hiredCount"
+        >
           0
         </div>
+
       </div>
 
+
       <div class="stat">
+
         <div class="stat-label">
           Available Jobs
         </div>
 
-        <div class="stat-value" id="availableCount">
+        <div
+          class="stat-value"
+          id="availableCount"
+        >
           0
         </div>
+
       </div>
 
+
       <div class="stat">
+
         <div class="stat-label">
           Account Status
         </div>
@@ -357,21 +392,31 @@
         <div class="stat-value active">
           Active
         </div>
+
       </div>
 
     </section>
 
+
     <section class="section">
 
       <div class="section-header">
-        <h2>My Hired Jobs</h2>
+
+        <h2>
+          My Hired Jobs
+        </h2>
 
         <p>
           Jobs that have been assigned to you.
         </p>
+
       </div>
 
-      <div class="jobs" id="hiredJobs">
+
+      <div
+        class="jobs"
+        id="hiredJobs"
+      >
 
         <div class="empty">
           Loading hired jobs...
@@ -381,10 +426,14 @@
 
     </section>
 
+
     <section class="section">
 
       <div class="section-header">
-        <h2>Available Jobs</h2>
+
+        <h2>
+          Available Jobs
+        </h2>
 
         <p>
           Explore jobs posted by businesses.
@@ -392,7 +441,11 @@
 
       </div>
 
-      <div class="jobs" id="availableJobs">
+
+      <div
+        class="jobs"
+        id="availableJobs"
+      >
 
         <div class="empty">
           Loading available jobs...
@@ -400,11 +453,16 @@
 
       </div>
 
-      <div id="applyMessage" class="message"></div>
+
+      <div
+        id="applyMessage"
+        class="message"
+      ></div>
 
     </section>
 
   </main>
+
 
   <footer>
 
@@ -414,15 +472,16 @@
 
   </footer>
 
+
   <script>
 
     const API =
       "https://nexaassist-backend-new-1.onrender.com";
 
 
-    /*
-      LOAD USER
-    */
+    // ==============================================
+    // USER
+    // ==============================================
 
     const userEmail =
       localStorage.getItem("email") ||
@@ -439,7 +498,9 @@
       return userEmail
         .split("@")[0]
         .replace(/[._-]/g, " ")
-        .replace(/\b\w/g, letter => letter.toUpperCase());
+        .replace(/\b\w/g, letter =>
+          letter.toUpperCase()
+        );
 
     }
 
@@ -453,21 +514,28 @@
       "Assistant";
 
 
-    document.getElementById("userName").textContent =
-      userName;
-
-    document.getElementById("userEmail").textContent =
-      userEmail || "Account email not available";
+    document.getElementById(
+      "userName"
+    ).textContent = userName;
 
 
-    /*
-      LOAD HIRED JOBS
-    */
+    document.getElementById(
+      "userEmail"
+    ).textContent =
+      userEmail ||
+      "Account email not available";
+
+
+    // ==============================================
+    // HIRED JOBS
+    // ==============================================
 
     async function loadHiredJobs() {
 
       const container =
-        document.getElementById("hiredJobs");
+        document.getElementById(
+          "hiredJobs"
+        );
 
       try {
 
@@ -475,19 +543,28 @@
           await fetch(
             API +
             "/assistant-hires?email=" +
-            encodeURIComponent(userEmail)
+            encodeURIComponent(
+              userEmail
+            )
           );
 
+
         if (!response.ok) {
+
           throw new Error(
             "Failed to load hired jobs"
           );
+
         }
+
 
         const jobs =
           await response.json();
 
-        document.getElementById("hiredCount").textContent =
+
+        document.getElementById(
+          "hiredCount"
+        ).textContent =
           jobs.length;
 
 
@@ -500,6 +577,7 @@
           `;
 
           return;
+
         }
 
 
@@ -511,14 +589,17 @@
               job.title ||
               "Untitled Job";
 
+
             const description =
               job.description ||
               "No description provided.";
+
 
             const rawPayment =
               job.budget ||
               job.payment ||
               "Not specified";
+
 
             const payment =
               String(rawPayment)
@@ -528,9 +609,13 @@
             return `
               <div class="job-card">
 
-                <h3>${title}</h3>
+                <h3>
+                  ${title}
+                </h3>
 
-                <p>${description}</p>
+                <p>
+                  ${description}
+                </p>
 
                 <p class="payment">
                   Payment: $${payment}
@@ -554,8 +639,11 @@
           error
         );
 
-        document.getElementById("hiredCount").textContent =
-          "—";
+
+        document.getElementById(
+          "hiredCount"
+        ).textContent = "—";
+
 
         container.innerHTML = `
           <div class="empty">
@@ -568,11 +656,15 @@
     }
 
 
-    /*
-      APPLY FOR JOB
-    */
+    // ==============================================
+    // APPLY FOR JOB
+    // ==============================================
 
-    async function applyForJob(jobId, jobTitle, button) {
+    async function applyForJob(
+      jobId,
+      jobTitle,
+      button
+    ) {
 
       if (!userEmail) {
 
@@ -582,6 +674,7 @@
         );
 
         return;
+
       }
 
 
@@ -593,11 +686,14 @@
         );
 
         return;
+
       }
 
 
       button.disabled = true;
-      button.textContent = "Applying...";
+
+      button.textContent =
+        "Applying...";
 
 
       try {
@@ -609,18 +705,20 @@
               method: "POST",
 
               headers: {
-                "Content-Type": "application/json"
+                "Content-Type":
+                  "application/json"
               },
 
               body: JSON.stringify({
 
-                jobId: jobId,
+                jobId:
+                  jobId,
 
-                jobTitle: jobTitle,
+                assistantName:
+                  userName,
 
-                assistantName: userName,
-
-                assistantEmail: userEmail
+                assistantEmail:
+                  userEmail
 
               })
 
@@ -629,9 +727,11 @@
 
 
         const data =
-          await response.json().catch(
-            () => ({})
-          );
+          await response
+            .json()
+            .catch(
+              () => ({})
+            );
 
 
         if (!response.ok) {
@@ -646,6 +746,7 @@
 
         button.textContent =
           "Application Submitted";
+
 
         button.disabled = true;
 
@@ -664,6 +765,7 @@
           error
         );
 
+
         button.disabled = false;
 
         button.textContent =
@@ -681,16 +783,24 @@
     }
 
 
-    function showApplyMessage(message, type) {
+    function showApplyMessage(
+      message,
+      type
+    ) {
 
       const box =
-        document.getElementById("applyMessage");
+        document.getElementById(
+          "applyMessage"
+        );
+
 
       box.textContent =
         message;
 
+
       box.className =
         "message " + type;
+
 
       setTimeout(() => {
 
@@ -702,19 +812,25 @@
     }
 
 
-    /*
-      LOAD AVAILABLE JOBS
-    */
+    // ==============================================
+    // AVAILABLE JOBS
+    // ==============================================
 
     async function loadAvailableJobs() {
 
       const container =
-        document.getElementById("availableJobs");
+        document.getElementById(
+          "availableJobs"
+        );
+
 
       try {
 
         const response =
-          await fetch(API + "/jobs");
+          await fetch(
+            API + "/jobs"
+          );
+
 
         if (!response.ok) {
 
@@ -724,24 +840,27 @@
 
         }
 
+
         const jobs =
           await response.json();
 
 
-        /*
-          Only show jobs that are still Open.
-        */
-
         const availableJobs =
           jobs.filter(job => {
 
-            return !job.status ||
-              String(job.status).toLowerCase() === "open";
+            return (
+              !job.status ||
+              String(job.status)
+                .toLowerCase() ===
+                "open"
+            );
 
           });
 
 
-        document.getElementById("availableCount").textContent =
+        document.getElementById(
+          "availableCount"
+        ).textContent =
           availableJobs.length;
 
 
@@ -758,39 +877,49 @@
         }
 
 
+        /*
+          Create cards first.
+          Then attach the Apply click
+          handlers safely with JavaScript.
+        */
+
         container.innerHTML =
           availableJobs.map(job => {
 
             const title =
-              job.title ||
               job.jobTitle ||
+              job.title ||
               "Untitled Job";
+
 
             const description =
               job.description ||
               "No description provided.";
 
+
             const rawBudget =
               job.budget ||
               "Not specified";
+
 
             const budget =
               String(rawBudget)
                 .replace(/^\$+/, "");
 
 
-            const jobId =
-              job._id ||
-              job.id ||
-              "";
-
-
             return `
-              <div class="job-card">
+              <div
+                class="job-card"
+                data-job-id="${job._id}"
+              >
 
-                <h3>${title}</h3>
+                <h3>
+                  ${title}
+                </h3>
 
-                <p>${description}</p>
+                <p>
+                  ${description}
+                </p>
 
                 <p class="payment">
                   Budget: $${budget}
@@ -801,12 +930,9 @@
                 </span>
 
                 <button
+                  type="button"
                   class="apply-btn"
-                  onclick="applyForJob(
-                    '${jobId}',
-                    ${JSON.stringify(title).replace(/'/g, "&#39;")},
-                    this
-                  )"
+                  data-job-id="${job._id}"
                 >
                   Apply for Job
                 </button>
@@ -815,6 +941,51 @@
             `;
 
           }).join("");
+
+
+        /*
+          Attach buttons after the cards
+          have been created.
+        */
+
+        const buttons =
+          container.querySelectorAll(
+            ".apply-btn"
+          );
+
+
+        buttons.forEach(button => {
+
+          button.addEventListener(
+            "click",
+            function () {
+
+              const jobId =
+                this.dataset.jobId;
+
+
+              const card =
+                this.closest(
+                  ".job-card"
+                );
+
+
+              const title =
+                card.querySelector(
+                  "h3"
+                ).textContent.trim();
+
+
+              applyForJob(
+                jobId,
+                title,
+                this
+              );
+
+            }
+          );
+
+        });
 
       }
 
@@ -825,8 +996,11 @@
           error
         );
 
-        document.getElementById("availableCount").textContent =
-          "—";
+
+        document.getElementById(
+          "availableCount"
+        ).textContent = "—";
+
 
         container.innerHTML = `
           <div class="empty">
@@ -839,9 +1013,9 @@
     }
 
 
-    /*
-      LOGOUT
-    */
+    // ==============================================
+    // LOGOUT
+    // ==============================================
 
     function logout() {
 
@@ -856,17 +1030,19 @@
       localStorage.removeItem("userName");
       localStorage.removeItem("userRole");
 
+
       window.location.href =
         "login.html";
 
     }
 
 
-    /*
-      START DASHBOARD
-    */
+    // ==============================================
+    // START
+    // ==============================================
 
     loadHiredJobs();
+
     loadAvailableJobs();
 
   </script>
