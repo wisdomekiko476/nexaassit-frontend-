@@ -167,10 +167,7 @@ form.addEventListener("submit", async function(event) {
     document.getElementById("password").value;
 
 
-  /*
-    Clear any previous login session.
-  */
-
+  // Clear previous session
   localStorage.clear();
 
 
@@ -212,11 +209,7 @@ form.addEventListener("submit", async function(event) {
     }
 
 
-    /*
-      Get the REAL account information
-      returned by the backend.
-    */
-
+    // Get authenticated account information
     const loggedEmail =
       String(data.email || email)
         .trim()
@@ -228,10 +221,7 @@ form.addEventListener("submit", async function(event) {
         .toLowerCase();
 
 
-    /*
-      Save the new session.
-    */
-
+    // Save session
     localStorage.setItem(
       "userId",
       data.id || ""
@@ -269,13 +259,9 @@ form.addEventListener("submit", async function(event) {
     message.style.color = "green";
 
 
-    /*
-      Redirect according to the
-      authenticated account role.
-    */
-
     setTimeout(function() {
 
+      // ADMIN
       if (
         loggedEmail === "wissywax@gmail.com"
       ) {
@@ -288,6 +274,7 @@ form.addEventListener("submit", async function(event) {
       }
 
 
+      // ASSISTANT
       if (
         loggedRole === "assistant"
       ) {
@@ -300,23 +287,21 @@ form.addEventListener("submit", async function(event) {
       }
 
 
+      // CUSTOMER / CLIENT
       if (
         loggedRole === "client" ||
         loggedRole === "customer"
       ) {
 
         window.location.replace(
-          "profile.html"
+          "customer.html"
         );
 
         return;
       }
 
 
-      /*
-        Unknown role.
-      */
-
+      // Unknown role
       message.textContent =
         "Login successful, but your account role could not be identified.";
 
