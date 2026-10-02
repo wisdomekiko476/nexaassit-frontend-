@@ -268,7 +268,6 @@
     </div>
   </nav>
 
-
   <main class="container">
 
     <section class="welcome">
@@ -285,7 +284,6 @@
 
     </section>
 
-
     <section class="stats">
 
       <div class="stat">
@@ -298,7 +296,6 @@
         </div>
       </div>
 
-
       <div class="stat">
         <div class="stat-label">
           Available Jobs
@@ -308,7 +305,6 @@
           0
         </div>
       </div>
-
 
       <div class="stat">
         <div class="stat-label">
@@ -321,7 +317,6 @@
       </div>
 
     </section>
-
 
     <section class="section">
 
@@ -342,7 +337,6 @@
       </div>
 
     </section>
-
 
     <section class="section">
 
@@ -366,7 +360,6 @@
 
   </main>
 
-
   <footer>
 
     <p>
@@ -374,7 +367,6 @@
     </p>
 
   </footer>
-
 
   <script>
 
@@ -384,15 +376,10 @@
 
     /*
       LOAD USER
+      IMPORTANT:
+      userEmail must be created BEFORE
+      userEmailName() is called.
     */
-
-    const userName =
-      localStorage.getItem("fullName") ||
-      localStorage.getItem("name") ||
-      localStorage.getItem("username") ||
-      userEmailName() ||
-      "Assistant";
-
 
     const userEmail =
       localStorage.getItem("email") ||
@@ -413,11 +400,19 @@
     }
 
 
+    const userName =
+      localStorage.getItem("fullName") ||
+      localStorage.getItem("name") ||
+      localStorage.getItem("username") ||
+      userEmailName() ||
+      "Assistant";
+
+
     document.getElementById("userName").textContent =
       userName;
 
     document.getElementById("userEmail").textContent =
-      userEmail;
+      userEmail || "Account email not available";
 
 
     /*
@@ -437,6 +432,12 @@
             "/assistant-hires?email=" +
             encodeURIComponent(userEmail)
           );
+
+        if (!response.ok) {
+          throw new Error(
+            "Failed to load hired jobs"
+          );
+        }
 
         const jobs =
           await response.json();
@@ -475,7 +476,8 @@
               "Not specified";
 
             const payment =
-              String(rawPayment).replace(/^\$+/, "");
+              String(rawPayment)
+                .replace(/^\$+/, "");
 
 
             return `
@@ -502,7 +504,13 @@
 
       catch (error) {
 
-        console.error(error);
+        console.error(
+          "Hired jobs error:",
+          error
+        );
+
+        document.getElementById("hiredCount").textContent =
+          "—";
 
         container.innerHTML = `
           <div class="empty">
@@ -528,6 +536,12 @@
 
         const response =
           await fetch(API + "/jobs");
+
+        if (!response.ok) {
+          throw new Error(
+            "Failed to load available jobs"
+          );
+        }
 
         const jobs =
           await response.json();
@@ -566,7 +580,8 @@
               "Not specified";
 
             const budget =
-              String(rawBudget).replace(/^\$+/, "");
+              String(rawBudget)
+                .replace(/^\$+/, "");
 
             const assigned =
               job.status &&
@@ -597,7 +612,13 @@
 
       catch (error) {
 
-        console.error(error);
+        console.error(
+          "Available jobs error:",
+          error
+        );
+
+        document.getElementById("availableCount").textContent =
+          "—";
 
         container.innerHTML = `
           <div class="empty">
@@ -630,7 +651,7 @@
 
 
     /*
-      START
+      START DASHBOARD
     */
 
     loadHiredJobs();
