@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>NexaAssist | Reliable Virtual Assistants for Your Business</title>
+  <title>NexaAssist | Nigerian Virtual Assistants for Remote Businesses</title>
 
   <meta
     name="description"
-    content="NexaAssist connects businesses with skilled Nigerian virtual assistants for reliable remote support."
+    content="NexaAssist connects businesses with skilled Nigerian virtual assistants for administration, customer support, social media, research and remote business tasks."
   >
 
   <style>
@@ -18,20 +18,32 @@
       padding: 0;
     }
 
+    :root {
+      --blue: #1264e5;
+      --blue-dark: #0b4fbd;
+      --navy: #10213f;
+      --text: #24324a;
+      --muted: #68758a;
+      --light: #f5f8fc;
+      --border: #e4eaf2;
+      --white: #ffffff;
+      --green: #159447;
+    }
+
     html {
       scroll-behavior: smooth;
     }
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      color: #172033;
-      background: #ffffff;
+      color: var(--text);
+      background: var(--white);
       line-height: 1.6;
     }
 
     a {
-      text-decoration: none;
       color: inherit;
+      text-decoration: none;
     }
 
     button,
@@ -41,62 +53,144 @@
 
     .container {
       width: 92%;
-      max-width: 1180px;
-      margin: auto;
+      max-width: 1120px;
+      margin: 0 auto;
     }
 
-    /* ================= NAVBAR ================= */
+    /* =========================
+       NAVBAR
+    ========================= */
 
     header {
+      background: rgba(255,255,255,0.97);
+      border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(255, 255, 255, 0.97);
-      border-bottom: 1px solid #e8edf5;
-      backdrop-filter: blur(10px);
     }
 
     .navbar {
-      min-height: 74px;
+      min-height: 68px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 25px;
     }
 
     .logo {
-      font-size: 25px;
+      font-size: 22px;
       font-weight: 800;
-      color: #1257d6;
+      color: var(--navy);
       letter-spacing: -0.5px;
     }
 
     .logo span {
-      color: #172033;
+      color: var(--blue);
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 26px;
-      list-style: none;
-    }
-
-    .nav-links a {
+      gap: 25px;
       font-size: 14px;
-      font-weight: 600;
-      color: #475569;
-      transition: 0.2s;
+      color: #526078;
     }
 
     .nav-links a:hover {
-      color: #1257d6;
+      color: var(--blue);
     }
 
-    .nav-actions {
-      display: flex;
+    .nav-login {
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .nav-button {
+      background: var(--blue);
+      color: white !important;
+      padding: 9px 16px;
+      border-radius: 7px;
+      font-weight: 700;
+    }
+
+    .nav-button:hover {
+      background: var(--blue-dark);
+    }
+
+    .menu-button {
+      display: none;
+      border: 0;
+      background: none;
+      font-size: 25px;
+      cursor: pointer;
+      color: var(--navy);
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      background:
+        radial-gradient(circle at 85% 20%, rgba(18,100,229,0.09), transparent 28%),
+        linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+      padding: 72px 0 65px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
       align-items: center;
-      gap: 10px;
+      gap: 55px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #eaf2ff;
+      color: var(--blue);
+      border: 1px solid #d9e7ff;
+      border-radius: 30px;
+      padding: 6px 11px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 5vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -2px;
+      color: var(--navy);
+      margin-bottom: 20px;
+      max-width: 650px;
+    }
+
+    .hero h1 span {
+      color: var(--blue);
+    }
+
+    .hero-text {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 600px;
+      margin-bottom: 27px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-bottom: 27px;
     }
 
     .btn {
@@ -104,735 +198,678 @@
       align-items: center;
       justify-content: center;
       min-height: 44px;
-      padding: 0 20px;
-      border-radius: 9px;
-      border: 1px solid transparent;
+      padding: 0 18px;
+      border-radius: 7px;
       font-size: 14px;
       font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s;
+      border: 1px solid transparent;
     }
 
     .btn-primary {
-      background: #1257d6;
-      color: #ffffff;
+      background: var(--blue);
+      color: white;
     }
 
     .btn-primary:hover {
-      background: #0d46b0;
+      background: var(--blue-dark);
     }
 
-    .btn-outline {
-      background: #ffffff;
-      border-color: #d6deeb;
-      color: #172033;
+    .btn-secondary {
+      background: white;
+      color: var(--blue);
+      border-color: #cbdaf1;
     }
 
-    .btn-outline:hover {
-      border-color: #1257d6;
-      color: #1257d6;
-    }
-
-    .menu-btn {
-      display: none;
-      border: 0;
-      background: transparent;
-      font-size: 28px;
-      cursor: pointer;
-      color: #172033;
-    }
-
-    /* ================= HERO ================= */
-
-    .hero {
-      background:
-        radial-gradient(circle at 85% 20%, rgba(18, 87, 214, 0.12), transparent 28%),
-        linear-gradient(135deg, #f5f9ff 0%, #ffffff 60%);
-      padding: 90px 0 80px;
-      overflow: hidden;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 60px;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #eaf2ff;
-      color: #1257d6;
-      padding: 8px 13px;
-      border-radius: 30px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #19a463;
-    }
-
-    .hero h1 {
-      font-size: clamp(42px, 5vw, 66px);
-      line-height: 1.05;
-      letter-spacing: -2.5px;
-      max-width: 700px;
-      margin-bottom: 22px;
-      color: #111827;
-    }
-
-    .hero h1 span {
-      color: #1257d6;
-    }
-
-    .hero-text {
-      font-size: 18px;
-      color: #5b6678;
-      max-width: 650px;
-      margin-bottom: 30px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+    .btn-secondary:hover {
+      background: #f5f8fd;
     }
 
     .hero-note {
-      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 17px;
+      color: #657287;
       font-size: 13px;
-      color: #667085;
+    }
+
+    .hero-note span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .check {
+      color: var(--green);
+      font-weight: 800;
     }
 
     .hero-card {
-      background: #ffffff;
-      border: 1px solid #e1e8f2;
-      border-radius: 22px;
-      padding: 24px;
-      box-shadow: 0 25px 60px rgba(17, 35, 70, 0.1);
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 18px 45px rgba(24, 55, 100, 0.10);
     }
 
     .hero-card-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 22px;
+      margin-bottom: 17px;
     }
 
     .hero-card-title {
-      font-size: 18px;
       font-weight: 800;
+      color: var(--navy);
+      font-size: 16px;
     }
 
     .available {
-      color: #168552;
-      background: #eaf8f1;
-      padding: 6px 10px;
-      border-radius: 20px;
-      font-size: 12px;
+      color: var(--green);
+      font-size: 11px;
       font-weight: 700;
+      background: #eaf8ef;
+      padding: 5px 8px;
+      border-radius: 20px;
     }
 
-    .profile-preview {
+    .talent-card {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 16px;
-      border: 1px solid #e8edf5;
-      border-radius: 14px;
-      margin-bottom: 12px;
+      gap: 12px;
+      padding: 13px 0;
+      border-top: 1px solid var(--border);
     }
 
     .avatar {
-      width: 48px;
-      height: 48px;
+      width: 43px;
+      height: 43px;
+      flex-shrink: 0;
       border-radius: 50%;
+      background: #eaf2ff;
+      color: var(--blue);
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #e8f0ff;
-      color: #1257d6;
       font-weight: 800;
+      font-size: 13px;
     }
 
-    .profile-info {
+    .talent-info {
       flex: 1;
     }
 
-    .profile-info strong {
+    .talent-info strong {
       display: block;
+      color: var(--navy);
       font-size: 14px;
     }
 
-    .profile-info span {
-      display: block;
+    .talent-info small {
+      color: var(--muted);
       font-size: 12px;
-      color: #687386;
-      margin-top: 3px;
     }
 
-    .rating {
-      font-size: 12px;
+    .verified {
+      font-size: 10px;
+      color: var(--green);
       font-weight: 700;
-      color: #8a6400;
     }
 
-    /* ================= TRUST BAR ================= */
+    /* =========================
+       TRUST STRIP
+    ========================= */
 
-    .trust-bar {
-      border-bottom: 1px solid #edf1f7;
-      background: #ffffff;
+    .trust-strip {
+      border-bottom: 1px solid var(--border);
+      background: white;
     }
 
     .trust-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 20px;
-      padding: 28px 0;
+      padding: 20px 0;
     }
 
     .trust-item {
-      text-align: center;
-      color: #475569;
-      font-size: 14px;
-      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #58667b;
+      font-size: 13px;
     }
 
-    .trust-item strong {
-      display: block;
-      color: #172033;
-      font-size: 17px;
-      margin-bottom: 3px;
+    .trust-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #edf4ff;
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
     }
 
-    /* ================= GENERAL SECTIONS ================= */
+    /* =========================
+       SECTIONS
+    ========================= */
 
     section {
-      padding: 85px 0;
+      padding: 68px 0;
     }
 
     .section-heading {
-      max-width: 700px;
-      margin: 0 auto 45px;
-      text-align: center;
+      max-width: 650px;
+      margin-bottom: 34px;
     }
 
-    .section-heading .eyebrow {
-      color: #1257d6;
-      font-size: 13px;
-      font-weight: 800;
+    .section-label {
+      color: var(--blue);
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
+      letter-spacing: 1.2px;
+      font-size: 11px;
+      font-weight: 800;
+      margin-bottom: 8px;
     }
 
     .section-heading h2 {
-      font-size: clamp(30px, 4vw, 44px);
-      line-height: 1.15;
-      letter-spacing: -1px;
-      margin-bottom: 13px;
-      color: #111827;
+      color: var(--navy);
+      font-size: 31px;
+      line-height: 1.2;
+      letter-spacing: -0.8px;
+      margin-bottom: 10px;
     }
 
     .section-heading p {
-      color: #667085;
-      font-size: 16px;
+      color: var(--muted);
+      font-size: 15px;
     }
 
-    /* ================= SERVICES ================= */
+    /* =========================
+       SERVICES
+    ========================= */
 
     .services {
-      background: #f7f9fc;
+      background: var(--light);
     }
 
     .service-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+      gap: 15px;
     }
 
     .service-card {
-      background: #ffffff;
-      border: 1px solid #e5eaf2;
-      border-radius: 16px;
-      padding: 27px;
-      transition: 0.2s;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 20px;
+      transition: 0.2s ease;
     }
 
     .service-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 35px rgba(17, 35, 70, 0.08);
+      transform: translateY(-2px);
+      border-color: #c9daf4;
+      box-shadow: 0 10px 25px rgba(20, 60, 110, 0.07);
     }
 
     .service-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      background: #eaf2ff;
-      color: #1257d6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      margin-bottom: 17px;
-    }
-
-    .service-card h3 {
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-
-    .service-card p {
-      font-size: 14px;
-      color: #667085;
-    }
-
-    /* ================= FEATURED ASSISTANTS ================= */
-
-    .assistant-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .assistant-card {
-      border: 1px solid #e3e8f0;
-      border-radius: 17px;
-      padding: 24px;
-      background: #ffffff;
-    }
-
-    .assistant-head {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      margin-bottom: 18px;
-    }
-
-    .assistant-avatar {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      background: #edf3ff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #1257d6;
-      font-weight: 800;
-      font-size: 17px;
-    }
-
-    .assistant-card h3 {
-      font-size: 17px;
-    }
-
-    .assistant-card .role {
-      font-size: 13px;
-      color: #687386;
-    }
-
-    .verified {
-      display: inline-flex;
-      margin-top: 5px;
-      padding: 4px 8px;
-      border-radius: 20px;
-      background: #eaf8f1;
-      color: #168552;
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-    .assistant-card p {
-      color: #667085;
-      font-size: 14px;
-      margin-bottom: 18px;
-    }
-
-    .assistant-link {
-      color: #1257d6;
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    /* ================= HOW IT WORKS ================= */
-
-    .steps {
-      background: #f7f9fc;
-    }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .step {
-      background: #ffffff;
-      border: 1px solid #e3e8f0;
-      border-radius: 16px;
-      padding: 25px;
-    }
-
-    .step-number {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #1257d6;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      margin-bottom: 18px;
-    }
-
-    .step h3 {
-      font-size: 17px;
-      margin-bottom: 8px;
-    }
-
-    .step p {
-      color: #667085;
-      font-size: 14px;
-    }
-
-    /* ================= SPLIT SECTIONS ================= */
-
-    .split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-    }
-
-    .split-content .eyebrow {
-      color: #1257d6;
-      font-size: 13px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-    }
-
-    .split-content h2 {
-      font-size: clamp(30px, 4vw, 43px);
-      line-height: 1.15;
-      margin-bottom: 17px;
-      letter-spacing: -1px;
-    }
-
-    .split-content > p {
-      color: #667085;
-      margin-bottom: 22px;
-    }
-
-    .check-list {
-      list-style: none;
-      display: grid;
-      gap: 13px;
-      margin-bottom: 25px;
-    }
-
-    .check-list li {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      font-size: 14px;
-      color: #475569;
-    }
-
-    .check {
-      flex: 0 0 auto;
-      width: 21px;
-      height: 21px;
-      border-radius: 50%;
-      background: #eaf8f1;
-      color: #168552;
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: #edf4ff;
+      color: var(--blue);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 12px;
       font-weight: 800;
+      margin-bottom: 14px;
     }
 
-    .info-box {
-      background: #f1f6ff;
-      border: 1px solid #dce8ff;
-      border-radius: 20px;
-      padding: 35px;
+    .service-card h3 {
+      color: var(--navy);
+      font-size: 16px;
+      margin-bottom: 6px;
     }
 
-    .info-box h3 {
-      font-size: 24px;
-      margin-bottom: 13px;
+    .service-card p {
+      color: var(--muted);
+      font-size: 13px;
     }
 
-    .info-box p {
-      color: #5f6b7d;
-      margin-bottom: 22px;
-    }
+    /* =========================
+       TALENT
+    ========================= */
 
-    .info-points {
+    .talent-grid {
       display: grid;
-      gap: 13px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
 
-    .info-point {
-      background: #ffffff;
+    .profile-card {
+      border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 15px;
-      border: 1px solid #e1e8f2;
-      font-size: 14px;
+      padding: 20px;
+      background: white;
+    }
+
+    .profile-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .profile-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #eaf2ff;
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    .profile-card h3 {
+      color: var(--navy);
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+
+    .profile-role {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .profile-status {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--green);
+      background: #eaf8ef;
+      border-radius: 20px;
+      padding: 4px 8px;
+      font-size: 10px;
       font-weight: 700;
     }
 
-    /* ================= WHY ================= */
+    .profile-card p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .profile-link {
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .center-button {
+      text-align: center;
+      margin-top: 27px;
+    }
+
+    /* =========================
+       HOW IT WORKS
+    ========================= */
+
+    .how {
+      background: var(--light);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .step {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 20px;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .step h3 {
+      color: var(--navy);
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* =========================
+       TWO AUDIENCES
+    ========================= */
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .audience-card {
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 27px;
+      background: white;
+    }
+
+    .audience-card.blue {
+      background: #f5f9ff;
+      border-color: #dbe8fb;
+    }
+
+    .audience-card h2 {
+      color: var(--navy);
+      font-size: 23px;
+      margin-bottom: 9px;
+    }
+
+    .audience-card p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .audience-list {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+
+    .audience-list li {
+      font-size: 13px;
+      color: #536177;
+      margin-bottom: 8px;
+    }
+
+    /* =========================
+       WHY
+    ========================= */
 
     .why {
-      background: #111c31;
-      color: #ffffff;
-    }
-
-    .why .section-heading h2 {
-      color: #ffffff;
-    }
-
-    .why .section-heading p {
-      color: #b8c2d3;
+      background: var(--light);
     }
 
     .why-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
     }
 
     .why-card {
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 15px;
-      padding: 24px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 20px;
     }
 
     .why-card h3 {
-      font-size: 17px;
-      margin-bottom: 8px;
+      color: var(--navy);
+      font-size: 15px;
+      margin-bottom: 6px;
     }
 
     .why-card p {
+      color: var(--muted);
       font-size: 13px;
-      color: #b8c2d3;
     }
 
-    /* ================= FAQ ================= */
+    /* =========================
+       FAQ
+    ========================= */
 
     .faq {
-      background: #ffffff;
+      max-width: 800px;
     }
 
-    .faq-list {
-      max-width: 850px;
-      margin: auto;
-      display: grid;
-      gap: 12px;
+    .faq-item {
+      border-bottom: 1px solid var(--border);
     }
 
-    details {
-      border: 1px solid #e2e8f0;
-      border-radius: 13px;
-      background: #ffffff;
-      overflow: hidden;
-    }
-
-    summary {
-      cursor: pointer;
-      list-style: none;
-      padding: 20px 22px;
-      font-weight: 800;
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: 0;
+      padding: 18px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+      color: var(--navy);
       font-size: 15px;
-      position: relative;
-      padding-right: 50px;
+      font-weight: 700;
+      cursor: pointer;
     }
 
-    summary::-webkit-details-marker {
+    .faq-plus {
+      color: var(--blue);
+      font-size: 20px;
+      margin-left: 15px;
+    }
+
+    .faq-answer {
       display: none;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 0 0 18px;
     }
 
-    summary::after {
-      content: "+";
-      position: absolute;
-      right: 22px;
-      top: 15px;
-      font-size: 25px;
-      font-weight: 400;
-      color: #1257d6;
+    .faq-item.open .faq-answer {
+      display: block;
     }
 
-    details[open] summary::after {
-      content: "−";
-    }
+    /* =========================
+       FINAL CTA
+    ========================= */
 
-    details p {
-      padding: 0 22px 20px;
-      color: #667085;
-      font-size: 14px;
-    }
-
-    /* ================= CTA ================= */
-
-    .cta {
-      padding: 75px 0;
-      background: #1257d6;
-      color: #ffffff;
+    .final-cta {
+      padding: 55px 0;
     }
 
     .cta-box {
-      text-align: center;
-      max-width: 760px;
-      margin: auto;
+      background: var(--navy);
+      color: white;
+      border-radius: 15px;
+      padding: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
     }
 
-    .cta h2 {
-      font-size: clamp(32px, 4vw, 48px);
-      line-height: 1.15;
-      margin-bottom: 15px;
+    .cta-box h2 {
+      font-size: 28px;
+      line-height: 1.2;
+      margin-bottom: 8px;
     }
 
-    .cta p {
-      color: #dbe7ff;
-      margin-bottom: 25px;
+    .cta-box p {
+      color: #bdc9da;
+      font-size: 14px;
+      max-width: 580px;
     }
 
-    .cta .btn-primary {
-      background: #ffffff;
-      color: #1257d6;
+    .cta-buttons {
+      display: flex;
+      gap: 9px;
+      flex-shrink: 0;
     }
 
-    .cta .btn-primary:hover {
-      background: #edf3ff;
+    .cta-white {
+      background: white;
+      color: var(--navy);
     }
 
-    .cta .btn-outline {
-      background: transparent;
-      border-color: rgba(255, 255, 255, 0.65);
-      color: #ffffff;
+    .cta-outline {
+      border-color: #53637c;
+      color: white;
     }
 
-    /* ================= FOOTER ================= */
+    /* =========================
+       FOOTER
+    ========================= */
 
     footer {
-      background: #0b1324;
-      color: #ffffff;
-      padding: 55px 0 25px;
+      background: #0b172d;
+      color: white;
+      padding: 42px 0 22px;
     }
 
     .footer-grid {
       display: grid;
-      grid-template-columns: 1.4fr repeat(3, 1fr);
-      gap: 40px;
-      padding-bottom: 40px;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 45px;
+      padding-bottom: 30px;
+    }
+
+    .footer-brand h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .footer-brand h3 span {
+      color: #4e91ff;
     }
 
     .footer-brand p {
-      color: #9eabc0;
-      font-size: 14px;
-      max-width: 330px;
-      margin-top: 12px;
-    }
-
-    .footer-title {
-      font-size: 14px;
-      font-weight: 800;
-      margin-bottom: 15px;
-    }
-
-    .footer-links {
-      display: grid;
-      gap: 10px;
-    }
-
-    .footer-links a {
-      color: #aab5c7;
+      color: #9eacc1;
       font-size: 13px;
+      max-width: 330px;
     }
 
-    .footer-links a:hover {
-      color: #ffffff;
+    .footer-column h4 {
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: #9eacc1;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .footer-column a:hover {
+      color: white;
     }
 
     .footer-bottom {
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 22px;
+      border-top: 1px solid #23334e;
+      padding-top: 18px;
       display: flex;
       justify-content: space-between;
-      gap: 20px;
-      color: #8996aa;
-      font-size: 12px;
+      gap: 15px;
+      color: #8291a8;
+      font-size: 11px;
     }
 
-    /* ================= RESPONSIVE ================= */
+    /* =========================
+       MOBILE
+    ========================= */
 
-    @media (max-width: 980px) {
-      .nav-links,
-      .nav-actions {
-        display: none;
-      }
+    @media (max-width: 850px) {
 
-      .menu-btn {
+      .menu-button {
         display: block;
       }
 
-      .hero-grid,
-      .split {
+      .nav-links {
+        display: none;
+        position: absolute;
+        left: 4%;
+        right: 4%;
+        top: 63px;
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 12px;
+        box-shadow: 0 12px 30px rgba(20,50,90,0.12);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 10px;
+      }
+
+      .nav-button {
+        text-align: center;
+      }
+
+      .hero-grid {
         grid-template-columns: 1fr;
+        gap: 35px;
       }
 
-      .hero-card {
-        max-width: 600px;
-      }
-
-      .service-grid,
-      .assistant-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .steps-grid,
-      .why-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .hero {
+        padding: 52px 0;
       }
 
       .trust-grid {
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .footer-grid {
+      .service-grid,
+      .talent-grid {
         grid-template-columns: repeat(2, 1fr);
+      }
+
+      .steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cta-box {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
 
-    @media (max-width: 620px) {
-      .hero {
-        padding: 65px 0 55px;
+    @media (max-width: 560px) {
+
+      .container {
+        width: 91%;
       }
 
       section {
-        padding: 65px 0;
+        padding: 50px 0;
       }
 
       .hero h1 {
-        font-size: 42px;
-        letter-spacing: -1.7px;
+        font-size: 37px;
+        letter-spacing: -1.4px;
       }
 
       .hero-text {
-        font-size: 16px;
+        font-size: 15px;
       }
 
       .hero-buttons {
@@ -843,21 +880,59 @@
         width: 100%;
       }
 
+      .hero-card {
+        padding: 17px;
+      }
+
+      .trust-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .trust-item {
+        font-size: 11px;
+      }
+
       .service-grid,
-      .assistant-grid,
-      .steps-grid,
-      .why-grid,
-      .trust-grid,
-      .footer-grid {
+      .talent-grid,
+      .steps,
+      .audience-grid,
+      .why-grid {
         grid-template-columns: 1fr;
       }
 
-      .split {
-        gap: 30px;
+      .section-heading h2 {
+        font-size: 27px;
       }
 
-      .info-box {
-        padding: 25px;
+      .audience-card {
+        padding: 22px;
+      }
+
+      .cta-box {
+        padding: 28px 22px;
+      }
+
+      .cta-box h2 {
+        font-size: 24px;
+      }
+
+      .cta-buttons {
+        width: 100%;
+        flex-direction: column;
+      }
+
+      .cta-buttons .btn {
+        width: 100%;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
       }
 
       .footer-bottom {
@@ -869,172 +944,280 @@
 
 <body>
 
-  <!-- ================= NAVBAR ================= -->
+  <!-- =========================
+       NAVBAR
+  ========================== -->
 
   <header>
+
     <div class="container navbar">
 
       <a href="index.html" class="logo">
         Nexa<span>Assist</span>
       </a>
 
-      <nav>
-        <ul class="nav-links">
-          <li><a href="#home">Home</a></li>
-          <li><a href="assistants.html">Find Assistants</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="how-it-works.html">How It Works</a></li>
-          <li><a href="#faq">FAQ</a></li>
-        </ul>
-      </nav>
-
-      <div class="nav-actions">
-        <a href="login.html" class="btn btn-outline">Login</a>
-        <a href="signup.html" class="btn btn-primary">Get Started</a>
-      </div>
-
-      <button class="menu-btn" onclick="toggleMenu()" aria-label="Open menu">
+      <button
+        class="menu-button"
+        id="menuButton"
+        aria-label="Open menu"
+      >
         ☰
       </button>
 
+      <nav class="nav-links" id="navLinks">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="assistants.html">
+          Find Assistants
+        </a>
+
+        <a href="how-it-works.html">
+          How It Works
+        </a>
+
+        <a href="signup.html">
+          Become an Assistant
+        </a>
+
+        <a
+          href="login.html"
+          class="nav-login"
+        >
+          Login
+        </a>
+
+        <a
+          href="signup.html"
+          class="nav-button"
+        >
+          Get Started
+        </a>
+
+      </nav>
+
     </div>
 
-    <div id="mobileMenu" style="display:none; border-top:1px solid #e8edf5; background:#fff;">
-      <div class="container" style="padding:18px 0;">
-        <div style="display:grid; gap:14px;">
-          <a href="#home" onclick="closeMenu()">Home</a>
-          <a href="assistants.html">Find Assistants</a>
-          <a href="#services" onclick="closeMenu()">Services</a>
-          <a href="how-it-works.html">How It Works</a>
-          <a href="#faq" onclick="closeMenu()">FAQ</a>
-          <a href="login.html">Login</a>
-          <a href="signup.html" class="btn btn-primary">Get Started</a>
-        </div>
-      </div>
-    </div>
   </header>
 
-  <!-- ================= HERO ================= -->
 
-  <main id="home">
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <main>
 
     <section class="hero">
+
       <div class="container hero-grid">
 
         <div>
-          <div class="badge">
-            <span class="badge-dot"></span>
+
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
             Built for modern remote teams
           </div>
 
           <h1>
-            Find reliable
-            <span>virtual assistants</span>
-            for your business.
+            Reliable
+            <span>virtual support</span>
+            for growing businesses.
           </h1>
 
           <p class="hero-text">
-            NexaAssist connects businesses with skilled Nigerian virtual
-            assistants who can help with administration, customer support,
+            NexaAssist connects businesses with skilled Nigerian
+            virtual assistants for administration, customer support,
             social media, research and everyday business tasks.
           </p>
 
           <div class="hero-buttons">
-            <a href="assistants.html" class="btn btn-primary">
+
+            <a
+              href="assistants.html"
+              class="btn btn-primary"
+            >
               Find an Assistant
             </a>
 
-            <a href="signup.html" class="btn btn-outline">
+            <a
+              href="signup.html"
+              class="btn btn-secondary"
+            >
               Become an Assistant
             </a>
+
           </div>
 
-          <p class="hero-note">
-            Browse talent, post jobs, review applications and hire through one platform.
-          </p>
+          <div class="hero-note">
+
+            <span>
+              <b class="check">✓</b>
+              Verified profiles
+            </span>
+
+            <span>
+              <b class="check">✓</b>
+              Simple hiring
+            </span>
+
+            <span>
+              <b class="check">✓</b>
+              Direct communication
+            </span>
+
+          </div>
+
         </div>
+
 
         <div class="hero-card">
 
           <div class="hero-card-top">
-            <div class="hero-card-title">Featured talent</div>
-            <div class="available">Available</div>
+
+            <div class="hero-card-title">
+              Featured talent
+            </div>
+
+            <div class="available">
+              AVAILABLE
+            </div>
+
           </div>
 
-          <div class="profile-preview">
-            <div class="avatar">AO</div>
-            <div class="profile-info">
+
+          <div class="talent-card">
+
+            <div class="avatar">
+              AO
+            </div>
+
+            <div class="talent-info">
               <strong>Adaeze Okafor</strong>
-              <span>Operations & Executive Assistant</span>
+              <small>Operations & Executive Assistant</small>
             </div>
-            <div class="rating">Verified</div>
+
+            <div class="verified">
+              ✓ Verified
+            </div>
+
           </div>
 
-          <div class="profile-preview">
-            <div class="avatar">WM</div>
-            <div class="profile-info">
+
+          <div class="talent-card">
+
+            <div class="avatar">
+              WM
+            </div>
+
+            <div class="talent-info">
               <strong>Wisdom Michael Ekiko</strong>
-              <span>Virtual Assistant</span>
+              <small>Virtual Assistant</small>
             </div>
-            <div class="rating">Verified</div>
+
+            <div class="verified">
+              ✓ Verified
+            </div>
+
           </div>
 
-          <div class="profile-preview">
-            <div class="avatar">SC</div>
-            <div class="profile-info">
-              <strong>Social Support</strong>
-              <span>Customer & Social Media Assistance</span>
+
+          <div class="talent-card">
+
+            <div class="avatar">
+              SC
             </div>
-            <div class="rating">Available</div>
+
+            <div class="talent-info">
+              <strong>Social Support</strong>
+              <small>Customer & Social Media Assistance</small>
+            </div>
+
+            <div class="verified">
+              Available
+            </div>
+
+          </div>
+
+
+          <div style="
+            background:#f7f9fc;
+            border-radius:9px;
+            padding:13px;
+            margin-top:12px;
+            color:#68758a;
+            font-size:12px;
+          ">
+            Browse talent, post jobs, review applications and
+            manage your remote work from one platform.
           </div>
 
         </div>
 
       </div>
+
     </section>
 
-    <!-- ================= TRUST ================= -->
 
-    <div class="trust-bar">
+    <!-- =========================
+         TRUST
+    ========================== -->
+
+    <div class="trust-strip">
+
       <div class="container trust-grid">
 
         <div class="trust-item">
-          <strong>Verified Profiles</strong>
-          Review assistant information before hiring.
+          <div class="trust-icon">✓</div>
+          Verified profiles
         </div>
 
         <div class="trust-item">
-          <strong>Simple Hiring</strong>
-          Post jobs and manage applications.
+          <div class="trust-icon">01</div>
+          Simple hiring
         </div>
 
         <div class="trust-item">
-          <strong>Direct Communication</strong>
-          Communicate with hired assistants.
+          <div class="trust-icon">↔</div>
+          Direct communication
         </div>
 
         <div class="trust-item">
-          <strong>Remote Support</strong>
-          Build flexible remote working relationships.
+          <div class="trust-icon">24</div>
+          Remote support
         </div>
 
       </div>
+
     </div>
 
-    <!-- ================= SERVICES ================= -->
 
-    <section class="services" id="services">
+    <!-- =========================
+         SERVICES
+    ========================== -->
+
+    <section class="services">
 
       <div class="container">
 
         <div class="section-heading">
-          <div class="eyebrow">What we offer</div>
-          <h2>Support for the work that keeps your business moving.</h2>
+
+          <div class="section-label">
+            What we offer
+          </div>
+
+          <h2>
+            Support for the work that keeps your business moving.
+          </h2>
+
           <p>
-            Find assistance for everyday business tasks without adding
-            another full-time role to your team.
+            Find assistance for everyday business tasks without
+            adding another full-time role to your team.
           </p>
+
         </div>
+
 
         <div class="service-grid">
 
@@ -1042,7 +1225,7 @@
             <div class="service-icon">VA</div>
             <h3>Virtual Assistance</h3>
             <p>
-              Get help with scheduling, administration, organization and
+              Scheduling, organization, administration and
               everyday business support.
             </p>
           </div>
@@ -1051,8 +1234,7 @@
             <div class="service-icon">CS</div>
             <h3>Customer Support</h3>
             <p>
-              Find assistants who can help manage customer communication
-              and support tasks.
+              Help with customer communication and support tasks.
             </p>
           </div>
 
@@ -1060,8 +1242,8 @@
             <div class="service-icon">SM</div>
             <h3>Social Media</h3>
             <p>
-              Get support with social media tasks, content assistance and
-              audience communication.
+              Social media tasks, content assistance and audience
+              communication.
             </p>
           </div>
 
@@ -1069,8 +1251,8 @@
             <div class="service-icon">AD</div>
             <h3>Administrative Support</h3>
             <p>
-              Delegate repetitive administrative work and stay focused on
-              important business decisions.
+              Delegate repetitive administrative work and stay
+              focused on important decisions.
             </p>
           </div>
 
@@ -1078,8 +1260,8 @@
             <div class="service-icon">RE</div>
             <h3>Research</h3>
             <p>
-              Get help collecting information, organizing research and
-              completing online research tasks.
+              Information gathering, organization and online
+              research support.
             </p>
           </div>
 
@@ -1087,114 +1269,199 @@
             <div class="service-icon">DA</div>
             <h3>Data Assistance</h3>
             <p>
-              Find support for data entry, organization and other
-              structured digital tasks.
+              Data entry, organization and other structured
+              digital tasks.
             </p>
           </div>
 
         </div>
 
       </div>
+
     </section>
 
-    <!-- ================= ASSISTANTS ================= -->
+
+    <!-- =========================
+         TALENT
+    ========================== -->
 
     <section>
 
       <div class="container">
 
         <div class="section-heading">
-          <div class="eyebrow">Meet the talent</div>
-          <h2>Explore assistants ready to help.</h2>
+
+          <div class="section-label">
+            Meet the talent
+          </div>
+
+          <h2>
+            Explore assistants ready to help.
+          </h2>
+
           <p>
-            Browse available talent and learn about the skills they can
-            bring to your business.
+            Browse available talent and learn about the skills
+            they can bring to your business.
           </p>
+
         </div>
 
-        <div class="assistant-grid">
 
-          <div class="assistant-card">
-            <div class="assistant-head">
-              <div class="assistant-avatar">AO</div>
+        <div class="talent-grid">
+
+          <div class="profile-card">
+
+            <div class="profile-top">
+
+              <div class="profile-avatar">
+                AO
+              </div>
+
               <div>
                 <h3>Adaeze Okafor</h3>
-                <div class="role">Operations & Executive Assistant</div>
-                <span class="verified">✓ Verified</span>
+                <div class="profile-role">
+                  Operations & Executive Assistant
+                </div>
               </div>
+
             </div>
+
+            <div class="profile-status">
+              ✓ VERIFIED
+            </div>
+
             <p>
-              Administrative and operational support for businesses that
-              need organized remote assistance.
+              Administrative and operational support for businesses
+              that need organized remote assistance.
             </p>
-            <a href="assistants.html" class="assistant-link">
+
+            <a
+              href="assistants.html"
+              class="profile-link"
+            >
               View assistants →
             </a>
+
           </div>
 
-          <div class="assistant-card">
-            <div class="assistant-head">
-              <div class="assistant-avatar">WM</div>
+
+          <div class="profile-card">
+
+            <div class="profile-top">
+
+              <div class="profile-avatar">
+                WM
+              </div>
+
               <div>
                 <h3>Wisdom Michael Ekiko</h3>
-                <div class="role">Virtual Assistant</div>
-                <span class="verified">✓ Verified</span>
+                <div class="profile-role">
+                  Virtual Assistant
+                </div>
               </div>
+
             </div>
+
+            <div class="profile-status">
+              ✓ VERIFIED
+            </div>
+
             <p>
-              Flexible virtual assistance for administrative, customer
-              support and online business tasks.
+              Flexible virtual assistance for administrative,
+              customer support and online business tasks.
             </p>
-            <a href="assistants.html" class="assistant-link">
+
+            <a
+              href="assistants.html"
+              class="profile-link"
+            >
               View assistants →
             </a>
+
           </div>
 
-          <div class="assistant-card">
-            <div class="assistant-head">
-              <div class="assistant-avatar">SC</div>
+
+          <div class="profile-card">
+
+            <div class="profile-top">
+
+              <div class="profile-avatar">
+                SC
+              </div>
+
               <div>
                 <h3>Social Support</h3>
-                <div class="role">Customer & Social Media Support</div>
-                <span class="verified">✓ Available</span>
+                <div class="profile-role">
+                  Customer & Social Media Support
+                </div>
               </div>
+
             </div>
+
+            <div class="profile-status">
+              ✓ AVAILABLE
+            </div>
+
             <p>
-              Support for customer communication, social media and
-              everyday online business activities.
+              Support for customer communication, social media
+              and everyday online business activities.
             </p>
-            <a href="assistants.html" class="assistant-link">
+
+            <a
+              href="assistants.html"
+              class="profile-link"
+            >
               View assistants →
             </a>
+
           </div>
 
         </div>
 
-        <div style="text-align:center; margin-top:30px;">
-          <a href="assistants.html" class="btn btn-primary">
+
+        <div class="center-button">
+
+          <a
+            href="assistants.html"
+            class="btn btn-primary"
+          >
             Browse All Assistants
           </a>
+
         </div>
 
       </div>
+
     </section>
 
-    <!-- ================= HOW IT WORKS ================= -->
 
-    <section class="steps" id="how-it-works">
+    <!-- =========================
+         HOW IT WORKS
+    ========================== -->
+
+    <section class="how">
 
       <div class="container">
 
         <div class="section-heading">
-          <div class="eyebrow">How it works</div>
-          <h2>A simpler way to find remote support.</h2>
+
+          <div class="section-label">
+            How it works
+          </div>
+
+          <h2>
+            A simpler way to find remote support.
+          </h2>
+
           <p>
-            NexaAssist brings the main steps of finding and working with
-            an assistant into one platform.
+            NexaAssist brings the main steps of finding and working
+            with an assistant into one platform.
           </p>
+
         </div>
 
-        <div class="steps-grid">
+
+        <div class="steps">
 
           <div class="step">
             <div class="step-number">1</div>
@@ -1208,8 +1475,7 @@
             <div class="step-number">2</div>
             <h3>Find or post a job</h3>
             <p>
-              Customers can browse assistants or publish a job for
-              assistants to apply to.
+              Browse assistants or publish a job for assistants to apply to.
             </p>
           </div>
 
@@ -1217,8 +1483,7 @@
             <div class="step-number">3</div>
             <h3>Review applications</h3>
             <p>
-              Customers can review applications and select the assistant
-              that fits their needs.
+              Review applications and select the assistant that fits your needs.
             </p>
           </div>
 
@@ -1226,346 +1491,363 @@
             <div class="step-number">4</div>
             <h3>Work together</h3>
             <p>
-              Once hired, customers and assistants can communicate and
-              manage their work through the platform.
+              Once hired, communicate and manage your remote work through the platform.
             </p>
           </div>
 
         </div>
 
-        <div style="text-align:center; margin-top:32px;">
-          <a href="how-it-works.html" class="btn btn-outline">
+
+        <div class="center-button">
+
+          <a
+            href="how-it-works.html"
+            class="btn btn-secondary"
+          >
             Learn More
           </a>
+
         </div>
 
       </div>
+
     </section>
 
-    <!-- ================= FOR BUSINESSES ================= -->
+
+    <!-- =========================
+         CUSTOMER / ASSISTANT
+    ========================== -->
 
     <section>
 
-      <div class="container split">
+      <div class="container audience-grid">
 
-        <div class="split-content">
-
-          <div class="eyebrow">For businesses</div>
+        <div class="audience-card blue">
 
           <h2>
-            Get help without building another full-time team.
+            For businesses
           </h2>
 
           <p>
-            Whether you need help with administration, customer support,
-            social media or research, NexaAssist gives you a place to
-            find and manage remote assistance.
+            Get help without building another full-time team.
           </p>
 
-          <ul class="check-list">
-            <li>
-              <span class="check">✓</span>
-              Browse assistant profiles and skills.
-            </li>
-            <li>
-              <span class="check">✓</span>
-              Post specific jobs and receive applications.
-            </li>
-            <li>
-              <span class="check">✓</span>
-              Review applicants before hiring.
-            </li>
-            <li>
-              <span class="check">✓</span>
-              Communicate with hired assistants.
-            </li>
+          <ul class="audience-list">
+
+            <li>✓ Browse assistant profiles and skills.</li>
+            <li>✓ Post specific jobs and receive applications.</li>
+            <li>✓ Review applicants before hiring.</li>
+            <li>✓ Communicate with hired assistants.</li>
+
           </ul>
 
-          <a href="signup.html" class="btn btn-primary">
+          <a
+            href="signup.html"
+            class="btn btn-primary"
+          >
             Start as a Customer
           </a>
 
         </div>
 
-        <div class="info-box">
 
-          <h3>One place for your remote support.</h3>
-
-          <p>
-            From finding talent to managing applications and hiring,
-            NexaAssist is designed to keep the process organized.
-          </p>
-
-          <div class="info-points">
-            <div class="info-point">
-              ✓ Browse assistants
-            </div>
-
-            <div class="info-point">
-              ✓ Post jobs
-            </div>
-
-            <div class="info-point">
-              ✓ Review applications
-            </div>
-
-            <div class="info-point">
-              ✓ Hire and communicate
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ================= FOR ASSISTANTS ================= -->
-
-    <section class="services">
-
-      <div class="container split">
-
-        <div class="info-box">
-
-          <h3>Turn your skills into remote opportunities.</h3>
-
-          <p>
-            Nigerian professionals and virtual assistants can create
-            profiles, discover available jobs and apply for opportunities.
-          </p>
-
-          <div class="info-points">
-            <div class="info-point">
-              ✓ Create your assistant profile
-            </div>
-
-            <div class="info-point">
-              ✓ Showcase your skills
-            </div>
-
-            <div class="info-point">
-              ✓ Browse available jobs
-            </div>
-
-            <div class="info-point">
-              ✓ Apply for opportunities
-            </div>
-          </div>
-
-        </div>
-
-        <div class="split-content">
-
-          <div class="eyebrow">For assistants</div>
+        <div class="audience-card">
 
           <h2>
-            Build your remote work profile on NexaAssist.
+            For assistants
           </h2>
 
           <p>
-            Create a professional profile and connect your skills with
-            businesses looking for remote support.
+            Build your remote work profile and connect with businesses.
           </p>
 
-          <ul class="check-list">
-            <li>
-              <span class="check">✓</span>
-              Build your professional profile.
-            </li>
+          <ul class="audience-list">
 
-            <li>
-              <span class="check">✓</span>
-              Find relevant jobs.
-            </li>
+            <li>✓ Create your assistant profile.</li>
+            <li>✓ Showcase your skills.</li>
+            <li>✓ Browse available jobs.</li>
+            <li>✓ Apply for opportunities.</li>
 
-            <li>
-              <span class="check">✓</span>
-              Submit applications.
-            </li>
-
-            <li>
-              <span class="check">✓</span>
-              Manage hired work through your account.
-            </li>
           </ul>
 
-          <a href="signup.html" class="btn btn-primary">
+          <a
+            href="signup.html"
+            class="btn btn-secondary"
+          >
             Become an Assistant
           </a>
 
         </div>
 
       </div>
+
     </section>
 
-    <!-- ================= WHY NEXAASSIST ================= -->
+
+    <!-- =========================
+         WHY NEXAASSIST
+    ========================== -->
 
     <section class="why">
 
       <div class="container">
 
         <div class="section-heading">
-          <div class="eyebrow">Why NexaAssist</div>
-          <h2>Built around a simple remote-work experience.</h2>
+
+          <div class="section-label">
+            Why NexaAssist
+          </div>
+
+          <h2>
+            Built around a simple remote-work experience.
+          </h2>
+
           <p>
-            The platform is designed to connect businesses and assistants
-            through a clear marketplace workflow.
+            The platform connects businesses and assistants through
+            a clear marketplace workflow.
           </p>
+
         </div>
+
 
         <div class="why-grid">
 
           <div class="why-card">
             <h3>Verified Profiles</h3>
             <p>
-              Assistant verification can help customers identify profiles
-              that have been reviewed by the platform.
+              Assistant verification helps customers identify
+              profiles reviewed by the platform.
             </p>
           </div>
 
           <div class="why-card">
             <h3>Simple Workflow</h3>
             <p>
-              Browse, post, apply, review and hire without unnecessary
-              steps.
+              Browse, post, apply, review and hire without
+              unnecessary steps.
             </p>
           </div>
 
           <div class="why-card">
             <h3>Built for Remote Work</h3>
             <p>
-              Connect businesses with Nigerian talent for online support
-              and digital work.
+              Connect businesses with Nigerian talent for online
+              support and digital work.
             </p>
           </div>
 
           <div class="why-card">
             <h3>Communication</h3>
             <p>
-              Customers and hired assistants can communicate through the
-              platform.
+              Customers and hired assistants can communicate
+              through the platform.
             </p>
           </div>
 
         </div>
 
       </div>
+
     </section>
 
-    <!-- ================= FAQ ================= -->
 
-    <section class="faq" id="faq">
+    <!-- =========================
+         FAQ
+    ========================== -->
+
+    <section id="faq">
 
       <div class="container">
 
         <div class="section-heading">
-          <div class="eyebrow">FAQ</div>
-          <h2>Questions people may have about NexaAssist.</h2>
+
+          <div class="section-label">
+            FAQ
+          </div>
+
+          <h2>
+            Questions people may have about NexaAssist.
+          </h2>
+
           <p>
-            Here are some of the common questions a new customer or
-            assistant may have.
+            A few answers to help new customers and assistants
+            understand the platform.
           </p>
+
         </div>
 
-        <div class="faq-list">
 
-          <details>
-            <summary>What is NexaAssist?</summary>
-            <p>
-              NexaAssist is a marketplace designed to connect businesses
-              with Nigerian virtual assistants for remote business support.
-            </p>
-          </details>
+        <div class="faq">
 
-          <details>
-            <summary>Who can use NexaAssist?</summary>
-            <p>
-              Businesses can use NexaAssist to find remote assistance,
-              while qualified individuals can create assistant profiles
-              and apply for available opportunities.
-            </p>
-          </details>
+          <div class="faq-item">
 
-          <details>
-            <summary>What services can assistants provide?</summary>
-            <p>
+            <button class="faq-question">
+              What is NexaAssist?
+              <span class="faq-plus">+</span>
+            </button>
+
+            <div class="faq-answer">
+              NexaAssist is a marketplace designed to connect
+              businesses with Nigerian virtual assistants for
+              remote business support.
+            </div>
+
+          </div>
+
+
+          <div class="faq-item">
+
+            <button class="faq-question">
+              Who can use NexaAssist?
+              <span class="faq-plus">+</span>
+            </button>
+
+            <div class="faq-answer">
+              Businesses can use NexaAssist to find remote
+              assistance, while qualified individuals can create
+              assistant profiles and apply for available opportunities.
+            </div>
+
+          </div>
+
+
+          <div class="faq-item">
+
+            <button class="faq-question">
+              What services can assistants provide?
+              <span class="faq-plus">+</span>
+            </button>
+
+            <div class="faq-answer">
               Services can include virtual assistance, administration,
-              customer support, social media assistance, research, data
-              assistance and other online business tasks.
-            </p>
-          </details>
+              customer support, social media assistance, research,
+              data assistance and other online business tasks.
+            </div>
 
-          <details>
-            <summary>Can a customer post a job?</summary>
-            <p>
-              Yes. Customers with an account can create jobs and receive
-              applications from assistants.
-            </p>
-          </details>
+          </div>
 
-          <details>
-            <summary>How does hiring work?</summary>
-            <p>
-              A customer can review applications received for a job and
-              select an assistant. Once the assistant is hired, the job
-              becomes assigned and the parties can communicate through
-              the platform.
-            </p>
-          </details>
 
-          <details>
-            <summary>Are assistants verified?</summary>
-            <p>
+          <div class="faq-item">
+
+            <button class="faq-question">
+              Can a customer post a job?
+              <span class="faq-plus">+</span>
+            </button>
+
+            <div class="faq-answer">
+              Yes. Customers with an account can create jobs and
+              receive applications from assistants.
+            </div>
+
+          </div>
+
+
+          <div class="faq-item">
+
+            <button class="faq-question">
+              How does hiring work?
+              <span class="faq-plus">+</span>
+            </button>
+
+            <div class="faq-answer">
+              A customer can review applications received for a job
+              and select an assistant. Once hired, the job becomes
+              assigned and the parties can communicate through the platform.
+            </div>
+
+          </div>
+
+
+          <div class="faq-item">
+
+            <button class="faq-question">
+              Are assistants verified?
+              <span class="faq-plus">+</span>
+            </button>
+
+            <div class="faq-answer">
               NexaAssist includes an administration verification system
               that allows assistant profiles to be reviewed and verified.
-            </p>
-          </details>
+            </div>
 
-          <details>
-            <summary>How does payment work?</summary>
-            <p>
-              Payment integration is currently the next development stage
-              of the NexaAssist platform. The marketplace workflow is
-              already being developed separately from the payment system.
-            </p>
-          </details>
+          </div>
 
-          <details>
-            <summary>Is it free to create an account?</summary>
-            <p>
-              Account creation is currently available through the signup
-              system. Any future platform fees or payment arrangements
-              will be clearly communicated before they are introduced.
-            </p>
-          </details>
+
+          <div class="faq-item">
+
+            <button class="faq-question">
+              How does payment work?
+              <span class="faq-plus">+</span>
+            </button>
+
+            <div class="faq-answer">
+              Payment integration is a planned development stage.
+              The marketplace workflow is being developed separately
+              from the payment system.
+            </div>
+
+          </div>
+
+
+          <div class="faq-item">
+
+            <button class="faq-question">
+              Is it free to create an account?
+              <span class="faq-plus">+</span>
+            </button>
+
+            <div class="faq-answer">
+              Account creation is currently available through the
+              signup system. Any future platform fees or payment
+              arrangements will be clearly communicated before they
+              are introduced.
+            </div>
+
+          </div>
 
         </div>
 
       </div>
+
     </section>
 
-    <!-- ================= CTA ================= -->
 
-    <section class="cta">
+    <!-- =========================
+         FINAL CTA
+    ========================== -->
+
+    <section class="final-cta">
 
       <div class="container">
 
         <div class="cta-box">
 
-          <h2>Ready to explore NexaAssist?</h2>
+          <div>
 
-          <p>
-            Find remote support for your business or create your assistant
-            profile and start exploring opportunities.
-          </p>
+            <h2>
+              Ready to explore NexaAssist?
+            </h2>
 
-          <div class="hero-buttons" style="justify-content:center;">
+            <p>
+              Find remote support for your business or create your
+              assistant profile and start exploring opportunities.
+            </p>
 
-            <a href="assistants.html" class="btn btn-primary">
+          </div>
+
+          <div class="cta-buttons">
+
+            <a
+              href="assistants.html"
+              class="btn cta-white"
+            >
               Find an Assistant
             </a>
 
-            <a href="signup.html" class="btn btn-outline">
+            <a
+              href="signup.html"
+              class="btn cta-outline"
+            >
               Create an Account
             </a>
 
@@ -1574,11 +1856,15 @@
         </div>
 
       </div>
+
     </section>
 
   </main>
 
-  <!-- ================= FOOTER ================= -->
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
 
   <footer>
 
@@ -1588,57 +1874,75 @@
 
         <div class="footer-brand">
 
-          <div class="logo" style="color:#ffffff;">
-            Nexa<span style="color:#9eabc0;">Assist</span>
-          </div>
+          <h3>
+            Nexa<span>Assist</span>
+          </h3>
 
           <p>
-            Connecting businesses with Nigerian virtual assistants for
-            reliable remote support.
+            Connecting businesses with Nigerian virtual assistants
+            for reliable remote support.
           </p>
 
         </div>
 
-        <div>
-          <div class="footer-title">Platform</div>
 
-          <div class="footer-links">
-            <a href="index.html">Home</a>
-            <a href="assistants.html">Find Assistants</a>
-            <a href="how-it-works.html">How It Works</a>
-            <a href="#faq">FAQ</a>
-          </div>
+        <div class="footer-column">
+
+          <h4>Platform</h4>
+
+          <a href="index.html">
+            Home
+          </a>
+
+          <a href="assistants.html">
+            Find Assistants
+          </a>
+
+          <a href="how-it-works.html">
+            How It Works
+          </a>
+
+          <a href="index.html#faq">
+            FAQ
+          </a>
+
         </div>
 
-        <div>
-          <div class="footer-title">Account</div>
 
-          <div class="footer-links">
-            <a href="signup.html">Create Account</a>
-            <a href="login.html">Login</a>
-          </div>
-        </div>
+        <div class="footer-column">
 
-        <div>
-          <div class="footer-title">NexaAssist</div>
+          <h4>Account</h4>
 
-          <div class="footer-links">
-            <a href="demo.html">Project Demo</a>
-            <a href="admin.html">Admin</a>
-          </div>
+          <a href="signup.html">
+            Create Account
+          </a>
+
+          <a href="login.html">
+            Login
+          </a>
+
+          <a href="demo.html">
+            Project Demo
+          </a>
+
+          <a href="admin.html">
+            Admin
+          </a>
+
         </div>
 
       </div>
 
+
       <div class="footer-bottom">
 
-        <div>
+        <span>
           © 2026 NexaAssist. All rights reserved.
-        </div>
+        </span>
 
-        <div>
+        <span>
           Built for remote work.
-        </div>
+        </span>
 
       </div>
 
@@ -1646,20 +1950,99 @@
 
   </footer>
 
+
   <script>
-    function toggleMenu() {
-      const menu = document.getElementById("mobileMenu");
 
-      if (menu.style.display === "none" || menu.style.display === "") {
-        menu.style.display = "block";
-      } else {
-        menu.style.display = "none";
+    /* =========================
+       MOBILE MENU
+    ========================== */
+
+    const menuButton =
+      document.getElementById("menuButton");
+
+    const navLinks =
+      document.getElementById("navLinks");
+
+
+    menuButton.addEventListener(
+      "click",
+      function() {
+
+        navLinks.classList.toggle("active");
+
       }
-    }
+    );
 
-    function closeMenu() {
-      document.getElementById("mobileMenu").style.display = "none";
-    }
+
+    document
+      .querySelectorAll(".nav-links a")
+      .forEach(function(link) {
+
+        link.addEventListener(
+          "click",
+          function() {
+
+            navLinks.classList.remove("active");
+
+          }
+        );
+
+      });
+
+
+    /* =========================
+       FAQ
+    ========================== */
+
+    document
+      .querySelectorAll(".faq-question")
+      .forEach(function(question) {
+
+        question.addEventListener(
+          "click",
+          function() {
+
+            const item =
+              question.parentElement;
+
+            const wasOpen =
+              item.classList.contains("open");
+
+
+            document
+              .querySelectorAll(".faq-item")
+              .forEach(function(other) {
+
+                other.classList.remove("open");
+
+                const plus =
+                  other.querySelector(".faq-plus");
+
+                if (plus) {
+                  plus.textContent = "+";
+                }
+
+              });
+
+
+            if (!wasOpen) {
+
+              item.classList.add("open");
+
+              const plus =
+                question.querySelector(".faq-plus");
+
+              if (plus) {
+                plus.textContent = "−";
+              }
+
+            }
+
+          }
+        );
+
+      });
+
   </script>
 
 </body>
