@@ -35,7 +35,6 @@
       color: #1769e0;
       font-size: 24px;
       font-weight: 800;
-      letter-spacing: -0.5px;
     }
 
     .home-link {
@@ -362,103 +361,235 @@
   </main>
 
   <script>
-    const API_URL = "https://nexaassist-backend-new-1.onrender.com";
+    const API_URL =
+      "https://nexaassist-backend-new-1.onrender.com";
 
-    const signupForm = document.getElementById("signupForm");
-    const message = document.getElementById("message");
-    const signupBtn = document.getElementById("signupBtn");
+    const signupForm =
+      document.getElementById("signupForm");
+
+    const message =
+      document.getElementById("message");
+
+    const signupBtn =
+      document.getElementById("signupBtn");
+
 
     function showMessage(text, type) {
+
       message.textContent = text;
-      message.className = "message " + type;
+
+      message.className =
+        "message " + type;
+
     }
 
-    signupForm.addEventListener("submit", async function(event) {
-      event.preventDefault();
 
-      const fullName = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const role = document.getElementById("role").value;
-      const password = document.getElementById("password").value;
-      const confirmPassword = document.getElementById("confirmPassword").value;
+    signupForm.addEventListener(
+      "submit",
+      async function(event) {
 
-      if (!fullName || !email || !role || !password || !confirmPassword) {
-        showMessage("Please complete all fields.", "error");
-        return;
-      }
+        event.preventDefault();
 
-      if (password.length < 6) {
-        showMessage("Password must be at least 6 characters.", "error");
-        return;
-      }
 
-      if (password !== confirmPassword) {
-        showMessage("Passwords do not match.", "error");
-        return;
-      }
+        const fullName =
+          document.getElementById("name")
+            .value
+            .trim();
 
-      signupBtn.disabled = true;
-      signupBtn.textContent = "Creating Account...";
+        const email =
+          document.getElementById("email")
+            .value
+            .trim();
 
-      message.className = "message";
-      message.textContent = "";
+        const role =
+          document.getElementById("role")
+            .value;
 
-      try {
-        const response = await fetch(`${API_URL}/signup`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            fullName,
-            email,
-            password,
-            role
-          })
-        });
+        const password =
+          document.getElementById("password")
+            .value;
 
-        let data = {};
+        const confirmPassword =
+          document.getElementById("confirmPassword")
+            .value;
 
-        try {
-          data = await response.json();
-        } catch (error) {
-          data = {};
-        }
 
-        if (!response.ok) {
+        if (
+          !fullName ||
+          !email ||
+          !role ||
+          !password ||
+          !confirmPassword
+        ) {
+
           showMessage(
-            data.message || data.error || "Unable to create your account. Please try again.",
+            "Please fill in all fields.",
             "error"
           );
 
-          signupBtn.disabled = false;
-          signupBtn.textContent = "Create Account";
           return;
         }
 
-        showMessage(
-          "Account created successfully. Redirecting you to login...",
-          "success"
-        );
 
-        signupForm.reset();
+        if (password.length < 6) {
 
-        setTimeout(function() {
-          window.location.href = "login.html";
-        }, 1200);
+          showMessage(
+            "Password must be at least 6 characters.",
+            "error"
+          );
 
-      } catch (error) {
-        console.error("Signup error:", error);
+          return;
+        }
 
-        showMessage(
-          "Unable to connect to NexaAssist right now. Please try again.",
-          "error"
-        );
 
-        signupBtn.disabled = false;
-        signupBtn.textContent = "Create Account";
+        if (password !== confirmPassword) {
+
+          showMessage(
+            "Passwords do not match.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        signupBtn.disabled = true;
+
+        signupBtn.textContent =
+          "Creating Account...";
+
+
+        message.className =
+          "message";
+
+        message.textContent =
+          "";
+
+
+        try {
+
+          const response =
+            await fetch(
+              `${API_URL}/signup`,
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+
+                  fullName:
+                    fullName,
+
+                  email:
+                    email,
+
+                  role:
+                    role,
+
+                  password:
+                    password,
+
+                  confirmPassword:
+                    confirmPassword
+
+                })
+              }
+            );
+
+
+          let data = {};
+
+
+          try {
+
+            data =
+              await response.json();
+
+          } catch (error) {
+
+            data = {};
+
+          }
+
+
+          if (!response.ok) {
+
+            showMessage(
+
+              data.message ||
+              data.error ||
+              "Unable to create your account. Please try again.",
+
+              "error"
+
+            );
+
+
+            signupBtn.disabled =
+              false;
+
+            signupBtn.textContent =
+              "Create Account";
+
+            return;
+
+          }
+
+
+          showMessage(
+
+            "Account created successfully. Redirecting you to login...",
+
+            "success"
+
+          );
+
+
+          signupForm.reset();
+
+
+          setTimeout(
+            function() {
+
+              window.location.href =
+                "login.html";
+
+            },
+            1200
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "Signup error:",
+            error
+          );
+
+
+          showMessage(
+
+            "Unable to connect to NexaAssist right now. Please try again.",
+
+            "error"
+
+          );
+
+
+          signupBtn.disabled =
+            false;
+
+          signupBtn.textContent =
+            "Create Account";
+
+        }
+
       }
-    });
+    );
   </script>
 
 </body>
