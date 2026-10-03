@@ -1,332 +1,578 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - NexaAssist</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 430px;
-      background: white;
-      padding: 35px 28px;
-      border-radius: 14px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    }
-
-    .logo {
-      text-align: center;
-      color: #1769aa;
-      font-size: 30px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    .subtitle {
-      text-align: center;
-      color: #666;
-      margin-bottom: 28px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 7px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    input {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      margin-bottom: 18px;
-      font-size: 16px;
-    }
-
-    button {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 8px;
-      background: #1769aa;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:disabled {
-      opacity: 0.6;
-    }
-
-    #message {
-      margin-top: 15px;
-      text-align: center;
-      font-size: 14px;
-    }
-
-    .signup {
-      text-align: center;
-      margin-top: 20px;
-      color: #666;
-    }
-
-    .signup a {
-      color: #1769aa;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
-</head>
-
-<body>
-
-<div class="container">
-
-  <div class="logo">NexaAssist</div>
-
-  <div class="subtitle">
-    Sign in to your account
-  </div>
-
-  <form id="loginForm">
-
-    <label for="email">Email</label>
-
-    <input
-      type="email"
-      id="email"
-      placeholder="Enter your email"
-      required
-    >
-
-    <label for="password">Password</label>
-
-    <input
-      type="password"
-      id="password"
-      placeholder="Enter your password"
-      required
-    >
-
-    <button type="submit" id="loginButton">
-      Login
-    </button>
-
-  </form>
-
-  <div id="message"></div>
-
-  <div class="signup">
-    Don't have an account?
-    <a href="signup.html">Create one</a>
-  </div>
-
-</div>
-
-<script>
-
-const API =
-  "https://nexaassist-backend-new-1.onrender.com";
-
-const form =
-  document.getElementById("loginForm");
-
-const button =
-  document.getElementById("loginButton");
-
-const message =
-  document.getElementById("message");
-
-
-form.addEventListener("submit", async function(event) {
-
-  event.preventDefault();
-
-  const email =
-    document.getElementById("email").value.trim();
-
-  const password =
-    document.getElementById("password").value;
-
-
-  // Clear previous session
-  localStorage.clear();
-
-
-  message.textContent = "Logging in...";
-  message.style.color = "#1769aa";
-
-  button.disabled = true;
-
-
-  try {
-
-    const response = await fetch(
-      API + "/login",
-      {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify({
-          email: email,
-          password: password
-        })
-      }
-    );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message || "Login failed"
-      );
-
-    }
-
-
-    // Get authenticated account information
-    const loggedEmail =
-      String(data.email || email)
-        .trim()
-        .toLowerCase();
-
-    const loggedRole =
-      String(data.role || "")
-        .trim()
-        .toLowerCase();
-
-
-    // Save session
-    localStorage.setItem(
-      "userId",
-      data.id || ""
-    );
-
-    localStorage.setItem(
-      "userEmail",
-      loggedEmail
-    );
-
-    localStorage.setItem(
-      "userName",
-      data.fullName || ""
-    );
-
-    localStorage.setItem(
-      "userRole",
-      loggedRole
-    );
-
-    localStorage.setItem(
-      "email",
-      loggedEmail
-    );
-
-    localStorage.setItem(
-      "role",
-      loggedRole
-    );
-
-
-    message.textContent =
-      "Login successful. Redirecting...";
-
-    message.style.color = "green";
-
-
-    setTimeout(function() {
-
-      // ADMIN
-      if (
-        loggedEmail === "wissywax@gmail.com"
-      ) {
-
-        window.location.replace(
-          "admin.html"
-        );
-
-        return;
-      }
-
-
-      // ASSISTANT
-      if (
-        loggedRole === "assistant"
-      ) {
-
-        window.location.replace(
-          "assistant.html"
-        );
-
-        return;
-      }
-
-
-      // CUSTOMER / CLIENT
-      if (
-        loggedRole === "client" ||
-        loggedRole === "customer"
-      ) {
-
-        window.location.replace(
-          "customer.html"
-        );
-
-        return;
-      }
-
-
-      // Unknown role
-      message.textContent =
-        "Login successful, but your account role could not be identified.";
-
-      message.style.color = "red";
-
-      button.disabled = false;
-
-    }, 700);
-
-
-  } catch (error) {
-
-    message.textContent =
-      error.message ||
-      "Unable to login.";
-
-    message.style.color = "red";
-
-    button.disabled = false;
-
-  }
-
-});
-
-</script>
-
-</body>
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Create Account | NexaAssist</title>    <style>  
+    * {  
+      box-sizing: border-box;  
+      margin: 0;  
+      padding: 0;  
+    }  
+  
+    body {  
+      font-family: Arial, Helvetica, sans-serif;  
+      background: #f5f8fc;  
+      color: #172033;  
+      min-height: 100vh;  
+    }  
+  
+    header {  
+      height: 72px;  
+      background: #ffffff;  
+      border-bottom: 1px solid #e6ebf2;  
+      display: flex;  
+      align-items: center;  
+      justify-content: space-between;  
+      padding: 0 6%;  
+    }  
+  
+    .logo {  
+      text-decoration: none;  
+      color: #1769e0;  
+      font-size: 24px;  
+      font-weight: 800;  
+    }  
+  
+    .home-link {  
+      text-decoration: none;  
+      color: #42526b;  
+      font-size: 14px;  
+      font-weight: 600;  
+    }  
+  
+    .home-link:hover {  
+      color: #1769e0;  
+    }  
+  
+    .page {  
+      min-height: calc(100vh - 72px);  
+      display: flex;  
+      align-items: center;  
+      justify-content: center;  
+      padding: 45px 20px;  
+    }  
+  
+    .signup-card {  
+      width: 100%;  
+      max-width: 480px;  
+      background: #ffffff;  
+      border: 1px solid #e5eaf1;  
+      border-radius: 18px;  
+      padding: 38px;  
+      box-shadow: 0 18px 45px rgba(24, 48, 85, 0.08);  
+    }  
+  
+    .top-icon {  
+      width: 48px;  
+      height: 48px;  
+      margin: 0 auto 18px;  
+      border-radius: 12px;  
+      background: #eaf2ff;  
+      color: #1769e0;  
+      display: flex;  
+      align-items: center;  
+      justify-content: center;  
+      font-size: 21px;  
+      font-weight: 800;  
+    }  
+  
+    h1 {  
+      text-align: center;  
+      font-size: 30px;  
+      line-height: 1.2;  
+      margin-bottom: 9px;  
+      color: #14213d;  
+    }  
+  
+    .subtitle {  
+      text-align: center;  
+      color: #697586;  
+      font-size: 15px;  
+      line-height: 1.6;  
+      margin-bottom: 28px;  
+    }  
+  
+    .field {  
+      margin-bottom: 18px;  
+    }  
+  
+    label {  
+      display: block;  
+      margin-bottom: 8px;  
+      color: #27364d;  
+      font-size: 14px;  
+      font-weight: 700;  
+    }  
+  
+    input,  
+    select {  
+      width: 100%;  
+      height: 48px;  
+      border: 1px solid #d8e0eb;  
+      border-radius: 9px;  
+      background: #ffffff;  
+      color: #172033;  
+      padding: 0 14px;  
+      font-size: 15px;  
+      outline: none;  
+      transition: border-color 0.2s, box-shadow 0.2s;  
+    }  
+  
+    input::placeholder {  
+      color: #9aa5b5;  
+    }  
+  
+    input:focus,  
+    select:focus {  
+      border-color: #1769e0;  
+      box-shadow: 0 0 0 3px rgba(23, 105, 224, 0.10);  
+    }  
+  
+    .password-note {  
+      margin-top: -10px;  
+      margin-bottom: 18px;  
+      color: #7a8699;  
+      font-size: 12px;  
+    }  
+  
+    .signup-btn {  
+      width: 100%;  
+      height: 50px;  
+      border: none;  
+      border-radius: 9px;  
+      background: #1769e0;  
+      color: #ffffff;  
+      font-size: 15px;  
+      font-weight: 700;  
+      cursor: pointer;  
+      transition: background 0.2s, transform 0.1s;  
+    }  
+  
+    .signup-btn:hover {  
+      background: #1257bd;  
+    }  
+  
+    .signup-btn:active {  
+      transform: scale(0.99);  
+    }  
+  
+    .signup-btn:disabled {  
+      opacity: 0.7;  
+      cursor: not-allowed;  
+    }  
+  
+    .message {  
+      display: none;  
+      margin-top: 16px;  
+      padding: 13px 14px;  
+      border-radius: 9px;  
+      text-align: center;  
+      font-size: 14px;  
+      line-height: 1.5;  
+    }  
+  
+    .message.success {  
+      display: block;  
+      background: #eaf8f0;  
+      color: #18794e;  
+      border: 1px solid #ccebd9;  
+    }  
+  
+    .message.error {  
+      display: block;  
+      background: #fff0f0;  
+      color: #c62828;  
+      border: 1px solid #f2d0d0;  
+    }  
+  
+    .login-link {  
+      text-align: center;  
+      margin-top: 23px;  
+      color: #697586;  
+      font-size: 14px;  
+    }  
+  
+    .login-link a {  
+      color: #1769e0;  
+      text-decoration: none;  
+      font-weight: 700;  
+    }  
+  
+    .login-link a:hover {  
+      text-decoration: underline;  
+    }  
+  
+    .back-link {  
+      display: block;  
+      text-align: center;  
+      margin-top: 18px;  
+      color: #7a8699;  
+      text-decoration: none;  
+      font-size: 13px;  
+    }  
+  
+    .back-link:hover {  
+      color: #1769e0;  
+    }  
+  
+    .trust-text {  
+      text-align: center;  
+      margin-top: 22px;  
+      color: #8a95a5;  
+      font-size: 12px;  
+      line-height: 1.5;  
+    }  
+  
+    @media (max-width: 600px) {  
+      header {  
+        padding: 0 5%;  
+      }  
+  
+      .logo {  
+        font-size: 22px;  
+      }  
+  
+      .page {  
+        padding: 28px 16px;  
+      }  
+  
+      .signup-card {  
+        padding: 28px 21px;  
+        border-radius: 15px;  
+      }  
+  
+      h1 {  
+        font-size: 27px;  
+      }  
+    }  
+  </style>  </head>  <body>    <header>  
+    <a href="index.html" class="logo">NexaAssist</a>  
+    <a href="index.html" class="home-link">Home</a>  
+  </header>    <main class="page">  <section class="signup-card">  
+
+  <div class="top-icon">N</div>  
+
+  <h1>Create your account</h1>  
+
+  <p class="subtitle">  
+    Join NexaAssist and connect with opportunities that fit your needs.  
+  </p>  
+
+  <form id="signupForm">  
+
+    <div class="field">  
+      <label for="name">Full Name</label>  
+      <input  
+        type="text"  
+        id="name"  
+        placeholder="Enter your full name"  
+        autocomplete="name"  
+        required  
+      >  
+    </div>  
+
+    <div class="field">  
+      <label for="email">Email Address</label>  
+      <input  
+        type="email"  
+        id="email"  
+        placeholder="you@example.com"  
+        autocomplete="email"  
+        required  
+      >  
+    </div>  
+
+    <div class="field">  
+      <label for="role">Account Type</label>  
+
+      <select id="role" required>  
+        <option value="">Choose your account type</option>  
+        <option value="client">I want to hire a Virtual Assistant</option>  
+        <option value="assistant">I want to become a Virtual Assistant</option>  
+      </select>  
+    </div>  
+
+    <div class="field">  
+      <label for="password">Password</label>  
+
+      <input  
+        type="password"  
+        id="password"  
+        placeholder="Create a password"  
+        autocomplete="new-password"  
+        minlength="6"  
+        required  
+      >  
+    </div>  
+
+    <p class="password-note">  
+      Use at least 6 characters for your password.  
+    </p>  
+
+    <div class="field">  
+      <label for="confirmPassword">Confirm Password</label>  
+
+      <input  
+        type="password"  
+        id="confirmPassword"  
+        placeholder="Enter your password again"  
+        autocomplete="new-password"  
+        minlength="6"  
+        required  
+      >  
+    </div>  
+
+    <button type="submit" class="signup-btn" id="signupBtn">  
+      Create Account  
+    </button>  
+
+    <div id="message" class="message"></div>  
+
+  </form>  
+
+  <p class="login-link">  
+    Already have an account?  
+    <a href="login.html">Log in</a>  
+  </p>  
+
+  <a href="index.html" class="back-link">  
+    ← Back to NexaAssist  
+  </a>  
+
+  <p class="trust-text">  
+    Your account gives you access to the NexaAssist platform.  
+  </p>  
+
+</section>
+
+  </main>    <script>  
+    const API_URL =  
+      "https://nexaassist-backend-new-1.onrender.com";  
+  
+    const signupForm =  
+      document.getElementById("signupForm");  
+  
+    const message =  
+      document.getElementById("message");  
+  
+    const signupBtn =  
+      document.getElementById("signupBtn");  
+  
+  
+    function showMessage(text, type) {  
+  
+      message.textContent = text;  
+  
+      message.className =  
+        "message " + type;  
+  
+    }  
+  
+  
+    signupForm.addEventListener(  
+      "submit",  
+      async function(event) {  
+  
+        event.preventDefault();  
+  
+  
+        const fullName =  
+          document.getElementById("name")  
+            .value  
+            .trim();  
+  
+        const email =  
+          document.getElementById("email")  
+            .value  
+            .trim();  
+  
+        const role =  
+          document.getElementById("role")  
+            .value;  
+  
+        const password =  
+          document.getElementById("password")  
+            .value;  
+  
+        const confirmPassword =  
+          document.getElementById("confirmPassword")  
+            .value;  
+  
+  
+        if (  
+          !fullName ||  
+          !email ||  
+          !role ||  
+          !password ||  
+          !confirmPassword  
+        ) {  
+  
+          showMessage(  
+            "Please fill in all fields.",  
+            "error"  
+          );  
+  
+          return;  
+        }  
+  
+  
+        if (password.length < 6) {  
+  
+          showMessage(  
+            "Password must be at least 6 characters.",  
+            "error"  
+          );  
+  
+          return;  
+        }  
+  
+  
+        if (password !== confirmPassword) {  
+  
+          showMessage(  
+            "Passwords do not match.",  
+            "error"  
+          );  
+  
+          return;  
+        }  
+  
+  
+        signupBtn.disabled = true;  
+  
+        signupBtn.textContent =  
+          "Creating Account...";  
+  
+  
+        message.className =  
+          "message";  
+  
+        message.textContent =  
+          "";  
+  
+  
+        try {  
+  
+          const response =  
+            await fetch(  
+              `${API_URL}/signup`,  
+              {  
+                method: "POST",  
+  
+                headers: {  
+                  "Content-Type":  
+                    "application/json"  
+                },  
+  
+                body: JSON.stringify({  
+  
+                  fullName:  
+                    fullName,  
+  
+                  email:  
+                    email,  
+  
+                  role:  
+                    role,  
+  
+                  password:  
+                    password,  
+  
+                  confirmPassword:  
+                    confirmPassword  
+  
+                })  
+              }  
+            );  
+  
+  
+          let data = {};  
+  
+  
+          try {  
+  
+            data =  
+              await response.json();  
+  
+          } catch (error) {  
+  
+            data = {};  
+  
+          }  
+  
+  
+          if (!response.ok) {  
+  
+            showMessage(  
+  
+              data.message ||  
+              data.error ||  
+              "Unable to create your account. Please try again.",  
+  
+              "error"  
+  
+            );  
+  
+  
+            signupBtn.disabled =  
+              false;  
+  
+            signupBtn.textContent =  
+              "Create Account";  
+  
+            return;  
+  
+          }  
+  
+  
+          showMessage(  
+  
+            "Account created successfully. Redirecting you to login...",  
+  
+            "success"  
+  
+          );  
+  
+  
+          signupForm.reset();  
+  
+  
+          setTimeout(  
+            function() {  
+  
+              window.location.href =  
+                "login.html";  
+  
+            },  
+            1200  
+          );  
+  
+  
+        } catch (error) {  
+  
+          console.error(  
+            "Signup error:",  
+            error  
+          );  
+  
+  
+          showMessage(  
+  
+            "Unable to connect to NexaAssist right now. Please try again.",  
+  
+            "error"  
+  
+          );  
+  
+  
+          signupBtn.disabled =  
+            false;  
+  
+          signupBtn.textContent =  
+            "Create Account";  
+  
+        }  
+  
+      }  
+    );  
+  </script>  </body>  
 </html>
