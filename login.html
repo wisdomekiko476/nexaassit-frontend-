@@ -132,6 +132,7 @@
       padding: 12px 14px;
       border-radius: 8px;
       font-size: 14px;
+      line-height: 1.5;
     }
 
     .message.success {
@@ -204,6 +205,7 @@
 
       <div class="intro">
         <h1>Welcome back</h1>
+
         <p>
           Log in to your NexaAssist account and continue where you left off.
         </p>
@@ -213,6 +215,7 @@
 
         <div class="form-group">
           <label for="email">Email Address</label>
+
           <input
             type="email"
             id="email"
@@ -223,6 +226,7 @@
 
         <div class="form-group">
           <label for="password">Password</label>
+
           <input
             type="password"
             id="password"
@@ -235,6 +239,7 @@
           <label for="role">Account Type</label>
 
           <select id="role" required>
+
             <option value="">
               Choose your account type
             </option>
@@ -250,6 +255,7 @@
             <option value="admin">
               Admin
             </option>
+
           </select>
         </div>
 
@@ -287,7 +293,6 @@
     const API_URL =
       "https://nexaassist-backend-new-1.onrender.com";
 
-
     const CLOUDFLARE_URL =
       "https://nexaassit-frontend.wisdomekiko476.workers.dev";
 
@@ -302,12 +307,21 @@
       document.getElementById("message");
 
 
+    function showMessage(text, type) {
+
+      message.className =
+        "message " + type;
+
+      message.textContent =
+        text;
+    }
+
+
     loginForm.addEventListener(
       "submit",
       async function(event) {
 
         event.preventDefault();
-
 
         const email =
           document.getElementById("email")
@@ -315,39 +329,27 @@
             .trim()
             .toLowerCase();
 
-
         const password =
           document.getElementById("password")
             .value;
-
 
         const role =
           document.getElementById("role")
             .value;
 
 
-        message.className =
-          "message";
-
-        message.textContent =
-          "";
-
-
         if (!email || !password || !role) {
 
-          message.className =
-            "message error";
-
-          message.textContent =
-            "Please fill in all fields.";
+          showMessage(
+            "Please fill in all fields.",
+            "error"
+          );
 
           return;
-
         }
 
 
-        loginButton.disabled =
-          true;
+        loginButton.disabled = true;
 
         loginButton.textContent =
           "Logging in...";
@@ -375,16 +377,8 @@
             );
 
 
-          let data = {};
-
-          try {
-            data =
-              await response.json();
-          }
-
-          catch (error) {
-            data = {};
-          }
+          const data =
+            await response.json();
 
 
           if (!response.ok) {
@@ -393,35 +387,35 @@
               data.message ||
               "Login failed. Please check your details."
             );
-
           }
 
 
           /*
-            SAVE COMPLETE USER DATA
+            GET USER INFORMATION
           */
 
           const loggedInEmail =
             data.email ||
             email;
 
-
           const loggedInName =
             data.fullName ||
             data.name ||
             loggedInEmail.split("@")[0];
-
 
           const loggedInRole =
             data.role ||
             role;
 
 
+          /*
+            SAVE USER DATA
+          */
+
           localStorage.setItem(
             "user",
             JSON.stringify(data)
           );
-
 
           localStorage.setItem(
             "id",
@@ -430,7 +424,6 @@
             ""
           );
 
-
           localStorage.setItem(
             "userId",
             data.id ||
@@ -438,48 +431,40 @@
             ""
           );
 
-
           localStorage.setItem(
             "fullName",
             loggedInName
           );
-
 
           localStorage.setItem(
             "name",
             loggedInName
           );
 
-
           localStorage.setItem(
             "username",
             loggedInName
           );
-
 
           localStorage.setItem(
             "userName",
             loggedInName
           );
 
-
           localStorage.setItem(
             "email",
             loggedInEmail
           );
-
 
           localStorage.setItem(
             "userEmail",
             loggedInEmail
           );
 
-
           localStorage.setItem(
             "role",
             loggedInRole
           );
-
 
           localStorage.setItem(
             "userRole",
@@ -487,42 +472,61 @@
           );
 
 
-          message.className =
-            "message success";
+          /*
+            SHOW SUCCESS
+          */
 
-          message.textContent =
-            "Login successful. Redirecting...";
+          showMessage(
+            "Login successful. Redirecting...",
+            "success"
+          );
 
+
+          /*
+            REDIRECT
+          */
+
+          let destination;
+
+
+          if (loggedInRole === "admin") {
+
+            destination =
+              CLOUDFLARE_URL +
+              "/admin.html";
+
+          }
+
+          else if (
+            loggedInRole === "assistant"
+          ) {
+
+            destination =
+              CLOUDFLARE_URL +
+              "/assistant.html";
+
+          }
+
+          else {
+
+            destination =
+              CLOUDFLARE_URL +
+              "/customer.html";
+
+          }
+
+
+          /*
+            Use direct navigation.
+            This avoids the previous
+            redirect problem.
+          */
 
           setTimeout(function() {
 
-            if (
-              loggedInRole === "admin"
-            ) {
-
-              window.location.href =
-                CLOUDFLARE_URL +
-                "/admin.html";
-
-            }
-
-            else if (
-              loggedInRole === "assistant"
-            ) {
-
-              window.location.href =
-                CLOUDFLARE_URL +
-                "/assistant.html";
-
-            }
-
-            else {
-
-              window.location.href =
-                CLOUDFLARE_URL +
-                "/customer.html";
-
-            }
+            window.location.replace(
+              destination
+            );
 
           }, 700);
 
@@ -537,13 +541,11 @@
           );
 
 
-          message.className =
-            "message error";
-
-
-          message.textContent =
+          showMessage(
             error.message ||
-            "Unable to log in. Please try again.";
+            "Unable to log in. Please try again.",
+            "error"
+          );
 
 
           loginButton.disabled =
@@ -551,7 +553,6 @@
 
           loginButton.textContent =
             "Log In";
-
         }
 
       }
