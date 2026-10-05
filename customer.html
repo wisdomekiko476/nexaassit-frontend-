@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Customer Dashboard - NexaAssist</title>
+  <title>Login | NexaAssist</title>
 
   <style>
     * {
@@ -13,337 +13,195 @@
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f8fc;
       color: #172033;
     }
 
-    nav {
-      background: #1264e5;
-      color: white;
-      padding: 16px 20px;
+    a {
+      text-decoration: none;
+    }
+
+    .navbar {
+      height: 72px;
+      background: #ffffff;
+      border-bottom: 1px solid #e7edf5;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 15px;
-      flex-wrap: wrap;
+      padding: 0 7%;
     }
 
     .logo {
-      font-size: 22px;
-      font-weight: bold;
+      font-size: 23px;
+      font-weight: 800;
+      color: #155eef;
     }
 
-    .nav-links {
+    .home-link {
+      color: #526071;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .home-link:hover {
+      color: #155eef;
+    }
+
+    .page {
+      min-height: calc(100vh - 72px);
       display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a,
-    .nav-links button {
-      color: white;
-      text-decoration: none;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      padding: 8px 10px;
-    }
-
-    .nav-links button:hover,
-    .nav-links a:hover {
-      background: rgba(255,255,255,0.12);
-      border-radius: 6px;
-    }
-
-    .container {
-      width: 92%;
-      max-width: 1100px;
-      margin: 30px auto;
-    }
-
-    .welcome {
-      background: white;
-      border-radius: 14px;
-      padding: 25px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-      margin-bottom: 22px;
-    }
-
-    .welcome h1 {
-      margin: 0 0 8px;
-      font-size: 28px;
-    }
-
-    .welcome p {
-      margin: 5px 0;
-      color: #657084;
-    }
-
-    .actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-
-    .primary-btn,
-    .secondary-btn,
-    .hire-btn,
-    .logout-btn {
-      border: none;
-      border-radius: 8px;
-      padding: 11px 17px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .primary-btn {
-      background: #1264e5;
-      color: white;
-    }
-
-    .secondary-btn {
-      background: #e9f1ff;
-      color: #1264e5;
-    }
-
-    .hire-btn {
-      background: #1264e5;
-      color: white;
-      margin-top: 12px;
-    }
-
-    .hire-btn:disabled {
-      opacity: 0.65;
-      cursor: not-allowed;
-    }
-
-    .logout-btn {
-      background: #dc3545;
-      color: white;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-bottom: 25px;
-    }
-
-    .stat-card {
-      background: white;
-      border-radius: 14px;
-      padding: 22px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    }
-
-    .stat-card h3 {
-      margin: 0;
-      color: #697386;
-      font-size: 14px;
-    }
-
-    .stat-card strong {
-      display: block;
-      font-size: 30px;
-      margin-top: 10px;
-      color: #1264e5;
-    }
-
-    .section {
-      background: white;
-      border-radius: 14px;
-      padding: 22px;
-      margin-bottom: 22px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    }
-
-    .section h2 {
-      margin-top: 0;
-    }
-
-    .loading {
-      color: #657084;
-    }
-
-    .empty {
-      color: #657084;
-      padding: 15px 0;
-    }
-
-    .job-card,
-    .application-card,
-    .hire-card {
-      border: 1px solid #e3e8ef;
-      border-radius: 12px;
-      padding: 18px;
-      margin-bottom: 14px;
-      background: #fbfcff;
-    }
-
-    .job-card h3,
-    .application-card h3,
-    .hire-card h3 {
-      margin-top: 0;
-      margin-bottom: 8px;
-    }
-
-    .job-card p,
-    .application-card p,
-    .hire-card p {
-      margin: 6px 0;
-      color: #5e6879;
-    }
-
-    .status {
-      display: inline-block;
-      padding: 5px 9px;
-      border-radius: 20px;
-      background: #eaf2ff;
-      color: #1264e5;
-      font-size: 12px;
-      font-weight: bold;
-      margin-top: 8px;
-    }
-
-    .status.accepted,
-    .status.hired {
-      background: #e7f8ed;
-      color: #16833b;
-    }
-
-    .status.pending {
-      background: #fff4d6;
-      color: #9b6a00;
-    }
-
-    .status.rejected {
-      background: #fde9eb;
-      color: #c62828;
-    }
-
-    .application-message {
-      margin-top: 10px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
-      z-index: 1000;
-      align-items: center;
       justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-content {
-      background: white;
-      width: 100%;
-      max-width: 550px;
-      max-height: 90vh;
-      overflow-y: auto;
-      border-radius: 15px;
-      padding: 25px;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      padding: 45px 20px;
     }
 
-    .modal-header h2 {
+    .login-card {
+      width: 100%;
+      max-width: 440px;
+      background: #ffffff;
+      border: 1px solid #e5ebf3;
+      border-radius: 18px;
+      padding: 38px;
+      box-shadow: 0 15px 40px rgba(18, 38, 63, 0.08);
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .intro h1 {
+      margin: 0 0 10px;
+      font-size: 30px;
+      color: #172033;
+    }
+
+    .intro p {
       margin: 0;
+      color: #667085;
+      font-size: 15px;
+      line-height: 1.6;
     }
 
-    .close {
-      border: none;
-      background: none;
-      font-size: 28px;
-      cursor: pointer;
-      color: #657084;
+    .form-group {
+      margin-bottom: 18px;
     }
 
     label {
       display: block;
-      margin: 14px 0 6px;
-      font-weight: bold;
+      margin-bottom: 8px;
       font-size: 14px;
+      font-weight: 700;
+      color: #344054;
     }
 
     input,
-    textarea,
     select {
       width: 100%;
-      padding: 12px;
-      border: 1px solid #d5dce6;
-      border-radius: 8px;
+      padding: 13px 14px;
+      border: 1px solid #d0d5dd;
+      border-radius: 9px;
+      background: #ffffff;
       font-size: 15px;
-      font-family: inherit;
+      color: #172033;
       outline: none;
     }
 
     input:focus,
-    textarea:focus,
     select:focus {
-      border-color: #1264e5;
+      border-color: #155eef;
+      box-shadow: 0 0 0 3px rgba(21, 94, 239, 0.10);
     }
 
-    textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-
-    .form-message {
-      margin-top: 12px;
-      font-weight: bold;
-    }
-
-    .form-submit {
+    .login-button {
       width: 100%;
-      margin-top: 18px;
-      background: #1264e5;
-      color: white;
       border: none;
-      border-radius: 8px;
-      padding: 13px;
+      border-radius: 9px;
+      padding: 14px;
+      background: #155eef;
+      color: #ffffff;
       font-size: 15px;
-      font-weight: bold;
+      font-weight: 700;
       cursor: pointer;
+      margin-top: 5px;
     }
 
-    .form-submit:disabled {
-      opacity: 0.65;
+    .login-button:hover {
+      background: #0f4dcc;
+    }
+
+    .login-button:disabled {
+      opacity: 0.7;
       cursor: not-allowed;
     }
 
-    @media (max-width: 750px) {
-      .stats {
-        grid-template-columns: 1fr;
+    .message {
+      display: none;
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .message.success {
+      display: block;
+      background: #ecfdf3;
+      color: #067647;
+      border: 1px solid #abefc6;
+    }
+
+    .message.error {
+      display: block;
+      background: #fef3f2;
+      color: #b42318;
+      border: 1px solid #fecdca;
+    }
+
+    .signup-text {
+      text-align: center;
+      margin: 23px 0 0;
+      font-size: 14px;
+      color: #667085;
+    }
+
+    .signup-text a {
+      color: #155eef;
+      font-weight: 700;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      color: #667085;
+      font-size: 13px;
+    }
+
+    .back-link:hover {
+      color: #155eef;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 22px;
+      font-size: 12px;
+      color: #98a2b3;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        padding: 0 20px;
       }
 
-      .welcome h1 {
-        font-size: 24px;
+      .login-card {
+        padding: 28px 22px;
       }
 
-      nav {
-        align-items: flex-start;
-      }
-
-      .nav-links {
-        width: 100%;
-      }
-
-      .nav-links a,
-      .nav-links button {
-        padding-left: 0;
+      .intro h1 {
+        font-size: 26px;
       }
     }
   </style>
@@ -351,403 +209,171 @@
 
 <body>
 
-  <nav>
-    <div class="logo">NexaAssist</div>
-
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="assistants.html">Assistants</a>
-      <a href="how-it-works.html">How It Works</a>
-      <button class="logout-btn" id="logoutBtn">Logout</button>
-    </div>
+  <nav class="navbar">
+    <a href="index.html" class="logo">NexaAssist</a>
+    <a href="index.html" class="home-link">Home</a>
   </nav>
 
-  <main class="container">
+  <main class="page">
 
-    <section class="welcome">
-      <h1>Welcome back, <span id="userName">Customer</span></h1>
+    <section class="login-card">
 
-      <p>
-        <strong>Email:</strong>
-        <span id="userEmailDisplay">Loading...</span>
-      </p>
+      <div class="intro">
+        <h1>Welcome back</h1>
+        <p>
+          Log in to your NexaAssist account and continue where you left off.
+        </p>
+      </div>
 
-      <div class="actions">
-        <button class="primary-btn" id="openJobModal">
-          Post a Job
+      <form id="loginForm">
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+
+          <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="role">Account Type</label>
+
+          <select id="role" required>
+
+            <option value="">
+              Choose your account type
+            </option>
+
+            <option value="customer">
+              I want to hire a Virtual Assistant
+            </option>
+
+            <option value="assistant">
+              I want to become a Virtual Assistant
+            </option>
+
+            <option value="admin">
+              Admin
+            </option>
+
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="login-button"
+          id="loginButton"
+        >
+          Log In
         </button>
 
-        <a href="assistants.html">
-          <button class="secondary-btn">
-            Hire an Assistant
-          </button>
-        </a>
-      </div>
-    </section>
+        <div id="message" class="message"></div>
 
+      </form>
 
-    <section class="stats">
-
-      <div class="stat-card">
-        <h3>My Jobs</h3>
-        <strong id="jobsCount">0</strong>
-      </div>
-
-      <div class="stat-card">
-        <h3>Applications</h3>
-        <strong id="applicationsCount">0</strong>
-      </div>
-
-      <div class="stat-card">
-        <h3>Hired Assistants</h3>
-        <strong id="hiresCount">0</strong>
-      </div>
-
-    </section>
-
-
-    <section class="section">
-
-      <h2>My Jobs</h2>
-
-      <div id="jobsContainer">
-        <div class="loading">
-          Loading your jobs...
-        </div>
-      </div>
-
-    </section>
-
-
-    <section class="section">
-
-      <h2>Applications</h2>
-
-      <div id="applicationsContainer">
-        <div class="loading">
-          Loading applications...
-        </div>
-      </div>
-
-    </section>
-
-
-    <section class="section">
-
-      <h2>Hired Assistants</h2>
-
-      <div id="hiresContainer">
-        <div class="loading">
-          Loading hired assistants...
-        </div>
-      </div>
-
-    </section>
-
-
-    <section class="section">
-
-      <h2>Need Help?</h2>
-
-      <p>
-        Have questions about hiring a virtual assistant?
-        Contact the NexaAssist team and we'll help you get started.
+      <p class="signup-text">
+        Don't have an account?
+        <a href="signup.html">Create one</a>
       </p>
 
-      <a href="contact.html">
-        <button class="secondary-btn">
-          Contact NexaAssist
-        </button>
+      <a href="index.html" class="back-link">
+        ← Back to NexaAssist
       </a>
+
+      <div class="footer-note">
+        Secure access to your NexaAssist account.
+      </div>
 
     </section>
 
   </main>
 
-
-  <!-- POST JOB MODAL -->
-
-  <div class="modal" id="jobModal">
-
-    <div class="modal-content">
-
-      <div class="modal-header">
-
-        <h2>Post a Job</h2>
-
-        <button
-          class="close"
-          id="closeJobModal"
-          type="button"
-        >
-          &times;
-        </button>
-
-      </div>
-
-
-      <form id="jobForm">
-
-        <label for="jobTitle">
-          Job Title
-        </label>
-
-        <input
-          id="jobTitle"
-          type="text"
-          placeholder="e.g. Social Media Manager"
-          required
-        >
-
-
-        <label for="service">
-          Service
-        </label>
-
-        <select id="service" required>
-
-          <option value="">
-            Select a service
-          </option>
-
-          <option value="Virtual Assistance">
-            Virtual Assistance
-          </option>
-
-          <option value="Social Media">
-            Social Media
-          </option>
-
-          <option value="Customer Support">
-            Customer Support
-          </option>
-
-          <option value="Data Entry">
-            Data Entry
-          </option>
-
-          <option value="Research">
-            Research
-          </option>
-
-          <option value="Content">
-            Content
-          </option>
-
-          <option value="Administrative">
-            Administrative
-          </option>
-
-          <option value="Other">
-            Other
-          </option>
-
-        </select>
-
-
-        <label for="description">
-          Job Description
-        </label>
-
-        <textarea
-          id="description"
-          placeholder="Explain what you need the assistant to do..."
-          required
-        ></textarea>
-
-
-        <label for="budget">
-          Budget
-        </label>
-
-        <input
-          id="budget"
-          type="text"
-          placeholder="e.g. $100"
-          required
-        >
-
-
-        <label for="duration">
-          Duration
-        </label>
-
-        <select id="duration" required>
-
-          <option value="">
-            Select duration
-          </option>
-
-          <option value="Less than one week">
-            Less than one week
-          </option>
-
-          <option value="1 - 4 weeks">
-            1 - 4 weeks
-          </option>
-
-          <option value="1 - 3 months">
-            1 - 3 months
-          </option>
-
-          <option value="3+ months">
-            3+ months
-          </option>
-
-        </select>
-
-
-        <button
-          class="form-submit"
-          type="submit"
-          id="submitJobBtn"
-        >
-          Post Job
-        </button>
-
-        <div
-          class="form-message"
-          id="jobMessage"
-        ></div>
-
-      </form>
-
-    </div>
-
-  </div>
-
-
   <script>
 
-    const API =
+    const API_URL =
       "https://nexaassist-backend-new-1.onrender.com";
 
 
-    /* =========================
-       USER INFORMATION
-    ========================= */
+    const loginForm =
+      document.getElementById("loginForm");
 
-    const userEmail =
-      localStorage.getItem("email") ||
-      localStorage.getItem("userEmail") ||
-      "";
+    const loginButton =
+      document.getElementById("loginButton");
 
-    const userName =
-      localStorage.getItem("fullName") ||
-      localStorage.getItem("name") ||
-      localStorage.getItem("username") ||
-      localStorage.getItem("userName") ||
-      (
-        userEmail
-          ? userEmail.split("@")[0]
-          : "Customer"
-      );
+    const message =
+      document.getElementById("message");
 
 
-    document.getElementById("userName").textContent =
-      userName;
-
-    document.getElementById("userEmailDisplay").textContent =
-      userEmail || "Not available";
-
-
-    /* =========================
-       MODAL
-    ========================= */
-
-    const jobModal =
-      document.getElementById("jobModal");
-
-    document.getElementById("openJobModal")
-      .addEventListener("click", function() {
-
-        jobModal.style.display =
-          "flex";
-
-      });
-
-
-    document.getElementById("closeJobModal")
-      .addEventListener("click", function() {
-
-        jobModal.style.display =
-          "none";
-
-      });
-
-
-    window.addEventListener("click", function(event) {
-
-      if (event.target === jobModal) {
-
-        jobModal.style.display =
-          "none";
-
-      }
-
-    });
-
-
-    /* =========================
-       POST JOB
-    ========================= */
-
-    document.getElementById("jobForm")
-      .addEventListener("submit", async function(event) {
+    loginForm.addEventListener(
+      "submit",
+      async function(event) {
 
         event.preventDefault();
 
-        const submitButton =
-          document.getElementById("submitJobBtn");
 
-        const message =
-          document.getElementById("jobMessage");
+        const email =
+          document.getElementById("email")
+            .value
+            .trim()
+            .toLowerCase();
 
 
-        if (!userEmail) {
+        const password =
+          document.getElementById("password")
+            .value;
+
+
+        const role =
+          document.getElementById("role")
+            .value;
+
+
+        message.className =
+          "message";
+
+        message.textContent =
+          "";
+
+
+        if (!email || !password || !role) {
+
+          message.className =
+            "message error";
 
           message.textContent =
-            "Please log in again before posting a job.";
-
-          message.style.color =
-            "red";
+            "Please fill in all fields.";
 
           return;
 
         }
 
 
-        const jobTitle =
-          document.getElementById("jobTitle").value.trim();
-
-        const service =
-          document.getElementById("service").value;
-
-        const description =
-          document.getElementById("description").value.trim();
-
-        const budget =
-          document.getElementById("budget").value.trim();
-
-        const duration =
-          document.getElementById("duration").value;
-
-
-        submitButton.disabled =
+        loginButton.disabled =
           true;
 
-        submitButton.textContent =
-          "Posting...";
-
-        message.textContent =
-          "";
+        loginButton.textContent =
+          "Logging in...";
 
 
         try {
 
           const response =
             await fetch(
-              API + "/jobs",
+              API_URL + "/login",
               {
                 method: "POST",
 
@@ -757,766 +383,201 @@
                 },
 
                 body: JSON.stringify({
-
-                  customerName:
-                    userName,
-
-                  customerEmail:
-                    userEmail,
-
-                  jobTitle:
-                    jobTitle,
-
-                  service:
-                    service,
-
-                  description:
-                    description,
-
-                  budget:
-                    budget,
-
-                  duration:
-                    duration,
-
-                  status:
-                    "Open"
-
+                  email: email,
+                  password: password,
+                  role: role
                 })
               }
             );
 
 
-          const data =
-            await response.json();
+          let data = {};
+
+          try {
+
+            data =
+              await response.json();
+
+          } catch (error) {
+
+            data = {};
+
+          }
 
 
           if (!response.ok) {
 
             throw new Error(
               data.message ||
-              "Unable to post job."
+              "Login failed. Please check your details."
             );
 
           }
 
 
+          /*
+            SAVE THE COMPLETE USER OBJECT
+          */
+
+          localStorage.setItem(
+            "user",
+            JSON.stringify(data)
+          );
+
+
+          /*
+            SAVE THE KEYS USED BY
+            CUSTOMER/ASSISTANT DASHBOARDS
+          */
+
+          const loggedInEmail =
+            data.email ||
+            email;
+
+
+          const loggedInName =
+            data.fullName ||
+            data.name ||
+            loggedInEmail.split("@")[0];
+
+
+          const loggedInRole =
+            data.role ||
+            role;
+
+
+          localStorage.setItem(
+            "id",
+            data.id ||
+            data._id ||
+            ""
+          );
+
+
+          localStorage.setItem(
+            "fullName",
+            loggedInName
+          );
+
+
+          localStorage.setItem(
+            "name",
+            loggedInName
+          );
+
+
+          localStorage.setItem(
+            "username",
+            loggedInName
+          );
+
+
+          localStorage.setItem(
+            "userName",
+            loggedInName
+          );
+
+
+          localStorage.setItem(
+            "email",
+            loggedInEmail
+          );
+
+
+          localStorage.setItem(
+            "userEmail",
+            loggedInEmail
+          );
+
+
+          localStorage.setItem(
+            "role",
+            loggedInRole
+          );
+
+
+          localStorage.setItem(
+            "userRole",
+            loggedInRole
+          );
+
+
+          localStorage.setItem(
+            "userId",
+            data.id ||
+            data._id ||
+            ""
+          );
+
+
+          message.className =
+            "message success";
+
           message.textContent =
-            "Job posted successfully!";
-
-          message.style.color =
-            "green";
+            "Login successful. Redirecting...";
 
 
-          document.getElementById("jobForm")
-            .reset();
+          setTimeout(
+            function() {
 
+              if (
+                loggedInRole === "admin"
+              ) {
 
-          await loadMyJobs();
+                window.location.href =
+                  "admin.html";
 
+              }
 
-          setTimeout(function() {
+              else if (
+                loggedInRole === "assistant"
+              ) {
 
-            jobModal.style.display =
-              "none";
+                window.location.href =
+                  "assistant.html";
 
-            message.textContent =
-              "";
+              }
 
-          }, 1200);
+              else {
+
+                window.location.href =
+                  "customer.html";
+
+              }
+
+            },
+            700
+          );
 
         }
 
         catch (error) {
 
           console.error(
-            "Post job error:",
+            "Login error:",
             error
           );
 
+
+          message.className =
+            "message error";
+
+
           message.textContent =
             error.message ||
-            "Unable to post job.";
+            "Unable to log in. Please try again.";
 
-          message.style.color =
-            "red";
 
-        }
-
-        finally {
-
-          submitButton.disabled =
+          loginButton.disabled =
             false;
 
-          submitButton.textContent =
-            "Post Job";
+          loginButton.textContent =
+            "Log In";
 
         }
 
-      });
-
-
-    /* =========================
-       LOAD MY JOBS
-    ========================= */
-
-    async function loadMyJobs() {
-
-      const container =
-        document.getElementById("jobsContainer");
-
-
-      try {
-
-        const response =
-          await fetch(
-            API + "/jobs"
-          );
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            "Unable to load jobs."
-          );
-
-        }
-
-
-        const jobs =
-          await response.json();
-
-
-        const myJobs =
-          jobs.filter(function(job) {
-
-            return (
-              String(job.customerEmail || "")
-                .toLowerCase()
-                ===
-              String(userEmail || "")
-                .toLowerCase()
-            );
-
-          });
-
-
-        document.getElementById("jobsCount")
-          .textContent =
-          myJobs.length;
-
-
-        if (!myJobs.length) {
-
-          container.innerHTML =
-            '<div class="empty">You have not posted any jobs yet.</div>';
-
-          return;
-
-        }
-
-
-        container.innerHTML =
-          myJobs.map(function(job) {
-
-            return `
-
-              <div class="job-card">
-
-                <h3>
-                  ${escapeHtml(job.jobTitle || "Untitled Job")}
-                </h3>
-
-                <p>
-                  ${escapeHtml(
-                    job.description ||
-                    "No description provided."
-                  )}
-                </p>
-
-                <p>
-                  <strong>Service:</strong>
-                  ${escapeHtml(job.service || "Not specified")}
-                </p>
-
-                <p>
-                  <strong>Budget:</strong>
-                  ${escapeHtml(job.budget || "Not specified")}
-                </p>
-
-                <p>
-                  <strong>Duration:</strong>
-                  ${escapeHtml(job.duration || "Not specified")}
-                </p>
-
-                <span class="status">
-                  ${escapeHtml(job.status || "Open")}
-                </span>
-
-              </div>
-
-            `;
-
-          }).join("");
-
       }
-
-      catch (error) {
-
-        console.error(
-          "Load jobs error:",
-          error
-        );
-
-        container.innerHTML =
-          '<div class="empty">Unable to load your jobs right now.</div>';
-
-      }
-
-    }
-
-
-    /* =========================
-       LOAD APPLICATIONS
-    ========================= */
-
-    async function loadApplications() {
-
-      const container =
-        document.getElementById(
-          "applicationsContainer"
-        );
-
-
-      try {
-
-        const response =
-          await fetch(
-            API +
-            "/customer-applications?email=" +
-            encodeURIComponent(userEmail)
-          );
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            "Unable to load applications."
-          );
-
-        }
-
-
-        const applications =
-          await response.json();
-
-
-        document.getElementById("applicationsCount")
-          .textContent =
-          applications.length;
-
-
-        if (!applications.length) {
-
-          container.innerHTML =
-            '<div class="empty">No applications yet.</div>';
-
-          return;
-
-        }
-
-
-        container.innerHTML =
-          applications.map(function(application) {
-
-            const applicationId =
-              application._id ||
-              application.id ||
-              "";
-
-
-            const jobId =
-              application.jobId ||
-              (
-                application.job &&
-                (
-                  application.job._id ||
-                  application.job.id
-                )
-              ) ||
-              "";
-
-
-            const status =
-              application.status ||
-              "Pending";
-
-
-            const isPending =
-              String(status).toLowerCase()
-              === "pending";
-
-
-            const statusClass =
-              String(status).toLowerCase();
-
-
-            return `
-
-              <div class="application-card">
-
-                <h3>
-                  ${escapeHtml(
-                    application.jobTitle ||
-                    (
-                      application.job &&
-                      application.job.jobTitle
-                    ) ||
-                    "Job Application"
-                  )}
-                </h3>
-
-                <p>
-                  <strong>Assistant:</strong>
-                  ${escapeHtml(
-                    application.assistantName ||
-                    "Unknown"
-                  )}
-                </p>
-
-                <p>
-                  <strong>Email:</strong>
-                  ${escapeHtml(
-                    application.assistantEmail ||
-                    "Not provided"
-                  )}
-                </p>
-
-                <span class="status ${escapeHtml(statusClass)}">
-                  ${escapeHtml(status)}
-                </span>
-
-
-                ${
-                  isPending
-                  ?
-
-                  `
-
-                    <div>
-
-                      <button
-                        class="hire-btn"
-                        data-application-id="${escapeHtml(applicationId)}"
-                        data-job-id="${escapeHtml(jobId)}"
-                        type="button"
-                      >
-                        Hire Assistant
-                      </button>
-
-                      <div
-                        class="application-message"
-                      ></div>
-
-                    </div>
-
-                  `
-
-                  :
-
-                  ""
-
-                }
-
-              </div>
-
-            `;
-
-          }).join("");
-
-
-        /* CONNECT HIRE BUTTONS */
-
-        container
-          .querySelectorAll(".hire-btn")
-          .forEach(function(button) {
-
-            button.addEventListener(
-              "click",
-              function() {
-
-                const applicationId =
-                  button.dataset.applicationId;
-
-                const jobId =
-                  button.dataset.jobId;
-
-                const messageElement =
-                  button.parentElement
-                    .querySelector(
-                      ".application-message"
-                    );
-
-
-                hireAssistant(
-                  applicationId,
-                  jobId,
-                  button,
-                  messageElement
-                );
-
-              }
-            );
-
-          });
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "Load applications error:",
-          error
-        );
-
-        container.innerHTML =
-          '<div class="empty">Unable to load applications right now.</div>';
-
-      }
-
-    }
-
-
-    /* =========================
-       HIRE ASSISTANT
-    ========================= */
-
-    async function hireAssistant(
-      applicationId,
-      jobId,
-      button,
-      messageElement
-    ) {
-
-      if (
-        !applicationId ||
-        !jobId ||
-        !userEmail
-      ) {
-
-        messageElement.textContent =
-          "Job, application and customer information are required.";
-
-        messageElement.style.color =
-          "red";
-
-        return;
-
-      }
-
-
-      button.disabled =
-        true;
-
-      button.textContent =
-        "Hiring...";
-
-      messageElement.textContent =
-        "Processing hire...";
-
-      messageElement.style.color =
-        "#1264e5";
-
-
-      try {
-
-        const response =
-          await fetch(
-            API + "/hire-assistant",
-            {
-              method: "POST",
-
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
-
-              body: JSON.stringify({
-
-                jobId:
-                  jobId,
-
-                applicationId:
-                  applicationId,
-
-                customerEmail:
-                  userEmail
-
-              })
-            }
-          );
-
-
-        const data =
-          await response.json();
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            data.message ||
-            "Unable to hire assistant."
-          );
-
-        }
-
-
-        messageElement.textContent =
-          "Assistant hired successfully.";
-
-        messageElement.style.color =
-          "green";
-
-        button.textContent =
-          "Hired";
-
-
-        await loadApplications();
-
-        await loadMyJobs();
-
-        await loadHires();
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "Hire assistant error:",
-          error
-        );
-
-        messageElement.textContent =
-          error.message ||
-          "Unable to hire assistant.";
-
-        messageElement.style.color =
-          "red";
-
-
-        button.disabled =
-          false;
-
-        button.textContent =
-          "Hire Assistant";
-
-      }
-
-    }
-
-
-    /* =========================
-       LOAD HIRES
-    ========================= */
-
-    async function loadHires() {
-
-      const container =
-        document.getElementById(
-          "hiresContainer"
-        );
-
-
-      try {
-
-        const response =
-          await fetch(
-            API +
-            "/customer-hires?email=" +
-            encodeURIComponent(userEmail)
-          );
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            "Unable to load hires."
-          );
-
-        }
-
-
-        const hires =
-          await response.json();
-
-
-        document.getElementById("hiresCount")
-          .textContent =
-          hires.length;
-
-
-        if (!hires.length) {
-
-          container.innerHTML =
-            '<div class="empty">You have not hired an assistant yet.</div>';
-
-          return;
-
-        }
-
-
-        container.innerHTML =
-          hires.map(function(hire) {
-
-            return `
-
-              <div class="hire-card">
-
-                <h3>
-                  ${escapeHtml(
-                    hire.assistantName ||
-                    hire.name ||
-                    "Assistant"
-                  )}
-                </h3>
-
-                <p>
-                  <strong>Job:</strong>
-                  ${escapeHtml(
-                    hire.jobTitle ||
-                    (
-                      hire.job &&
-                      hire.job.jobTitle
-                    ) ||
-                    "Assigned Job"
-                  )}
-                </p>
-
-                <p>
-                  <strong>Email:</strong>
-                  ${escapeHtml(
-                    hire.assistantEmail ||
-                    "Not provided"
-                  )}
-                </p>
-
-                <p>
-                  <strong>Payment:</strong>
-                  ${escapeHtml(
-                    hire.budget ||
-                    hire.payment ||
-                    "$0"
-                  )}
-                </p>
-
-                <span class="status hired">
-                  Hired
-                </span>
-
-              </div>
-
-            `;
-
-          }).join("");
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "Load hires error:",
-          error
-        );
-
-        container.innerHTML =
-          '<div class="empty">Unable to load hired assistants right now.</div>';
-
-      }
-
-    }
-
-
-    /* =========================
-       LOGOUT
-    ========================= */
-
-    document.getElementById("logoutBtn")
-      .addEventListener("click", function() {
-
-        const keys = [
-
-          "id",
-          "fullName",
-          "name",
-          "username",
-          "email",
-          "role",
-          "userId",
-          "userEmail",
-          "userName",
-          "userRole"
-
-        ];
-
-
-        keys.forEach(function(key) {
-
-          localStorage.removeItem(key);
-
-        });
-
-
-        window.location.href =
-          "login.html";
-
-      });
-
-
-    /* =========================
-       SECURITY / HTML ESCAPING
-    ========================= */
-
-    function escapeHtml(value) {
-
-      const div =
-        document.createElement("div");
-
-      div.textContent =
-        value == null
-          ? ""
-          : String(value);
-
-      return div.innerHTML;
-
-    }
-
-
-    /* =========================
-       START DASHBOARD
-    ========================= */
-
-    async function initializeDashboard() {
-
-      if (!userEmail) {
-
-        window.location.href =
-          "login.html";
-
-        return;
-
-      }
-
-
-      await loadMyJobs();
-
-      await loadApplications();
-
-      await loadHires();
-
-    }
-
-
-    initializeDashboard();
+    );
 
   </script>
 
