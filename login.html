@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Login | NexaAssist</title>
-
-  <style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Login | NexaAssist</title>  <style>
     * {
       box-sizing: border-box;
     }
@@ -130,7 +125,6 @@
     .dashboard-button {
       display: none;
       margin-top: 16px;
-      text-align: center;
     }
 
     .message {
@@ -196,114 +190,103 @@
         font-size: 26px;
       }
     }
-  </style>
-</head>
-
-<body>
-
-  <nav class="navbar">
+  </style></head><body>  <nav class="navbar">
     <a href="index.html" class="logo">NexaAssist</a>
     <a href="index.html" class="home-link">Home</a>
-  </nav>
+  </nav>  <main class="page"><section class="login-card">
 
-  <main class="page">
+  <div class="intro">
+    <h1>Welcome back</h1>
 
-    <section class="login-card">
+    <p>
+      Log in to your NexaAssist account and continue where you left off.
+    </p>
+  </div>
 
-      <div class="intro">
-        <h1>Welcome back</h1>
+  <form id="loginForm">
 
-        <p>
-          Log in to your NexaAssist account and continue where you left off.
-        </p>
-      </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
 
-      <form id="loginForm">
+      <input
+        type="email"
+        id="email"
+        placeholder="you@example.com"
+        required
+      >
+    </div>
 
-        <div class="form-group">
-          <label for="email">Email Address</label>
+    <div class="form-group">
+      <label for="password">Password</label>
 
-          <input
-            type="email"
-            id="email"
-            placeholder="you@example.com"
-            required
-          >
-        </div>
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter your password"
+        required
+      >
+    </div>
 
-        <div class="form-group">
-          <label for="password">Password</label>
+    <div class="form-group">
+      <label for="role">Account Type</label>
 
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            required
-          >
-        </div>
+      <select id="role" required>
 
-        <div class="form-group">
-          <label for="role">Account Type</label>
+        <option value="">
+          Choose your account type
+        </option>
 
-          <select id="role" required>
+        <option value="customer">
+          I want to hire a Virtual Assistant
+        </option>
 
-            <option value="">
-              Choose your account type
-            </option>
+        <option value="assistant">
+          I want to become a Virtual Assistant
+        </option>
 
-            <option value="customer">
-              I want to hire a Virtual Assistant
-            </option>
+        <option value="admin">
+          Admin
+        </option>
 
-            <option value="assistant">
-              I want to become a Virtual Assistant
-            </option>
+      </select>
+    </div>
 
-            <option value="admin">
-              Admin
-            </option>
+    <button
+      type="submit"
+      class="login-button"
+      id="loginButton"
+    >
+      Log In
+    </button>
 
-          </select>
-        </div>
+    <div id="message" class="message"></div>
 
-        <button
-          type="submit"
-          class="login-button"
-          id="loginButton"
-        >
-          Log In
-        </button>
+    <button
+      type="button"
+      id="dashboardButton"
+      class="dashboard-button"
+    >
+      Continue to Dashboard
+    </button>
 
-        <div id="message" class="message"></div>
+  </form>
 
-        <a
-          href="#"
-          id="dashboardButton"
-          class="dashboard-button"
-        >
-          Continue to Dashboard
-        </a>
+  <p class="signup-text">
+    Don't have an account?
+    <a href="signup.html">Create one</a>
+  </p>
 
-      </form>
+  <a href="index.html" class="back-link">
+    ← Back to NexaAssist
+  </a>
 
-      <p class="signup-text">
-        Don't have an account?
-        <a href="signup.html">Create one</a>
-      </p>
+  <div class="footer-note">
+    Secure access to your NexaAssist account.
+  </div>
 
-      <a href="index.html" class="back-link">
-        ← Back to NexaAssist
-      </a>
+</section>
 
-      <div class="footer-note">
-        Secure access to your NexaAssist account.
-      </div>
-
-    </section>
-
-  </main>
-
-  <script>
+  </main>  <script>
 
     const API_URL =
       "https://nexaassist-backend-new-1.onrender.com";
@@ -325,6 +308,9 @@
       document.getElementById("message");
 
 
+    let dashboardDestination = "";
+
+
     function showMessage(text, type) {
 
       message.className =
@@ -333,6 +319,25 @@
       message.textContent =
         text;
     }
+
+
+    dashboardButton.addEventListener(
+      "click",
+      function() {
+
+        if (!dashboardDestination) {
+          showMessage(
+            "Dashboard link is not ready. Please log in again.",
+            "error"
+          );
+          return;
+        }
+
+        window.location.href =
+          dashboardDestination;
+
+      }
+    );
 
 
     loginForm.addEventListener(
@@ -427,10 +432,6 @@
             role;
 
 
-          /*
-            SAVE USER INFORMATION
-          */
-
           localStorage.setItem(
             "user",
             JSON.stringify(data)
@@ -491,19 +492,12 @@
           );
 
 
-          /*
-            DETERMINE DASHBOARD
-          */
-
-          let destination = "";
-
-
           if (
             loggedInRole.toLowerCase() ===
             "admin"
           ) {
 
-            destination =
+            dashboardDestination =
               CLOUDFLARE_URL +
               "/admin.html";
 
@@ -514,7 +508,7 @@
             "assistant"
           ) {
 
-            destination =
+            dashboardDestination =
               CLOUDFLARE_URL +
               "/assistant.html";
 
@@ -522,28 +516,17 @@
 
           else {
 
-            destination =
+            dashboardDestination =
               CLOUDFLARE_URL +
               "/customer.html";
           }
 
-
-          /*
-            SHOW SUCCESS
-          */
 
           showMessage(
             "Login successful. Your account is ready.",
             "success"
           );
 
-
-          /*
-            SHOW DASHBOARD BUTTON
-          */
-
-          dashboardButton.href =
-            destination;
 
           dashboardButton.style.display =
             "block";
@@ -555,9 +538,8 @@
 
           console.log(
             "Dashboard destination:",
-            destination
+            dashboardDestination
           );
-
 
         }
 
@@ -586,7 +568,5 @@
       }
     );
 
-  </script>
-
-</body>
+  </script></body>
 </html>
