@@ -1,578 +1,407 @@
-<!DOCTYPE html>  <html lang="en">  
-<head>  
-  <meta charset="UTF-8">  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Create Account | NexaAssist</title>    <style>  
-    * {  
-      box-sizing: border-box;  
-      margin: 0;  
-      padding: 0;  
-    }  
-  
-    body {  
-      font-family: Arial, Helvetica, sans-serif;  
-      background: #f5f8fc;  
-      color: #172033;  
-      min-height: 100vh;  
-    }  
-  
-    header {  
-      height: 72px;  
-      background: #ffffff;  
-      border-bottom: 1px solid #e6ebf2;  
-      display: flex;  
-      align-items: center;  
-      justify-content: space-between;  
-      padding: 0 6%;  
-    }  
-  
-    .logo {  
-      text-decoration: none;  
-      color: #1769e0;  
-      font-size: 24px;  
-      font-weight: 800;  
-    }  
-  
-    .home-link {  
-      text-decoration: none;  
-      color: #42526b;  
-      font-size: 14px;  
-      font-weight: 600;  
-    }  
-  
-    .home-link:hover {  
-      color: #1769e0;  
-    }  
-  
-    .page {  
-      min-height: calc(100vh - 72px);  
-      display: flex;  
-      align-items: center;  
-      justify-content: center;  
-      padding: 45px 20px;  
-    }  
-  
-    .signup-card {  
-      width: 100%;  
-      max-width: 480px;  
-      background: #ffffff;  
-      border: 1px solid #e5eaf1;  
-      border-radius: 18px;  
-      padding: 38px;  
-      box-shadow: 0 18px 45px rgba(24, 48, 85, 0.08);  
-    }  
-  
-    .top-icon {  
-      width: 48px;  
-      height: 48px;  
-      margin: 0 auto 18px;  
-      border-radius: 12px;  
-      background: #eaf2ff;  
-      color: #1769e0;  
-      display: flex;  
-      align-items: center;  
-      justify-content: center;  
-      font-size: 21px;  
-      font-weight: 800;  
-    }  
-  
-    h1 {  
-      text-align: center;  
-      font-size: 30px;  
-      line-height: 1.2;  
-      margin-bottom: 9px;  
-      color: #14213d;  
-    }  
-  
-    .subtitle {  
-      text-align: center;  
-      color: #697586;  
-      font-size: 15px;  
-      line-height: 1.6;  
-      margin-bottom: 28px;  
-    }  
-  
-    .field {  
-      margin-bottom: 18px;  
-    }  
-  
-    label {  
-      display: block;  
-      margin-bottom: 8px;  
-      color: #27364d;  
-      font-size: 14px;  
-      font-weight: 700;  
-    }  
-  
-    input,  
-    select {  
-      width: 100%;  
-      height: 48px;  
-      border: 1px solid #d8e0eb;  
-      border-radius: 9px;  
-      background: #ffffff;  
-      color: #172033;  
-      padding: 0 14px;  
-      font-size: 15px;  
-      outline: none;  
-      transition: border-color 0.2s, box-shadow 0.2s;  
-    }  
-  
-    input::placeholder {  
-      color: #9aa5b5;  
-    }  
-  
-    input:focus,  
-    select:focus {  
-      border-color: #1769e0;  
-      box-shadow: 0 0 0 3px rgba(23, 105, 224, 0.10);  
-    }  
-  
-    .password-note {  
-      margin-top: -10px;  
-      margin-bottom: 18px;  
-      color: #7a8699;  
-      font-size: 12px;  
-    }  
-  
-    .signup-btn {  
-      width: 100%;  
-      height: 50px;  
-      border: none;  
-      border-radius: 9px;  
-      background: #1769e0;  
-      color: #ffffff;  
-      font-size: 15px;  
-      font-weight: 700;  
-      cursor: pointer;  
-      transition: background 0.2s, transform 0.1s;  
-    }  
-  
-    .signup-btn:hover {  
-      background: #1257bd;  
-    }  
-  
-    .signup-btn:active {  
-      transform: scale(0.99);  
-    }  
-  
-    .signup-btn:disabled {  
-      opacity: 0.7;  
-      cursor: not-allowed;  
-    }  
-  
-    .message {  
-      display: none;  
-      margin-top: 16px;  
-      padding: 13px 14px;  
-      border-radius: 9px;  
-      text-align: center;  
-      font-size: 14px;  
-      line-height: 1.5;  
-    }  
-  
-    .message.success {  
-      display: block;  
-      background: #eaf8f0;  
-      color: #18794e;  
-      border: 1px solid #ccebd9;  
-    }  
-  
-    .message.error {  
-      display: block;  
-      background: #fff0f0;  
-      color: #c62828;  
-      border: 1px solid #f2d0d0;  
-    }  
-  
-    .login-link {  
-      text-align: center;  
-      margin-top: 23px;  
-      color: #697586;  
-      font-size: 14px;  
-    }  
-  
-    .login-link a {  
-      color: #1769e0;  
-      text-decoration: none;  
-      font-weight: 700;  
-    }  
-  
-    .login-link a:hover {  
-      text-decoration: underline;  
-    }  
-  
-    .back-link {  
-      display: block;  
-      text-align: center;  
-      margin-top: 18px;  
-      color: #7a8699;  
-      text-decoration: none;  
-      font-size: 13px;  
-    }  
-  
-    .back-link:hover {  
-      color: #1769e0;  
-    }  
-  
-    .trust-text {  
-      text-align: center;  
-      margin-top: 22px;  
-      color: #8a95a5;  
-      font-size: 12px;  
-      line-height: 1.5;  
-    }  
-  
-    @media (max-width: 600px) {  
-      header {  
-        padding: 0 5%;  
-      }  
-  
-      .logo {  
-        font-size: 22px;  
-      }  
-  
-      .page {  
-        padding: 28px 16px;  
-      }  
-  
-      .signup-card {  
-        padding: 28px 21px;  
-        border-radius: 15px;  
-      }  
-  
-      h1 {  
-        font-size: 27px;  
-      }  
-    }  
-  </style>  </head>  <body>    <header>  
-    <a href="index.html" class="logo">NexaAssist</a>  
-    <a href="index.html" class="home-link">Home</a>  
-  </header>    <main class="page">  <section class="signup-card">  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <div class="top-icon">N</div>  
+  <title>Login | NexaAssist</title>
 
-  <h1>Create your account</h1>  
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-  <p class="subtitle">  
-    Join NexaAssist and connect with opportunities that fit your needs.  
-  </p>  
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f8fc;
+      color: #172033;
+    }
 
-  <form id="signupForm">  
+    a {
+      text-decoration: none;
+    }
 
-    <div class="field">  
-      <label for="name">Full Name</label>  
-      <input  
-        type="text"  
-        id="name"  
-        placeholder="Enter your full name"  
-        autocomplete="name"  
-        required  
-      >  
-    </div>  
+    .navbar {
+      height: 72px;
+      background: #ffffff;
+      border-bottom: 1px solid #e7edf5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 7%;
+    }
 
-    <div class="field">  
-      <label for="email">Email Address</label>  
-      <input  
-        type="email"  
-        id="email"  
-        placeholder="you@example.com"  
-        autocomplete="email"  
-        required  
-      >  
-    </div>  
+    .logo {
+      font-size: 23px;
+      font-weight: 800;
+      color: #155eef;
+    }
 
-    <div class="field">  
-      <label for="role">Account Type</label>  
+    .home-link {
+      color: #526071;
+      font-size: 14px;
+      font-weight: 600;
+    }
 
-      <select id="role" required>  
-        <option value="">Choose your account type</option>  
-        <option value="client">I want to hire a Virtual Assistant</option>  
-        <option value="assistant">I want to become a Virtual Assistant</option>  
-      </select>  
-    </div>  
+    .home-link:hover {
+      color: #155eef;
+    }
 
-    <div class="field">  
-      <label for="password">Password</label>  
+    .page {
+      min-height: calc(100vh - 72px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 45px 20px;
+    }
 
-      <input  
-        type="password"  
-        id="password"  
-        placeholder="Create a password"  
-        autocomplete="new-password"  
-        minlength="6"  
-        required  
-      >  
-    </div>  
+    .login-card {
+      width: 100%;
+      max-width: 440px;
+      background: #ffffff;
+      border: 1px solid #e5ebf3;
+      border-radius: 18px;
+      padding: 38px;
+      box-shadow: 0 15px 40px rgba(18, 38, 63, 0.08);
+    }
 
-    <p class="password-note">  
-      Use at least 6 characters for your password.  
-    </p>  
+    .intro {
+      text-align: center;
+      margin-bottom: 28px;
+    }
 
-    <div class="field">  
-      <label for="confirmPassword">Confirm Password</label>  
+    .intro h1 {
+      margin: 0 0 10px;
+      font-size: 30px;
+      color: #172033;
+    }
 
-      <input  
-        type="password"  
-        id="confirmPassword"  
-        placeholder="Enter your password again"  
-        autocomplete="new-password"  
-        minlength="6"  
-        required  
-      >  
-    </div>  
+    .intro p {
+      margin: 0;
+      color: #667085;
+      font-size: 15px;
+      line-height: 1.6;
+    }
 
-    <button type="submit" class="signup-btn" id="signupBtn">  
-      Create Account  
-    </button>  
+    .form-group {
+      margin-bottom: 18px;
+    }
 
-    <div id="message" class="message"></div>  
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #344054;
+    }
 
-  </form>  
+    input,
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #d0d5dd;
+      border-radius: 9px;
+      background: #ffffff;
+      font-size: 15px;
+      color: #172033;
+      outline: none;
+    }
 
-  <p class="login-link">  
-    Already have an account?  
-    <a href="login.html">Log in</a>  
-  </p>  
+    input:focus,
+    select:focus {
+      border-color: #155eef;
+      box-shadow: 0 0 0 3px rgba(21, 94, 239, 0.10);
+    }
 
-  <a href="index.html" class="back-link">  
-    ← Back to NexaAssist  
-  </a>  
+    .login-button {
+      width: 100%;
+      border: none;
+      border-radius: 9px;
+      padding: 14px;
+      background: #155eef;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 5px;
+    }
 
-  <p class="trust-text">  
-    Your account gives you access to the NexaAssist platform.  
-  </p>  
+    .login-button:hover {
+      background: #0f4dcc;
+    }
 
-</section>
+    .login-button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
 
-  </main>    <script>  
-    const API_URL =  
-      "https://nexaassist-backend-new-1.onrender.com";  
-  
-    const signupForm =  
-      document.getElementById("signupForm");  
-  
-    const message =  
-      document.getElementById("message");  
-  
-    const signupBtn =  
-      document.getElementById("signupBtn");  
-  
-  
-    function showMessage(text, type) {  
-  
-      message.textContent = text;  
-  
-      message.className =  
-        "message " + type;  
-  
-    }  
-  
-  
-    signupForm.addEventListener(  
-      "submit",  
-      async function(event) {  
-  
-        event.preventDefault();  
-  
-  
-        const fullName =  
-          document.getElementById("name")  
-            .value  
-            .trim();  
-  
-        const email =  
-          document.getElementById("email")  
-            .value  
-            .trim();  
-  
-        const role =  
-          document.getElementById("role")  
-            .value;  
-  
-        const password =  
-          document.getElementById("password")  
-            .value;  
-  
-        const confirmPassword =  
-          document.getElementById("confirmPassword")  
-            .value;  
-  
-  
-        if (  
-          !fullName ||  
-          !email ||  
-          !role ||  
-          !password ||  
-          !confirmPassword  
-        ) {  
-  
-          showMessage(  
-            "Please fill in all fields.",  
-            "error"  
-          );  
-  
-          return;  
-        }  
-  
-  
-        if (password.length < 6) {  
-  
-          showMessage(  
-            "Password must be at least 6 characters.",  
-            "error"  
-          );  
-  
-          return;  
-        }  
-  
-  
-        if (password !== confirmPassword) {  
-  
-          showMessage(  
-            "Passwords do not match.",  
-            "error"  
-          );  
-  
-          return;  
-        }  
-  
-  
-        signupBtn.disabled = true;  
-  
-        signupBtn.textContent =  
-          "Creating Account...";  
-  
-  
-        message.className =  
-          "message";  
-  
-        message.textContent =  
-          "";  
-  
-  
-        try {  
-  
-          const response =  
-            await fetch(  
-              `${API_URL}/signup`,  
-              {  
-                method: "POST",  
-  
-                headers: {  
-                  "Content-Type":  
-                    "application/json"  
-                },  
-  
-                body: JSON.stringify({  
-  
-                  fullName:  
-                    fullName,  
-  
-                  email:  
-                    email,  
-  
-                  role:  
-                    role,  
-  
-                  password:  
-                    password,  
-  
-                  confirmPassword:  
-                    confirmPassword  
-  
-                })  
-              }  
-            );  
-  
-  
-          let data = {};  
-  
-  
-          try {  
-  
-            data =  
-              await response.json();  
-  
-          } catch (error) {  
-  
-            data = {};  
-  
-          }  
-  
-  
-          if (!response.ok) {  
-  
-            showMessage(  
-  
-              data.message ||  
-              data.error ||  
-              "Unable to create your account. Please try again.",  
-  
-              "error"  
-  
-            );  
-  
-  
-            signupBtn.disabled =  
-              false;  
-  
-            signupBtn.textContent =  
-              "Create Account";  
-  
-            return;  
-  
-          }  
-  
-  
-          showMessage(  
-  
-            "Account created successfully. Redirecting you to login...",  
-  
-            "success"  
-  
-          );  
-  
-  
-          signupForm.reset();  
-  
-  
-          setTimeout(  
-            function() {  
-  
-              window.location.href =  
-                "login.html";  
-  
-            },  
-            1200  
-          );  
-  
-  
-        } catch (error) {  
-  
-          console.error(  
-            "Signup error:",  
-            error  
-          );  
-  
-  
-          showMessage(  
-  
-            "Unable to connect to NexaAssist right now. Please try again.",  
-  
-            "error"  
-  
-          );  
-  
-  
-          signupBtn.disabled =  
-            false;  
-  
-          signupBtn.textContent =  
-            "Create Account";  
-  
-        }  
-  
-      }  
-    );  
-  </script>  </body>  
+    .message {
+      display: none;
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .message.success {
+      display: block;
+      background: #ecfdf3;
+      color: #067647;
+      border: 1px solid #abefc6;
+    }
+
+    .message.error {
+      display: block;
+      background: #fef3f2;
+      color: #b42318;
+      border: 1px solid #fecdca;
+    }
+
+    .signup-text {
+      text-align: center;
+      margin: 23px 0 0;
+      font-size: 14px;
+      color: #667085;
+    }
+
+    .signup-text a {
+      color: #155eef;
+      font-weight: 700;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      color: #667085;
+      font-size: 13px;
+    }
+
+    .back-link:hover {
+      color: #155eef;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 22px;
+      font-size: 12px;
+      color: #98a2b3;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        padding: 0 20px;
+      }
+
+      .login-card {
+        padding: 28px 22px;
+      }
+
+      .intro h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">NexaAssist</a>
+    <a href="index.html" class="home-link">Home</a>
+  </nav>
+
+  <main class="page">
+
+    <section class="login-card">
+
+      <div class="intro">
+        <h1>Welcome back</h1>
+        <p>Log in to your NexaAssist account and continue where you left off.</p>
+      </div>
+
+      <form id="loginForm">
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="role">Account Type</label>
+          <select id="role" required>
+            <option value="">Choose your account type</option>
+            <option value="customer">I want to hire a Virtual Assistant</option>
+            <option value="assistant">I want to become a Virtual Assistant</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+
+        <button type="submit" class="login-button" id="loginButton">
+          Log In
+        </button>
+
+        <div id="message" class="message"></div>
+
+      </form>
+
+      <p class="signup-text">
+        Don't have an account?
+        <a href="signup.html">Create one</a>
+      </p>
+
+      <a href="index.html" class="back-link">
+        ← Back to NexaAssist
+      </a>
+
+      <div class="footer-note">
+        Secure access to your NexaAssist account.
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+    const API_URL =
+      "https://nexaassist-backend-new-1.onrender.com";
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+    const loginButton =
+      document.getElementById("loginButton");
+
+    const message =
+      document.getElementById("message");
+
+    loginForm.addEventListener("submit", async function (event) {
+
+      event.preventDefault();
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+      const role =
+        document.getElementById("role").value;
+
+      message.className = "message";
+      message.textContent = "";
+
+      if (!email || !password || !role) {
+        message.className = "message error";
+        message.textContent =
+          "Please fill in all fields.";
+        return;
+      }
+
+      loginButton.disabled = true;
+      loginButton.textContent = "Logging in...";
+
+      try {
+
+        const response = await fetch(
+          `${API_URL}/login`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              email: email,
+              password: password,
+              role: role
+            })
+          }
+        );
+
+        let data = {};
+
+        try {
+          data = await response.json();
+        } catch (error) {
+          data = {};
+        }
+
+        if (!response.ok) {
+          throw new Error(
+            data.message ||
+            "Login failed. Please check your details."
+          );
+        }
+
+        localStorage.setItem(
+          "user",
+          JSON.stringify(data)
+        );
+
+        localStorage.setItem(
+          "userEmail",
+          data.email || email
+        );
+
+        localStorage.setItem(
+          "userRole",
+          data.role || role
+        );
+
+        message.className = "message success";
+        message.textContent =
+          "Login successful. Redirecting...";
+
+        setTimeout(function () {
+
+          if (data.role === "admin" || role === "admin") {
+            window.location.href = "admin.html";
+
+          } else if (
+            data.role === "assistant" ||
+            role === "assistant"
+          ) {
+            window.location.href = "assistant.html";
+
+          } else {
+            window.location.href = "customer.html";
+          }
+
+        }, 700);
+
+      } catch (error) {
+
+        console.error("Login error:", error);
+
+        message.className = "message error";
+        message.textContent =
+          error.message ||
+          "Unable to log in. Please try again.";
+
+        loginButton.disabled = false;
+        loginButton.textContent = "Log In";
+      }
+
+    });
+  </script>
+
+</body>
 </html>
