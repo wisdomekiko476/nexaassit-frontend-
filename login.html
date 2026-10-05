@@ -44,10 +44,6 @@
       font-weight: 600;
     }
 
-    .home-link:hover {
-      color: #155eef;
-    }
-
     .page {
       min-height: calc(100vh - 72px);
       display: flex;
@@ -74,7 +70,6 @@
     .intro h1 {
       margin: 0 0 10px;
       font-size: 30px;
-      color: #172033;
     }
 
     .intro p {
@@ -124,11 +119,6 @@
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 5px;
-    }
-
-    .login-button:hover {
-      background: #0f4dcc;
     }
 
     .login-button:disabled {
@@ -142,7 +132,6 @@
       padding: 12px 14px;
       border-radius: 8px;
       font-size: 14px;
-      line-height: 1.5;
     }
 
     .message.success {
@@ -179,16 +168,11 @@
       font-size: 13px;
     }
 
-    .back-link:hover {
-      color: #155eef;
-    }
-
     .footer-note {
       text-align: center;
       margin-top: 22px;
       font-size: 12px;
       color: #98a2b3;
-      line-height: 1.5;
     }
 
     @media (max-width: 600px) {
@@ -220,7 +204,9 @@
 
       <div class="intro">
         <h1>Welcome back</h1>
-        <p>Log in to your NexaAssist account and continue where you left off.</p>
+        <p>
+          Log in to your NexaAssist account and continue where you left off.
+        </p>
       </div>
 
       <form id="loginForm">
@@ -247,15 +233,31 @@
 
         <div class="form-group">
           <label for="role">Account Type</label>
+
           <select id="role" required>
-            <option value="">Choose your account type</option>
-            <option value="customer">I want to hire a Virtual Assistant</option>
-            <option value="assistant">I want to become a Virtual Assistant</option>
-            <option value="admin">Admin</option>
+            <option value="">
+              Choose your account type
+            </option>
+
+            <option value="customer">
+              I want to hire a Virtual Assistant
+            </option>
+
+            <option value="assistant">
+              I want to become a Virtual Assistant
+            </option>
+
+            <option value="admin">
+              Admin
+            </option>
           </select>
         </div>
 
-        <button type="submit" class="login-button" id="loginButton">
+        <button
+          type="submit"
+          class="login-button"
+          id="loginButton"
+        >
           Log In
         </button>
 
@@ -281,8 +283,14 @@
   </main>
 
   <script>
+
     const API_URL =
       "https://nexaassist-backend-new-1.onrender.com";
+
+
+    const CLOUDFLARE_URL =
+      "https://nexaassit-frontend.wisdomekiko476.workers.dev";
+
 
     const loginForm =
       document.getElementById("loginForm");
@@ -293,114 +301,262 @@
     const message =
       document.getElementById("message");
 
-    loginForm.addEventListener("submit", async function (event) {
 
-      event.preventDefault();
+    loginForm.addEventListener(
+      "submit",
+      async function(event) {
 
-      const email =
-        document.getElementById("email").value.trim();
+        event.preventDefault();
 
-      const password =
-        document.getElementById("password").value;
 
-      const role =
-        document.getElementById("role").value;
+        const email =
+          document.getElementById("email")
+            .value
+            .trim()
+            .toLowerCase();
 
-      message.className = "message";
-      message.textContent = "";
 
-      if (!email || !password || !role) {
-        message.className = "message error";
+        const password =
+          document.getElementById("password")
+            .value;
+
+
+        const role =
+          document.getElementById("role")
+            .value;
+
+
+        message.className =
+          "message";
+
         message.textContent =
-          "Please fill in all fields.";
-        return;
-      }
+          "";
 
-      loginButton.disabled = true;
-      loginButton.textContent = "Logging in...";
 
-      try {
+        if (!email || !password || !role) {
 
-        const response = await fetch(
-          `${API_URL}/login`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              email: email,
-              password: password,
-              role: role
-            })
-          }
-        );
+          message.className =
+            "message error";
 
-        let data = {};
+          message.textContent =
+            "Please fill in all fields.";
+
+          return;
+
+        }
+
+
+        loginButton.disabled =
+          true;
+
+        loginButton.textContent =
+          "Logging in...";
+
 
         try {
-          data = await response.json();
-        } catch (error) {
-          data = {};
-        }
 
-        if (!response.ok) {
-          throw new Error(
-            data.message ||
-            "Login failed. Please check your details."
-          );
-        }
+          const response =
+            await fetch(
+              API_URL + "/login",
+              {
+                method: "POST",
 
-        localStorage.setItem(
-          "user",
-          JSON.stringify(data)
-        );
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
 
-        localStorage.setItem(
-          "userEmail",
-          data.email || email
-        );
+                body: JSON.stringify({
+                  email: email,
+                  password: password,
+                  role: role
+                })
+              }
+            );
 
-        localStorage.setItem(
-          "userRole",
-          data.role || role
-        );
 
-        message.className = "message success";
-        message.textContent =
-          "Login successful. Redirecting...";
+          let data = {};
 
-        setTimeout(function () {
-
-          if (data.role === "admin" || role === "admin") {
-            window.location.href = "admin.html";
-
-          } else if (
-            data.role === "assistant" ||
-            role === "assistant"
-          ) {
-            window.location.href = "assistant.html";
-
-          } else {
-            window.location.href = "customer.html";
+          try {
+            data =
+              await response.json();
           }
 
-        }, 700);
+          catch (error) {
+            data = {};
+          }
 
-      } catch (error) {
 
-        console.error("Login error:", error);
+          if (!response.ok) {
 
-        message.className = "message error";
-        message.textContent =
-          error.message ||
-          "Unable to log in. Please try again.";
+            throw new Error(
+              data.message ||
+              "Login failed. Please check your details."
+            );
 
-        loginButton.disabled = false;
-        loginButton.textContent = "Log In";
+          }
+
+
+          /*
+            SAVE COMPLETE USER DATA
+          */
+
+          const loggedInEmail =
+            data.email ||
+            email;
+
+
+          const loggedInName =
+            data.fullName ||
+            data.name ||
+            loggedInEmail.split("@")[0];
+
+
+          const loggedInRole =
+            data.role ||
+            role;
+
+
+          localStorage.setItem(
+            "user",
+            JSON.stringify(data)
+          );
+
+
+          localStorage.setItem(
+            "id",
+            data.id ||
+            data._id ||
+            ""
+          );
+
+
+          localStorage.setItem(
+            "userId",
+            data.id ||
+            data._id ||
+            ""
+          );
+
+
+          localStorage.setItem(
+            "fullName",
+            loggedInName
+          );
+
+
+          localStorage.setItem(
+            "name",
+            loggedInName
+          );
+
+
+          localStorage.setItem(
+            "username",
+            loggedInName
+          );
+
+
+          localStorage.setItem(
+            "userName",
+            loggedInName
+          );
+
+
+          localStorage.setItem(
+            "email",
+            loggedInEmail
+          );
+
+
+          localStorage.setItem(
+            "userEmail",
+            loggedInEmail
+          );
+
+
+          localStorage.setItem(
+            "role",
+            loggedInRole
+          );
+
+
+          localStorage.setItem(
+            "userRole",
+            loggedInRole
+          );
+
+
+          message.className =
+            "message success";
+
+          message.textContent =
+            "Login successful. Redirecting...";
+
+
+          setTimeout(function() {
+
+            if (
+              loggedInRole === "admin"
+            ) {
+
+              window.location.href =
+                CLOUDFLARE_URL +
+                "/admin.html";
+
+            }
+
+            else if (
+              loggedInRole === "assistant"
+            ) {
+
+              window.location.href =
+                CLOUDFLARE_URL +
+                "/assistant.html";
+
+            }
+
+            else {
+
+              window.location.href =
+                CLOUDFLARE_URL +
+                "/customer.html";
+
+            }
+
+          }, 700);
+
+
+        }
+
+        catch (error) {
+
+          console.error(
+            "Login error:",
+            error
+          );
+
+
+          message.className =
+            "message error";
+
+
+          message.textContent =
+            error.message ||
+            "Unable to log in. Please try again.";
+
+
+          loginButton.disabled =
+            false;
+
+          loginButton.textContent =
+            "Log In";
+
+        }
+
       }
+    );
 
-    });
   </script>
 
 </body>
