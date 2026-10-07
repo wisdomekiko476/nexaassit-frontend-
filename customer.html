@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Login | NexaAssist</title>
+  <title>Customer Dashboard | NexaAssist</title>
 
   <style>
     * {
@@ -22,14 +22,24 @@
       text-decoration: none;
     }
 
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    /* NAVBAR */
+
     .navbar {
-      height: 72px;
+      height: 70px;
       background: #ffffff;
-      border-bottom: 1px solid #e7edf5;
+      border-bottom: 1px solid #e6ebf2;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 7%;
+      padding: 0 6%;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .logo {
@@ -38,546 +48,1480 @@
       color: #155eef;
     }
 
-    .home-link {
-      color: #526071;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .home-link:hover {
-      color: #155eef;
-    }
-
-    .page {
-      min-height: calc(100vh - 72px);
+    .nav-right {
       display: flex;
-      justify-content: center;
       align-items: center;
-      padding: 45px 20px;
+      gap: 18px;
     }
 
-    .login-card {
-      width: 100%;
-      max-width: 440px;
-      background: #ffffff;
-      border: 1px solid #e5ebf3;
-      border-radius: 18px;
-      padding: 38px;
-      box-shadow: 0 15px 40px rgba(18, 38, 63, 0.08);
-    }
-
-    .intro {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-
-    .intro h1 {
-      margin: 0 0 10px;
-      font-size: 30px;
-      color: #172033;
-    }
-
-    .intro p {
-      margin: 0;
-      color: #667085;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
+    .user-name {
       font-size: 14px;
       font-weight: 700;
       color: #344054;
     }
 
-    input,
-    select {
-      width: 100%;
-      padding: 13px 14px;
+    .logout-btn {
+      border: 1px solid #d0d5dd;
+      background: #ffffff;
+      color: #344054;
+      padding: 9px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .logout-btn:hover {
+      background: #f5f8fc;
+    }
+
+    /* MAIN */
+
+    .container {
+      width: 92%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 35px 0 60px;
+    }
+
+    .welcome {
+      background: linear-gradient(135deg, #155eef, #3978ef);
+      color: #ffffff;
+      border-radius: 18px;
+      padding: 30px;
+      margin-bottom: 25px;
+      box-shadow: 0 12px 30px rgba(21, 94, 239, 0.16);
+    }
+
+    .welcome h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+    }
+
+    .welcome p {
+      margin: 0;
+      opacity: 0.92;
+      line-height: 1.6;
+    }
+
+    /* CARDS */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: #ffffff;
+      border: 1px solid #e5ebf3;
+      border-radius: 14px;
+      padding: 22px;
+    }
+
+    .stat-label {
+      color: #667085;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: 800;
+      color: #172033;
+    }
+
+    /* SECTION */
+
+    .section {
+      background: #ffffff;
+      border: 1px solid #e5ebf3;
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 21px;
+    }
+
+    .section-header p {
+      margin: 5px 0 0;
+      color: #667085;
+      font-size: 14px;
+    }
+
+    /* SEARCH */
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .search-box input {
+      flex: 1;
       border: 1px solid #d0d5dd;
       border-radius: 9px;
-      background: #ffffff;
-      font-size: 15px;
-      color: #172033;
+      padding: 13px 14px;
+      font-size: 14px;
       outline: none;
     }
 
-    input:focus,
-    select:focus {
+    .search-box input:focus {
       border-color: #155eef;
-      box-shadow: 0 0 0 3px rgba(21, 94, 239, 0.10);
+      box-shadow: 0 0 0 3px rgba(21, 94, 239, 0.1);
     }
 
-    .login-button {
-      width: 100%;
+    .search-btn {
       border: none;
-      border-radius: 9px;
-      padding: 14px;
       background: #155eef;
       color: #ffffff;
-      font-size: 15px;
-      font-weight: 700;
+      padding: 0 20px;
+      border-radius: 9px;
       cursor: pointer;
-      margin-top: 5px;
+      font-weight: 700;
     }
 
-    .login-button:hover {
+    .search-btn:hover {
       background: #0f4dcc;
     }
 
-    .login-button:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
+    /* ASSISTANTS */
+
+    .assistant-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
     }
 
-    .message {
-      display: none;
-      margin-top: 16px;
-      padding: 12px 14px;
-      border-radius: 8px;
-      font-size: 14px;
-      line-height: 1.5;
+    .assistant-card {
+      border: 1px solid #e5ebf3;
+      border-radius: 13px;
+      padding: 20px;
+      background: #ffffff;
+      transition: 0.2s;
     }
 
-    .message.success {
-      display: block;
-      background: #ecfdf3;
-      color: #067647;
-      border: 1px solid #abefc6;
+    .assistant-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(18, 38, 63, 0.08);
     }
 
-    .message.error {
-      display: block;
-      background: #fef3f2;
-      color: #b42318;
-      border: 1px solid #fecdca;
-    }
-
-    .signup-text {
-      text-align: center;
-      margin: 23px 0 0;
-      font-size: 14px;
-      color: #667085;
-    }
-
-    .signup-text a {
+    .avatar {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      background: #eaf1ff;
       color: #155eef;
-      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 19px;
+      margin-bottom: 14px;
     }
 
-    .back-link {
-      display: block;
-      text-align: center;
-      margin-top: 18px;
+    .assistant-card h3 {
+      margin: 0 0 6px;
+      font-size: 17px;
+    }
+
+    .assistant-role {
+      color: #155eef;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 9px;
+    }
+
+    .assistant-info {
+      color: #667085;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .card-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .view-btn,
+    .hire-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .view-btn {
+      background: #ffffff;
+      border: 1px solid #d0d5dd;
+      color: #344054;
+    }
+
+    .hire-btn {
+      border: none;
+      background: #155eef;
+      color: #ffffff;
+    }
+
+    .hire-btn:hover {
+      background: #0f4dcc;
+    }
+
+    /* HIRED JOBS */
+
+    .job-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .job-item {
+      border: 1px solid #e5ebf3;
+      border-radius: 10px;
+      padding: 17px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .job-item h3 {
+      margin: 0 0 5px;
+      font-size: 15px;
+    }
+
+    .job-item p {
+      margin: 0;
       color: #667085;
       font-size: 13px;
     }
 
-    .back-link:hover {
-      color: #155eef;
+    .status {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 20px;
+      background: #ecfdf3;
+      color: #067647;
+      font-size: 12px;
+      font-weight: 700;
     }
 
-    .footer-note {
-      text-align: center;
-      margin-top: 22px;
-      font-size: 12px;
-      color: #98a2b3;
+    /* QUICK ACTIONS */
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .action-btn {
+      border: 1px solid #e5ebf3;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .action-btn:hover {
+      border-color: #155eef;
+      background: #f8faff;
+    }
+
+    .action-title {
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .action-description {
+      color: #667085;
+      font-size: 13px;
       line-height: 1.5;
     }
 
+    /* EMPTY */
+
+    .empty {
+      text-align: center;
+      padding: 30px 10px;
+      color: #667085;
+      font-size: 14px;
+    }
+
+    /* LOADING */
+
+    .loading {
+      text-align: center;
+      padding: 30px;
+      color: #667085;
+      font-size: 14px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 850px) {
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .assistant-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
     @media (max-width: 600px) {
+
       .navbar {
         padding: 0 20px;
       }
 
-      .login-card {
-        padding: 28px 22px;
+      .user-name {
+        display: none;
       }
 
-      .intro h1 {
-        font-size: 26px;
+      .container {
+        width: 92%;
+        padding-top: 25px;
       }
+
+      .welcome {
+        padding: 24px;
+      }
+
+      .welcome h1 {
+        font-size: 24px;
+      }
+
+      .section {
+        padding: 18px;
+      }
+
+      .assistant-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .search-box {
+        flex-direction: column;
+      }
+
+      .search-btn {
+        padding: 12px;
+      }
+
+      .job-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
     }
+
   </style>
 </head>
 
 <body>
 
+  <!-- NAVBAR -->
+
   <nav class="navbar">
-    <a href="index.html" class="logo">NexaAssist</a>
-    <a href="index.html" class="home-link">Home</a>
+
+    <a href="index.html" class="logo">
+      NexaAssist
+    </a>
+
+    <div class="nav-right">
+
+      <span
+        class="user-name"
+        id="navUserName"
+      >
+        Customer
+      </span>
+
+      <button
+        class="logout-btn"
+        onclick="logout()"
+      >
+        Logout
+      </button>
+
+    </div>
+
   </nav>
 
-  <main class="page">
 
-    <section class="login-card">
+  <!-- MAIN -->
 
-      <div class="intro">
-        <h1>Welcome back</h1>
-        <p>
-          Log in to your NexaAssist account and continue where you left off.
-        </p>
-      </div>
+  <main class="container">
 
-      <form id="loginForm">
 
-        <div class="form-group">
-          <label for="email">Email Address</label>
+    <!-- WELCOME -->
 
-          <input
-            type="email"
-            id="email"
-            placeholder="you@example.com"
-            required
-          >
-        </div>
+    <section class="welcome">
 
-        <div class="form-group">
-          <label for="password">Password</label>
+      <h1 id="welcomeName">
+        Welcome back!
+      </h1>
 
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            required
-          >
-        </div>
-
-        <div class="form-group">
-          <label for="role">Account Type</label>
-
-          <select id="role" required>
-
-            <option value="">
-              Choose your account type
-            </option>
-
-            <option value="customer">
-              I want to hire a Virtual Assistant
-            </option>
-
-            <option value="assistant">
-              I want to become a Virtual Assistant
-            </option>
-
-            <option value="admin">
-              Admin
-            </option>
-
-          </select>
-        </div>
-
-        <button
-          type="submit"
-          class="login-button"
-          id="loginButton"
-        >
-          Log In
-        </button>
-
-        <div id="message" class="message"></div>
-
-      </form>
-
-      <p class="signup-text">
-        Don't have an account?
-        <a href="signup.html">Create one</a>
+      <p>
+        Find the right Nigerian Virtual Assistant
+        for your business and manage your hires
+        from one place.
       </p>
 
-      <a href="index.html" class="back-link">
-        ← Back to NexaAssist
-      </a>
+    </section>
 
-      <div class="footer-note">
-        Secure access to your NexaAssist account.
+
+    <!-- STATS -->
+
+    <section class="stats">
+
+      <div class="stat-card">
+
+        <div class="stat-label">
+          Available Assistants
+        </div>
+
+        <div
+          class="stat-number"
+          id="assistantCount"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-label">
+          My Hired Jobs
+        </div>
+
+        <div
+          class="stat-number"
+          id="jobCount"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-label">
+          Account
+        </div>
+
+        <div
+          class="stat-number"
+          style="font-size:18px;"
+        >
+          Customer
+        </div>
+
       </div>
 
     </section>
 
+
+    <!-- FIND ASSISTANTS -->
+
+    <section class="section">
+
+      <div class="section-header">
+
+        <div>
+
+          <h2>
+            Find a Virtual Assistant
+          </h2>
+
+          <p>
+            Browse assistants available for new partnerships.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="search-box">
+
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search by name, skill or location..."
+        >
+
+        <button
+          class="search-btn"
+          onclick="searchAssistants()"
+        >
+          Search
+        </button>
+
+      </div>
+
+
+      <div
+        id="assistantGrid"
+        class="assistant-grid"
+      >
+
+        <div class="loading">
+          Loading available assistants...
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- HIRED JOBS -->
+
+    <section class="section">
+
+      <div class="section-header">
+
+        <div>
+
+          <h2>
+            My Hired Jobs
+          </h2>
+
+          <p>
+            Assistants you have hired.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="jobList"
+        class="job-list"
+      >
+
+        <div class="loading">
+          Loading your hired jobs...
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <section class="section">
+
+      <div class="section-header">
+
+        <div>
+
+          <h2>
+            Quick Actions
+          </h2>
+
+          <p>
+            Manage your NexaAssist account.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="actions">
+
+        <button
+          class="action-btn"
+          onclick="openAssistants()"
+        >
+
+          <div class="action-title">
+            Browse Assistants
+          </div>
+
+          <div class="action-description">
+            View available Virtual Assistants
+            and find someone who matches your needs.
+          </div>
+
+        </button>
+
+
+        <button
+          class="action-btn"
+          onclick="openMessages()"
+        >
+
+          <div class="action-title">
+            Messages
+          </div>
+
+          <div class="action-description">
+            Communicate with assistants
+            about your projects and jobs.
+          </div>
+
+        </button>
+
+
+        <button
+          class="action-btn"
+          onclick="openProfile()"
+        >
+
+          <div class="action-title">
+            My Profile
+          </div>
+
+          <div class="action-description">
+            View or manage your customer
+            account information.
+          </div>
+
+        </button>
+
+      </div>
+
+    </section>
+
+
   </main>
 
+
   <script>
+
+    /* =========================
+       API
+    ========================= */
 
     const API_URL =
       "https://nexaassist-backend-new-1.onrender.com";
 
 
-    const loginForm =
-      document.getElementById("loginForm");
+    /* =========================
+       CUSTOMER INFORMATION
+    ========================= */
 
-    const loginButton =
-      document.getElementById("loginButton");
-
-    const message =
-      document.getElementById("message");
+    const savedUser =
+      localStorage.getItem("user");
 
 
-    loginForm.addEventListener(
-      "submit",
-      async function(event) {
+    let user = {};
 
-        event.preventDefault();
+    try {
 
+      user =
+        savedUser
+          ? JSON.parse(savedUser)
+          : {};
 
-        const email =
-          document.getElementById("email")
-            .value
-            .trim()
-            .toLowerCase();
+    } catch (error) {
 
+      user = {};
 
-        const password =
-          document.getElementById("password")
-            .value;
+    }
 
 
-        const role =
-          document.getElementById("role")
-            .value;
+    const customerEmail =
+      localStorage.getItem("userEmail") ||
+      localStorage.getItem("email") ||
+      user.email ||
+      "";
 
 
-        message.className =
-          "message";
-
-        message.textContent =
-          "";
-
-
-        if (!email || !password || !role) {
-
-          message.className =
-            "message error";
-
-          message.textContent =
-            "Please fill in all fields.";
-
-          return;
-
-        }
+    const customerName =
+      localStorage.getItem("fullName") ||
+      localStorage.getItem("name") ||
+      user.fullName ||
+      user.name ||
+      (
+        customerEmail
+          ? customerEmail.split("@")[0]
+          : "Customer"
+      );
 
 
-        loginButton.disabled =
-          true;
-
-        loginButton.textContent =
-          "Logging in...";
-
-
-        try {
-
-          const response =
-            await fetch(
-              API_URL + "/login",
-              {
-                method: "POST",
-
-                headers: {
-                  "Content-Type":
-                    "application/json"
-                },
-
-                body: JSON.stringify({
-                  email: email,
-                  password: password,
-                  role: role
-                })
-              }
-            );
+    document.getElementById(
+      "welcomeName"
+    ).textContent =
+      "Welcome back, " +
+      customerName +
+      "!";
 
 
-          let data = {};
-
-          try {
-
-            data =
-              await response.json();
-
-          } catch (error) {
-
-            data = {};
-
-          }
+    document.getElementById(
+      "navUserName"
+    ).textContent =
+      customerName;
 
 
-          if (!response.ok) {
+    /* =========================
+       LOAD ASSISTANTS
+    ========================= */
 
-            throw new Error(
-              data.message ||
-              "Login failed. Please check your details."
-            );
-
-          }
+    let allAssistants = [];
 
 
-          /*
-            SAVE THE COMPLETE USER OBJECT
-          */
+    async function loadAssistants() {
 
-          localStorage.setItem(
-            "user",
-            JSON.stringify(data)
+      const grid =
+        document.getElementById(
+          "assistantGrid"
+        );
+
+
+      try {
+
+        /*
+          Try the main assistants endpoint.
+        */
+
+        const response =
+          await fetch(
+            API_URL + "/assistants"
           );
 
 
-          /*
-            SAVE THE KEYS USED BY
-            CUSTOMER/ASSISTANT DASHBOARDS
-          */
+        if (!response.ok) {
 
-          const loggedInEmail =
-            data.email ||
-            email;
-
-
-          const loggedInName =
-            data.fullName ||
-            data.name ||
-            loggedInEmail.split("@")[0];
-
-
-          const loggedInRole =
-            data.role ||
-            role;
-
-
-          localStorage.setItem(
-            "id",
-            data.id ||
-            data._id ||
-            ""
-          );
-
-
-          localStorage.setItem(
-            "fullName",
-            loggedInName
-          );
-
-
-          localStorage.setItem(
-            "name",
-            loggedInName
-          );
-
-
-          localStorage.setItem(
-            "username",
-            loggedInName
-          );
-
-
-          localStorage.setItem(
-            "userName",
-            loggedInName
-          );
-
-
-          localStorage.setItem(
-            "email",
-            loggedInEmail
-          );
-
-
-          localStorage.setItem(
-            "userEmail",
-            loggedInEmail
-          );
-
-
-          localStorage.setItem(
-            "role",
-            loggedInRole
-          );
-
-
-          localStorage.setItem(
-            "userRole",
-            loggedInRole
-          );
-
-
-          localStorage.setItem(
-            "userId",
-            data.id ||
-            data._id ||
-            ""
-          );
-
-
-          message.className =
-            "message success";
-
-          message.textContent =
-            "Login successful. Redirecting...";
-
-
-          setTimeout(
-            function() {
-
-              if (
-                loggedInRole === "admin"
-              ) {
-
-                window.location.href =
-                  "admin.html";
-
-              }
-
-              else if (
-                loggedInRole === "assistant"
-              ) {
-
-                window.location.href =
-                  "assistant.html";
-
-              }
-
-              else {
-
-                window.location.href =
-                  "customer.html";
-
-              }
-
-            },
-            700
+          throw new Error(
+            "Could not load assistants."
           );
 
         }
 
-        catch (error) {
 
-          console.error(
-            "Login error:",
-            error
+        const data =
+          await response.json();
+
+
+        /*
+          Support either:
+          [ ... ]
+          or
+          { assistants: [ ... ] }
+        */
+
+        if (Array.isArray(data)) {
+
+          allAssistants = data;
+
+        }
+
+        else if (
+          Array.isArray(data.assistants)
+        ) {
+
+          allAssistants =
+            data.assistants;
+
+        }
+
+        else if (
+          Array.isArray(data.users)
+        ) {
+
+          allAssistants =
+            data.users;
+
+        }
+
+        else {
+
+          allAssistants = [];
+
+        }
+
+
+        /*
+          Only show assistants.
+        */
+
+        allAssistants =
+          allAssistants.filter(
+            function(assistant) {
+
+              return (
+                !assistant.role ||
+                assistant.role === "assistant"
+              );
+
+            }
           );
 
 
-          message.className =
-            "message error";
+        document.getElementById(
+          "assistantCount"
+        ).textContent =
+          allAssistants.length;
 
 
-          message.textContent =
-            error.message ||
-            "Unable to log in. Please try again.";
+        displayAssistants(
+          allAssistants
+        );
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Assistant loading error:",
+          error
+        );
 
 
-          loginButton.disabled =
-            false;
+        grid.innerHTML = `
+          <div class="empty">
+            Unable to load assistants right now.
+            Please refresh the page and try again.
+          </div>
+        `;
 
-          loginButton.textContent =
-            "Log In";
+      }
+
+    }
+
+
+    /* =========================
+       DISPLAY ASSISTANTS
+    ========================= */
+
+    function displayAssistants(
+      assistants
+    ) {
+
+      const grid =
+        document.getElementById(
+          "assistantGrid"
+        );
+
+
+      if (
+        !assistants ||
+        assistants.length === 0
+      ) {
+
+        grid.innerHTML = `
+          <div class="empty">
+            No Virtual Assistants are available right now.
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      grid.innerHTML =
+        assistants
+          .map(
+            function(assistant) {
+
+              const name =
+                assistant.fullName ||
+                assistant.name ||
+                assistant.username ||
+                "Virtual Assistant";
+
+
+              const role =
+                assistant.title ||
+                assistant.jobTitle ||
+                assistant.position ||
+                "Virtual Assistant";
+
+
+              const location =
+                assistant.location ||
+                assistant.city ||
+                "Nigeria";
+
+
+              const skills =
+                assistant.skills ||
+                assistant.skill ||
+                "Virtual Assistance";
+
+
+              const id =
+                assistant.id ||
+                assistant._id ||
+                "";
+
+
+              const initials =
+                getInitials(name);
+
+
+              return `
+                <div class="assistant-card">
+
+                  <div class="avatar">
+                    ${escapeHtml(initials)}
+                  </div>
+
+                  <h3>
+                    ${escapeHtml(name)}
+                  </h3>
+
+                  <div class="assistant-role">
+                    ${escapeHtml(role)}
+                  </div>
+
+                  <div class="assistant-info">
+                    📍 ${escapeHtml(location)}
+                    <br>
+                    💼 ${escapeHtml(
+                      Array.isArray(skills)
+                        ? skills.join(", ")
+                        : skills
+                    )}
+                  </div>
+
+                  <div class="card-buttons">
+
+                    <button
+                      class="view-btn"
+                      onclick="viewAssistant('${escapeJs(id)}')"
+                    >
+                      View
+                    </button>
+
+                    <button
+                      class="hire-btn"
+                      onclick="hireAssistant('${escapeJs(id)}')"
+                    >
+                      Hire
+                    </button>
+
+                  </div>
+
+                </div>
+              `;
+
+            }
+          )
+          .join("");
+
+    }
+
+
+    /* =========================
+       SEARCH
+    ========================= */
+
+    function searchAssistants() {
+
+      const search =
+        document.getElementById(
+          "searchInput"
+        ).value
+        .trim()
+        .toLowerCase();
+
+
+      if (!search) {
+
+        displayAssistants(
+          allAssistants
+        );
+
+        return;
+
+      }
+
+
+      const filtered =
+        allAssistants.filter(
+          function(assistant) {
+
+            const text =
+              JSON.stringify(
+                assistant
+              ).toLowerCase();
+
+
+            return text.includes(search);
+
+          }
+        );
+
+
+      displayAssistants(
+        filtered
+      );
+
+    }
+
+
+    document.getElementById(
+      "searchInput"
+    ).addEventListener(
+      "keyup",
+      function(event) {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          searchAssistants();
 
         }
 
       }
     );
+
+
+    /* =========================
+       VIEW ASSISTANT
+    ========================= */
+
+    function viewAssistant(
+      assistantId
+    ) {
+
+      if (!assistantId) {
+
+        alert(
+          "Assistant profile is not available yet."
+        );
+
+        return;
+
+      }
+
+
+      window.location.href =
+        "profile.html?id=" +
+        encodeURIComponent(
+          assistantId
+        );
+
+    }
+
+
+    /* =========================
+       HIRE ASSISTANT
+    ========================= */
+
+    function hireAssistant(
+      assistantId
+    ) {
+
+      if (!assistantId) {
+
+        alert(
+          "This assistant cannot be hired yet because the profile ID is missing."
+        );
+
+        return;
+
+      }
+
+
+      window.location.href =
+        "hire.html?assistantId=" +
+        encodeURIComponent(
+          assistantId
+        );
+
+    }
+
+
+    /* =========================
+       LOAD HIRED JOBS
+    ========================= */
+
+    async function loadHiredJobs() {
+
+      const jobList =
+        document.getElementById(
+          "jobList"
+        );
+
+
+      if (!customerEmail) {
+
+        jobList.innerHTML = `
+          <div class="empty">
+            Please log in again to see your hired jobs.
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      /*
+        Try the customer hired-jobs endpoint.
+      */
+
+      try {
+
+        const response =
+          await fetch(
+            API_URL +
+            "/customer-hires?email=" +
+            encodeURIComponent(
+              customerEmail
+            )
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Hired jobs endpoint unavailable."
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        let jobs = [];
+
+
+        if (Array.isArray(data)) {
+
+          jobs = data;
+
+        }
+
+        else if (
+          Array.isArray(data.hires)
+        ) {
+
+          jobs = data.hires;
+
+        }
+
+        else if (
+          Array.isArray(data.jobs)
+        ) {
+
+          jobs = data.jobs;
+
+        }
+
+
+        document.getElementById(
+          "jobCount"
+        ).textContent =
+          jobs.length;
+
+
+        displayJobs(jobs);
+
+      }
+
+      catch (error) {
+
+        console.log(
+          "No hired jobs endpoint available yet."
+        );
+
+
+        document.getElementById(
+          "jobCount"
+        ).textContent =
+          "0";
+
+
+        jobList.innerHTML = `
+          <div class="empty">
+            You have no hired jobs yet.
+            <br><br>
+            Browse the assistants above to hire your first Virtual Assistant.
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    /* =========================
+       DISPLAY JOBS
+    ========================= */
+
+    function displayJobs(
+      jobs
+    ) {
+
+      const jobList =
+        document.getElementById(
+          "jobList"
+        );
+
+
+      if (
+        !jobs ||
+        jobs.length === 0
+      ) {
+
+        jobList.innerHTML = `
+          <div class="empty">
+            You have not hired a Virtual Assistant yet.
+            <br><br>
+            Browse the assistants above to get started.
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      jobList.innerHTML =
+        jobs
+          .map(
+            function(job) {
+
+              const assistantName =
+                job.assistantName ||
+                job.assistantFullName ||
+                job.name ||
+                "Virtual Assistant";
+
+
+              const title =
+                job.title ||
+                job.jobTitle ||
+                "Virtual Assistant Job";
+
+
+              const status =
+                job.status ||
+                "Active";
+
+
+              return `
+                <div class="job-item">
+
+                  <div>
+
+                    <h3>
+                      ${escapeHtml(title)}
+                    </h3>
+
+                    <p>
+                      Assistant:
+                      ${escapeHtml(
+                        assistantName
+                      )}
+                    </p>
+
+                  </div>
+
+                  <span class="status">
+                    ${escapeHtml(status)}
+                  </span>
+
+                </div>
+              `;
+
+            }
+          )
+          .join("");
+
+    }
+
+
+    /* =========================
+       QUICK ACTIONS
+    ========================= */
+
+    function openAssistants() {
+
+      window.location.href =
+        "assistants.html";
+
+    }
+
+
+    function openMessages() {
+
+      alert(
+        "Messaging is coming next. Your customer dashboard is ready."
+      );
+
+    }
+
+
+    function openProfile() {
+
+      window.location.href =
+        "profile.html";
+
+    }
+
+
+    /* =========================
+       LOGOUT
+    ========================= */
+
+    function logout() {
+
+      localStorage.removeItem(
+        "user"
+      );
+
+      localStorage.removeItem(
+        "id"
+      );
+
+      localStorage.removeItem(
+        "userId"
+      );
+
+      localStorage.removeItem(
+        "fullName"
+      );
+
+      localStorage.removeItem(
+        "name"
+      );
+
+      localStorage.removeItem(
+        "username"
+      );
+
+      localStorage.removeItem(
+        "userName"
+      );
+
+      localStorage.removeItem(
+        "email"
+      );
+
+      localStorage.removeItem(
+        "userEmail"
+      );
+
+      localStorage.removeItem(
+        "role"
+      );
+
+      localStorage.removeItem(
+        "userRole"
+      );
+
+
+      window.location.href =
+        "login.html";
+
+    }
+
+
+    /* =========================
+       HELPERS
+    ========================= */
+
+    function getInitials(
+      name
+    ) {
+
+      return name
+        .split(" ")
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(
+          function(word) {
+
+            return word
+              .charAt(0)
+              .toUpperCase();
+
+          }
+        )
+        .join("");
+
+    }
+
+
+    function escapeHtml(
+      value
+    ) {
+
+      return String(value)
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    function escapeJs(
+      value
+    ) {
+
+      return String(value)
+        .replace(
+          /\\/g,
+          "\\\\"
+        )
+        .replace(
+          /'/g,
+          "\\'"
+        );
+
+    }
+
+
+    /* =========================
+       START DASHBOARD
+    ========================= */
+
+    loadAssistants();
+
+    loadHiredJobs();
 
   </script>
 
